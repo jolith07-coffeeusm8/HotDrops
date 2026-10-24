@@ -1,6 +1,6 @@
 /* HDPWA service worker: cache-first offline, versioned cache. A new build changes VERSION,
    so the browser installs the new worker, it takes over, and old caches are deleted. */
-const VERSION = '20261012-d2c50174';
+const VERSION = '20261023-5d0f5b84';
 const CACHE = 'hdpwa-' + VERSION;
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting())); });
