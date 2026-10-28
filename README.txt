@@ -1,4 +1,4 @@
-HDPWA - Hot Drops as an installable web app (PWA)   build 20261028-d3f8ff98
+HDPWA - Hot Drops as an installable web app (PWA)   build 20261028-80672ac6
 ====================================================================
 This is an EXTRA package. Your normal ASHD_HotDrops HTML file keeps working exactly as before.
 

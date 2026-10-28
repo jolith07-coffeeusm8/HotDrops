@@ -5,7 +5,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Hot Drops">
-  <meta name="hdpwa-version" content="20261028-d3f8ff98">
+  <meta name="hdpwa-version" content="20261028-80672ac6">
   <script>window.__BT_NO_ICON = true; /* HDPWA: use the real manifest.webmanifest, not the runtime blob */</script>
 
   <meta charset="UTF-8">
@@ -1408,6 +1408,25 @@
   #artilleryTab .art-trig .cm-cite, #artilleryTab .cm-cite { color: #94a3b8; font-size: .8em; }
   #artilleryTab .art-list { margin: 8px 0; }
   #artilleryTab .art-wrap { max-width: 1150px; }
+/* ===== 2026-10-28 (c): Campaign Map menu tidy (cosmetic only) ===== */
+  .bt-pick { width: min(560px, 92vw); max-height: 88vh; overflow-y: auto; overflow-x: hidden; box-sizing: border-box; -webkit-overflow-scrolling: touch; }
+  .bt-pick .bt-pick-btn { flex-direction: column; align-items: stretch; justify-content: center; gap: 4px; box-sizing: border-box; padding: 12px 14px; }
+  .bt-pick .bt-pick-btn > span { display: block; min-width: 0; overflow-wrap: anywhere; word-break: normal; line-height: 1.3; }
+  .bt-pick .bt-pick-btn > small { display: block; min-width: 0; white-space: normal; overflow-wrap: anywhere; color: #d6b25e; font-size: .78rem; line-height: 1.35; }
+  #hsCampaignMapTab .cm-top .cm-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(108px, 1fr)); gap: 8px; }
+  #hsCampaignMapTab .cm-top .cm-row > button { width: 100%; min-height: 44px; white-space: normal; line-height: 1.2; }
+  #hsCampaignMapTab .cm-top .cm-row > .cm-pickbtn { grid-column: 1 / -1; text-align: left; }
+  #hsCampaignMapTab .cm-wlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 10px; margin: 8px 0 12px; }
+  #hsCampaignMapTab .cm-wh { color: #9ca3af; font-size: .78rem; letter-spacing: .1em; margin: 12px 0 4px; }
+  #hsCampaignMapTab .cm-wcard { display: flex; flex-direction: column; gap: 6px; width: 100%; box-sizing: border-box; text-align: left; padding: 12px; background: #15181c; border: 1px solid #374151; color: #f3f4f6; cursor: pointer; min-height: 44px; font: inherit; }
+  #hsCampaignMapTab .cm-wcard:hover, #hsCampaignMapTab .cm-wcard:focus { border-color: #fbbf24; outline: none; }
+  #hsCampaignMapTab .cm-wn { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 700; overflow-wrap: anywhere; }
+  #hsCampaignMapTab .cm-ws { color: #9ca3af; font-size: .8rem; line-height: 1.35; overflow-wrap: anywhere; }
+  #hsCampaignMapTab .cm-wgo { align-self: flex-start; font-size: .78rem; letter-spacing: .1em; color: #111; background: #f59e0b; padding: 4px 10px; font-weight: 700; }
+  #hsCampaignMapTab .cm-io .cm-row > button { flex: 1 1 220px; min-height: 44px; white-space: normal; }
+  #hsCampaignMapTab .cm-sec, #hsCampaignMapTab .cm-card, #hsCampaignMapTab .cm-frow { min-width: 0; overflow-wrap: anywhere; }
+  #hsCampaignMapTab .cm-row > button { max-width: 100%; white-space: normal; }
+  #hsCampaignMapTab details > summary { margin: 6px 0; }
 </style>
 </head>
 <body data-section="aces">
@@ -6724,8 +6743,9 @@ function cmFormTag(c, f) { const i = c.forms.filter(x => x.side === f.side).inde
 function cmNewCampaignFlow() {
   const ws = cmWorlds();
   btPick({ title: 'NEW CAMPAIGN MAP', intro: 'Pick a world. Official worlds use book values only; Custom worlds are yours (marked Custom for your players).', items: ws.map(w => ({ label: w.name, detail: (w.badge === 'official' ? 'OFFICIAL \u00b7 ' : 'CUSTOM \u00b7 ') + (w.source || (w.cols + ' \u00d7 ' + w.rows + ' hexes')) })),
-    onPick: j => { const w = ws[j]; const nm = prompt('Campaign name:', w.name); if (nm === null) return; const c = cmNewCampaign(w, String(nm || w.name).slice(0, 60)); const s = cmS(); s.campaigns.push(c); s.activeId = c.id; s.ui.view = 'play'; s.ui.sel = null; s.ui.selForm = null; cmLog(c, 'Campaign created on ' + w.name + '.'); cmSave(); } });
+    onPick: j => cmStartOnWorld(ws[j]) });
 }
+function cmStartOnWorld(w) { { const nm = prompt('Campaign name:', w.name); if (nm === null) return; const c = cmNewCampaign(w, String(nm || w.name).slice(0, 60)); const s = cmS(); s.campaigns.push(c); s.activeId = c.id; s.ui.view = 'play'; s.ui.sel = null; s.ui.selForm = null; cmLog(c, 'Campaign created on ' + w.name + '.'); cmSave(); } }
 function cmPickCampaign() { const s = cmS(); if (!s.campaigns.length) { cmNewCampaignFlow(); return; }
   btPick({ title: 'CAMPAIGNS', items: s.campaigns.map(c => ({ label: c.name + (c.id === s.activeId ? ' (open)' : ''), detail: c.world.name + ' \u00b7 map turn ' + c.turn })).concat([{ label: 'DELETE THE OPEN CAMPAIGN\u2026', detail: 'asks again' }]),
     onPick: j => { if (j < s.campaigns.length) { s.activeId = s.campaigns[j].id; s.ui.sel = null; s.ui.selForm = null; cmSave(); return; }
@@ -6879,9 +6899,9 @@ function cmRender() {
     cmB('UNDO', 'undo', null, 'btn-grey', 'Undo the last map action') + '</div></div>';
   if (u.view === 'edit') h += cmRenderEditor(s);
   else if (u.view === 'rules') h += cmRenderRules(c ? c.world : cmMallory());
-  else if (!c) h += '<div class="cm-sec"><div class="cm-sh">NO CAMPAIGN YET</div><p>Start one on an Official world (book values) or on a Custom world from the World Editor.</p>' + cmWorlds().map(w => '<div class="cm-wrow">' + cmBadge(w) + ' <b>' + cmE(w.name) + '</b> <small>' + cmE(w.source || '') + '</small></div>').join('') + '<div class="cm-row">' + cmB('+ NEW CAMPAIGN', 'newCamp', null, 'btn') + '</div></div>';
+  else if (!c) h += '<div class="cm-sec"><div class="cm-sh">NO CAMPAIGN YET</div><p>Start one on an Official world (book values) or on a Custom world from the World Editor.</p>' + [['OFFICIAL WORLDS', cmWorlds().filter(w => w.badge === 'official')], ['CUSTOM WORLDS', cmWorlds().filter(w => w.badge !== 'official')]].map(g => '<div class="cm-wh">' + g[0] + '</div>' + (g[1].length ? '<div class="cm-wlist">' + g[1].map(w => '<button type="button" class="cm-wcard" data-cm="startOn" data-a="' + cmE(w.id) + '"><span class="cm-wn">' + cmBadge(w) + '<span>' + cmE(w.name) + '</span></span><span class="cm-ws">' + cmE(w.source || ((w.cols || '?') + ' \u00d7 ' + (w.rows || '?') + ' hexes')) + '</span><span class="cm-wgo">START \u25b8</span></button>').join('') + '</div>' : '<div class="cm-note">None yet. Make one in the WORLD EDITOR.</div>')).join('') + '</div>';
   else h += cmRenderPlay(c, u);
-  h += '<div class="cm-sec"><div class="cm-row">' + cmB('EXPORT CAMPAIGN MAP JSON', 'expAll') + cmB('IMPORT JSON (backup or world)', 'impAll') + '</div><p class="hs-rule-cite">Saved automatically in its own key (bt_campaignmap_v1). Never changes your Aces, Hot Spots, Builder or Missions saves.</p></div>';
+  h += '<div class="cm-sec cm-io"><div class="cm-sh">BACKUP</div><div class="cm-row">' + cmB('EXPORT CAMPAIGN MAP JSON', 'expAll') + cmB('IMPORT JSON (backup or world)', 'impAll') + '</div><p class="hs-rule-cite">Saved automatically in its own key (bt_campaignmap_v1). Never changes your Aces, Hot Spots, Builder or Missions saves.</p></div>';
   if (u.copy) h += '<div class="cm-sec"><div class="cm-sh">COPIED TEXT</div><textarea class="cm-in" rows="6" readonly onclick="this.select()">' + cmE(u.copy) + '</textarea><div class="cm-row">' + cmB('CLOSE', 'closeCopy') + '</div></div>';
   body.innerHTML = h;
   const wrap = document.getElementById('cmMapWrap'); if (wrap) { if (scr) { wrap.scrollLeft = scr[0]; wrap.scrollTop = scr[1]; } cmPinch(wrap); }
@@ -22806,8 +22826,9 @@ ZZV5YBNPJH	Rifleman	RFL-5M	1227	31	60	1	1
 <script>
 /* ===== 2026-10-28 (b): build stamp + WHAT'S NEW, storage protection, SHARE PNG, declutter (tap-to-expand). =====
    Device prefs only: bt_whatsnew_v1 {seen} written when the WHAT'S NEW card is dismissed. No save keys touched. */
-var BT_BUILD = { id: '20261028b', date: '2026-10-28' };
+var BT_BUILD = { id: '20261028c', date: '2026-10-28' };
 var BT_WHATSNEW = [
+  'Campaign Map tidied: world picker rows no longer squash into one letter per line; Official / Custom world cards with START; toolbar and BACKUP row lined up.',
   'White line on the right edge (tablet / PWA): the page scrollbar is now dark.',
   'Storage line next to Last backup: asks the browser to protect your saves from cleanup.',
   'SHARE next to SAVE PNG / SAVE MAP IMAGE (sends the picture straight to Discord, mail, etc.).',
@@ -23130,6 +23151,11 @@ var BtArt = (function () {
   return { onShow: onShow, file: file, render: render, _state: function () { return load(); }, _hexAt: hexAt, _tap: onTap, _applyTap: function (id) { load(); applyTap(id); }, _mode: function () { return mode; }, _act: act, _homog: homog };
 })();
 (function () { if (typeof switchTab === 'function') { var o = switchTab; switchTab = function (t) { var r = o.apply(this, arguments); if (t === 'artilleryTab') try { BtArt.onShow(); } catch (e) {} return r; }; } })();
+</script>
+<script>/* 2026-10-28 (c): start a campaign straight from a world card (same flow as the picker) */
+(function(){ if (typeof cmAct !== 'function') return; var base = cmAct;
+  window.cmAct = function (act, a, el) { if (act === 'startOn') { var ws = cmWorlds(), j = ws.findIndex(function (w) { return w.id === a; }); if (j >= 0) cmStartOnWorld(ws[j]); return; } return base.apply(this, arguments); };
+  try { cmAct = window.cmAct; } catch (e) {} })();
 </script>
 <script>/* HDPWA only: service worker (relative path, works under any subfolder) */
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
