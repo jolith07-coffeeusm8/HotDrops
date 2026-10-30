@@ -5,7 +5,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Hot Drops">
-  <meta name="hdpwa-version" content="20261028-80672ac6">
+  <meta name="hdpwa-version" content="20261029-f31cf76c">
   <script>window.__BT_NO_ICON = true; /* HDPWA: use the real manifest.webmanifest, not the runtime blob */</script>
 
   <meta charset="UTF-8">
@@ -1427,6 +1427,24 @@
   #hsCampaignMapTab .cm-sec, #hsCampaignMapTab .cm-card, #hsCampaignMapTab .cm-frow { min-width: 0; overflow-wrap: anywhere; }
   #hsCampaignMapTab .cm-row > button { max-width: 100%; white-space: normal; }
   #hsCampaignMapTab details > summary { margin: 6px 0; }
+  /* 2026-10-29 Artillery hex recorder */
+  #artilleryTab .art-gwrap { width: 100%; overflow-x: auto; margin: 8px 0; touch-action: manipulation; }
+  #artilleryTab .art-grid { display: block; width: 100%; height: auto; }
+  #artilleryTab .art-grid.two { min-width: 900px; }
+  #artilleryTab .art-hx { cursor: pointer; }
+  #artilleryTab .art-hid { fill: #94a3b8; font: 7px sans-serif; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+  #artilleryTab .art-gl { fill: #fff; font: bold 10px sans-serif; text-anchor: middle; dominant-baseline: middle; pointer-events: none; paint-order: stroke; stroke: #000; stroke-width: 2px; }
+  #artilleryTab .art-pn { fill: #fde047; font: bold 8px sans-serif; text-anchor: middle; dominant-baseline: middle; pointer-events: none; paint-order: stroke; stroke: #000; stroke-width: 2px; }
+  #artilleryTab .art-lockbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 10px; border: 1px solid #334155; background: #0f1419; margin: 6px 0; }
+  #artilleryTab .art-lockbar.on { border: 2px solid #f59e0b; background: #1f1300; color: #fbbf24; }
+  #artilleryTab .art-lockbar span { color: #cbd5e1; flex: 1 1 220px; min-width: 0; }
+  #artilleryTab .art-confirm { border: 2px solid #ef4444; background: #1f0a0a; padding: 10px; margin: 6px 0; }
+  #artilleryTab .art-hexin { width: 7.5em; min-height: 40px; font-size: 1rem; }
+  #artilleryTab .art-sec { margin-top: 14px; border-top: 1px solid #334155; padding-top: 8px; }
+  #artilleryTab .art-sh { color: #94a3b8; font-weight: bold; font-size: .85rem; }
+  #artilleryTab .art-danger { border-color: #ef4444 !important; color: #fca5a5 !important; }
+  #artilleryTab .art-x { min-height: 32px !important; padding: 0 8px; }
+  #artilleryTab .art-mrow { margin: 4px 0; overflow-wrap: anywhere; }
 </style>
 </head>
 <body data-section="aces">
@@ -1548,7 +1566,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
       <div class="bts-mgroup">&nbsp;</div>
       <button type="button" class="bts-mbtn" data-tab="missionsTab">MISSIONS<small>pick-up games &middot; share forces &middot; results</small></button>
       <button type="button" class="bts-mbtn" data-tab="bspTab">BATTLEFIELD SUPPORT<small>BSP decks &amp; cards</small></button>
-      <button type="button" class="bts-mbtn" data-tab="artilleryTab">ARTILLERY TOOL<small>minefields &middot; artillery &middot; smoke on a mapsheet photo</small></button>
+      <button type="button" class="bts-mbtn" data-tab="artilleryTab">ARTILLERY TOOL<small>hex recorder &middot; minefields &middot; artillery &middot; lock for a game</small></button>
       <button type="button" class="bts-mbtn" data-tab="impexpTab">IMPORT / EXPORT<small>save backups &amp; restore</small></button>
       <button type="button" class="bts-mbtn" data-tab="forceLogTab">FORCE BATTLE LOG<small>every battle per force &amp; salvage record</small></button>
       <button type="button" class="bts-mbtn" data-tab="calcTab">CHARGE / DFA CALCULATOR<small>Core pp.77&ndash;80 to-hit &amp; damage</small></button>
@@ -1583,7 +1601,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
           <button onclick="switchTab('missionsTab')" title="Missions: Core pp.212-233 (Classic) and ASCE pp.126-134 (Alpha Strike) pick-up games, share codes, results log">Missions</button>
           <div class="menu-sep" style="color:#38bdf8;background:#04121a;border-bottom-color:#0c4a6e;">── BATTLEFIELD SUPPORT ──</div>
           <button onclick="switchTab('bspTab')">BSP Decks &amp; Cards</button>
-          <button onclick="switchTab('artilleryTab')" title="Mark minefields / artillery / smoke on a mapsheet photo (Core pp.153-156)">Artillery Tool</button>
+          <button onclick="switchTab('artilleryTab')" title="Hex recorder: minefields / artillery / smoke by hex number, lock for a game (Core pp.153-156)">Artillery Tool</button>
           <div class="menu-sep" style="color:#94a3b8;background:#0f1419;border-bottom-color:#2a3340;">── SAVE / BACKUP ──</div>
           <button onclick="switchTab('impexpTab')" title="Export / import Aces, Hot Spots, Battlefield Support saves and BSP photo backups">Import / Export</button>
           <button onclick="switchTab('forceLogTab')" title="One battle log per force: date, source, opponent, outcome, salvage">Force Battle Log</button>
@@ -2199,22 +2217,13 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
   <div id="artilleryTab" class="panel">
    <div class="art-wrap">
     <h2>ARTILLERY TOOL</h2>
-    <p class="art-intro">Photo of your mapsheet(s), fixed 17 &times; 15 hex grid (Core p. 218), mark minefields, artillery aim points and smoke, then tap the hexes a unit entered to see what triggers. The app prompts and records; you roll. Rules: Core Rulebook Battlefield Support pp. 153&ndash;156. The photo / grid helper, colours and icons are <span class="bt-custom">Custom</span>. Photos stay in memory only (never saved); marks save in their own key <code>bt_artillery_v1</code> once you use the tool.</p>
-    <input type="file" id="artFile" accept="image/*" style="display:none" onchange="BtArt.file(this)">
+    <p class="art-intro">Hex recorder (no photos). Pick 1 or 2 mapsheets (17 &times; 15 hexes each, Core p. 218), tap hexes or type a hex number (e.g. 0805) to record minefields, artillery aim points, smoke and Custom flags for each side. <b>LOCK HEXES</b> freezes them for the game; then tap the hexes a unit entered (PATH) to see what triggers and log HIT / MISS. <b>RESET GAME</b> clears this tool only. The app prompts and records; you roll. Rules: Core Rulebook Battlefield Support pp. 153&ndash;156. The recorder grid, colours and icons are <span class="bt-custom">Custom</span>. Marks save in their own key <code>bt_artillery_v1</code> once you use the tool.</p>
     <div id="artTool"></div>
     <h3 class="art-refh">RULES REFERENCE &amp; DESIGN NOTES</h3>
-    <details><summary>Two-photo flow</summary>
-     <ol>
-      <li><b>Photo 1:</b> picture of the mapsheet at setup; align a hex grid overlay on it.</li>
-      <li><b>Mark:</b> tap hexes and tag each with an effect (minefield with density, artillery target / aim point, smoke, other Custom effect), owner side and turn planned.</li>
-      <li><b>Photo 2 (later):</b> picture of the table after a 'Mech has moved; reuse the saved alignment.</li>
-      <li><b>Path:</b> tap the hexes the 'Mech entered.</li>
-      <li><b>Trigger:</b> for each entered hex with a marked effect, the app lists the effect to resolve and logs it.</li>
-     </ol>
-    </details>
+    
 
-    <details><summary>Fixed 17 &times; 15 grid, corner-tap alignment</summary>
-     <p>Printed BattleTech mapsheets are 17 &times; 15 hexes (22" &times; 18"; Core p. 218). Tap the four sheet corners and every hex center is computed by plain geometry (a perspective transform of the fixed layout), with a manual nudge/zoom. No hex detection or computer vision in the first version.</p>
+    <details><summary>How the hex recorder works <span class="art-tag">Custom</span></summary>
+     <ol><li><b>Setup:</b> SHEETS 1 or 2 (two paper mapsheets side by side, or one neoprene mat, Core pp. 16, 218). Hex numbers are column + row as printed (0805 = column 08, row 05); with 2 sheets, S2 0805 is on sheet 2.</li><li><b>Mark:</b> pick a side and an effect, then tap hexes or type the hex number. HIDE A / HIDE B hide a side for hidden information.</li><li><b>LOCK HEXES:</b> freezes every mark for the game (dashed outline + lock icon). Taps then only log PATH; UNLOCK HEXES asks to confirm.</li><li><b>PATH:</b> tap the hexes a unit entered; WHAT TRIGGERS lists each effect with the book TN and damage; HIT / MISS on minefields is logged.</li><li><b>RESET GAME:</b> after CONFIRM, clears marks, lock, path and result log in this tool only. CLEAR SIDE A / B and the &#x2715; on a mark (in ALL MARKS) erase less.</li></ol>
     </details>
 
     <details><summary>Minefield densities (Core p. 156)</summary>
@@ -2231,14 +2240,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
      </ul>
     </details>
 
-    <details><summary>Highlighter design <span class="art-tag">Custom</span></summary>
-     <ul>
-      <li>Translucent hex fill over the photo, one color per side, with a thin outline so it stays readable on busy terrain. Example colors: <span class="art-sw" style="background:#f59e0b"></span>amber = mine, <span class="art-sw" style="background:#ef4444"></span>red = artillery, <span class="art-sw" style="background:#cbd5e1"></span>blue/white = smoke/other.</li>
-      <li>Tap a hex to cycle or open a small effect picker; drag to highlight a run; tap again to erase.</li>
-      <li>Opacity slider and a hide-all toggle. Marks grouped by side so hidden information can be hidden per side.</li>
-      <li>Photo 2 path: dotted trail of numbered hexes (1, 2, 3&hellip;); a triggered effect pulses once.</li>
-     </ul>
-    </details>
+    
 
     <details><summary>Icon set <span class="art-tag">Custom</span></summary>
      <table>
@@ -2253,9 +2255,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
      </table>
     </details>
 
-    <details><summary>Photo space requirement</summary>
-     <p>The picture must fit <b>two paper mapsheets side by side</b>, or <b>one neoprene mat</b> (Core p. 16; one mat counts as two mapsheets, Core p. 218). Larger fields are out of scope for the first version.</p>
-    </details>
+    
 
     <details><summary>Rules reference (Core first)</summary>
      <ul>
@@ -22826,15 +22826,15 @@ ZZV5YBNPJH	Rifleman	RFL-5M	1227	31	60	1	1
 <script>
 /* ===== 2026-10-28 (b): build stamp + WHAT'S NEW, storage protection, SHARE PNG, declutter (tap-to-expand). =====
    Device prefs only: bt_whatsnew_v1 {seen} written when the WHAT'S NEW card is dismissed. No save keys touched. */
-var BT_BUILD = { id: '20261028c', date: '2026-10-28' };
+var BT_BUILD = { id: '20261029', date: '2026-10-29' };
 var BT_WHATSNEW = [
+  'Artillery Tool is now a hex recorder (no photos): mark hexes by tap or hex number, LOCK HEXES for a game, RESET GAME to clear.',
   'Campaign Map tidied: world picker rows no longer squash into one letter per line; Official / Custom world cards with START; toolbar and BACKUP row lined up.',
   'White line on the right edge (tablet / PWA): the page scrollbar is now dark.',
   'Storage line next to Last backup: asks the browser to protect your saves from cleanup.',
   'SHARE next to SAVE PNG / SAVE MAP IMAGE (sends the picture straight to Discord, mail, etc.).',
   'Long notes fold into small SOURCES / TABLE / THE MATH / BREAKDOWN buttons. Tap to read.',
   'Campaign Map: "BattleForce Style Contracts" (Custom name), recommended mapsheets per terrain (Reach pp.150-151), impassable Mountain and Ocean tiles (Custom), CLOSE / BACK TO MAP buttons and END MAP TURN at the initiative bar.',
-  'ARTILLERY TOOL: photo of your mapsheet, 17x15 grid, mark minefields / artillery / smoke, tap entered hexes to see what triggers.',
   'Buttons and labels wrap instead of overflowing on tablet and phone.'
 ];
 var BtBuild = (function () {
@@ -23019,85 +23019,63 @@ function cmMapsheetHtml(biome, compact) {
 })();
 </script>
 <script>
-/* ===== 2026-10-28 (b) ARTILLERY TOOL: photo of the mapsheet + fixed 17x15 grid, mark hex effects, tap entered hexes.
-   Own key bt_artillery_v1, written only when you align / mark / tap. Photos are kept in memory only (never saved).
-   Rules: Core Rulebook Battlefield Support pp.153-156. The photo / grid helper itself is Custom. ===== */
+/* ===== 2026-10-29 ARTILLERY TOOL = HEX RECORDER (replaces the 2026-10-28 b photo / 4-corner / overlay flow).
+   Record minefields, artillery aim points, smoke and Custom flags by hex number on a plain 17x15 grid (1 or 2 sheets).
+   LOCK HEXES freezes the marks for the game; RESET GAME clears this tool only. Own key bt_artillery_v1, written only on use.
+   Old saves (marks / path / hide / log / sheets; corners ignored) load as they are. Rules: Core pp.153-156. Grid helper is Custom. ===== */
 var BtArt = (function () {
-  var K = 'bt_artillery_v1', st = null, img = null, imgUrl = null, mode = 'mark', tool = 'mineL', side = 'A', alignPts = [], opa = 0.45, pre = false;
+  var K = 'bt_artillery_v1', st = null, mode = 'mark', tool = 'mineL', side = 'A', pre = false, pending = null;
   var COLS = 17, ROWS = 15, SQ3 = Math.sqrt(3);
   var W = { thumper: { n: 'Thumper', g: '3/1' }, sniper: { n: 'Sniper', g: '4/2' }, longtom: { n: 'Long Tom', g: '5/3/1' }, arrow: { n: 'Arrow IV Standard', g: '4/2' } };
   var MINE = { L: { n: 'Light', tn: 9, g: 2 }, M: { n: 'Medium', tn: 8, g: 4 }, H: { n: 'Heavy', tn: 7, g: 6 } };
   var SIDEC = { A: '#38bdf8', B: '#f87171' };
-  function def() { return { v: 1, sheets: 1, corners: null, marks: {}, path: [], hide: {}, log: [] }; }
-  function load() { if (st) return st; try { st = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) { st = null; } if (!st || typeof st !== 'object') st = def(); if (!st.marks) st.marks = {}; if (!st.path) st.path = []; if (!st.hide) st.hide = {}; if (!st.log) st.log = []; return st; }
+  function def() { return { v: 1, sheets: 1, marks: {}, path: [], hide: {}, log: [], locked: false }; }
+  function load() { if (st) return st; try { st = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) { st = null; } if (!st || typeof st !== 'object') st = def();
+    if (!st.marks || typeof st.marks !== 'object') st.marks = {}; if (!Array.isArray(st.path)) st.path = []; if (!st.hide || typeof st.hide !== 'object') st.hide = {}; if (!Array.isArray(st.log)) st.log = [];
+    st.sheets = st.sheets === 2 ? 2 : 1; st.locked = !!st.locked; delete st.corners;
+    Object.keys(st.marks).forEach(function (k) { if (!Array.isArray(st.marks[k])) delete st.marks[k]; else st.marks[k] = st.marks[k].filter(function (m) { return m && typeof m === 'object' && (m.side === 'A' || m.side === 'B'); }); });
+    return st; }
   function save() { try { localStorage.setItem(K, JSON.stringify(st)); } catch (e) {} }
   function E(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function hid(s, c, r) { return (st.sheets > 1 ? 'S' + s + ' ' : '') + pad(c) + pad(r); }
-  /* unit-rect layout: each sheet 26R wide, 15.5*sqrt3*R tall (flat-top hexes, even columns half a hex lower) */
-  function unitGeo() { var R = 1, sw = 26 * R, H = SQ3 * R, th = 15.5 * H; return { R: R, sw: sw, H: H, tw: sw * st.sheets, th: th }; }
-  function hexUnit(s, c, r) { var g = unitGeo(); var x = (s - 1) * g.sw + g.R + (c - 1) * 1.5 * g.R, y = g.H / 2 + (r - 1) * g.H + (c % 2 === 0 ? g.H / 2 : 0); return [x / g.tw, y / g.th]; }
-  function hexVerts(s, c, r) { var g = unitGeo(), ctr = hexUnit(s, c, r), out = []; for (var i = 0; i < 6; i++) { var t = Math.PI / 3 * i; out.push([ctr[0] + g.R * 0.98 * Math.cos(t) / g.tw, ctr[1] + g.R * 0.98 * Math.sin(t) / g.th]); } return out; }
-  function homog(q) { var x0 = q[0][0], y0 = q[0][1], x1 = q[1][0], y1 = q[1][1], x2 = q[2][0], y2 = q[2][1], x3 = q[3][0], y3 = q[3][1];
-    var dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3, dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3, a, b, c, d, e, f, g = 0, h = 0;
-    if (Math.abs(dx3) < 1e-9 && Math.abs(dy3) < 1e-9) { a = x1 - x0; b = x3 - x0; c = x0; d = y1 - y0; e = y3 - y0; f = y0; }
-    else { var den = dx1 * dy2 - dx2 * dy1; g = (dx3 * dy2 - dx2 * dy3) / den; h = (dx1 * dy3 - dx3 * dy1) / den; a = x1 - x0 + g * x1; b = x3 - x0 + h * x3; c = x0; d = y1 - y0 + g * y1; e = y3 - y0 + h * y3; f = y0; }
-    return function (u, v) { var w = g * u + h * v + 1; return [(a * u + b * v + c) / w, (d * u + e * v + f) / w]; }; }
-  function corners() { return st.corners || [[0.03, 0.03], [0.97, 0.03], [0.97, 0.97], [0.03, 0.97]]; }
-  function allHexes() { var a = []; for (var s = 1; s <= st.sheets; s++) for (var c = 1; c <= COLS; c++) for (var r = 1; r <= ROWS; r++) a.push([s, c, r]); return a; }
+  function parse(id) { var m = /^(?:S(\d) )?(\d\d)(\d\d)$/.exec(id); if (!m) return null; return [+(m[1] || 1), +m[2], +m[3]]; }
+  function norm(txt) { var t = String(txt || '').toUpperCase().replace(/\s+/g, ''), m = /^(?:S([12]))?(\d{4})$/.exec(t); if (!m) return null; var c = +m[2].slice(0, 2), r = +m[2].slice(2), s = +(m[1] || 1);
+    if (c < 1 || c > COLS || r < 1 || r > ROWS || s > st.sheets) return null; return hid(s, c, r); }
   function marksAt(id) { return st.marks[id] || []; }
   function visible(m) { return !st.hide[m.side]; }
-  function markLabel(m) { if (m.k === 'mine') return MINE[m.d].n + ' minefield (' + m.g + '/' + MINE[m.d].g + ' groupings, TN ' + MINE[m.d].tn + ')'; if (m.k === 'art') return (W[m.w] ? W[m.w].n : 'Artillery') + ' aim point' + (m.pre ? ' (pre-designated)' : ''); if (m.k === 'smoke') return 'Smoke'; if (m.k === 'cop') return 'Copperhead aim point'; return 'Custom: ' + (m.label || 'effect'); }
+  function markLabel(m) { if (m.k === 'mine') return (MINE[m.d] ? MINE[m.d].n : '') + ' minefield (' + m.g + '/' + (MINE[m.d] ? MINE[m.d].g : '?') + ' groupings, TN ' + (MINE[m.d] ? MINE[m.d].tn : '?') + ')'; if (m.k === 'art') return (W[m.w] ? W[m.w].n : 'Artillery') + ' aim point' + (m.pre ? ' (pre-designated)' : ''); if (m.k === 'smoke') return 'Smoke'; if (m.k === 'cop') return 'Copperhead aim point'; return 'Custom: ' + (m.label || 'effect'); }
   function glyph(m) { if (m.k === 'mine') return '\u2737' + ({ L: '\u2022', M: '\u2022\u2022', H: '\u2022\u2022\u2022' })[m.d]; if (m.k === 'art') return '\u2295' + (m.pre ? 'P' : ''); if (m.k === 'cop') return '\u2299'; if (m.k === 'smoke') return '\u2601'; return '\u2691'; }
   function colr(m) { return m.k === 'mine' ? '#f59e0b' : m.k === 'art' || m.k === 'cop' ? '#ef4444' : m.k === 'smoke' ? '#e2e8f0' : '#a3e635'; }
-  /* ---- drawing ---- */
-  function cv() { return document.getElementById('artCanvas'); }
-  function draw() {
-    var c = cv(); if (!c) return; var box = c.parentNode.clientWidth || 600, g = unitGeo();
-    var ar = img ? img.naturalHeight / img.naturalWidth : g.th / g.tw; var w = Math.min(box, 1400), h = Math.round(w * ar);
-    var dpr = window.devicePixelRatio || 1; c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.width = w + 'px'; c.style.height = h + 'px';
-    var x = c.getContext && c.getContext('2d'); if (!x) return; x.setTransform(dpr, 0, 0, dpr, 0, 0); x.fillStyle = '#0f1419'; x.fillRect(0, 0, w, h);
-    if (img) x.drawImage(img, 0, 0, w, h); else { x.fillStyle = '#64748b'; x.font = '14px sans-serif'; x.fillText('No photo: tap PHOTO to add one, or mark on the plain grid.', 10, 20); }
-    var P = homog(corners().map(function (p) { return [p[0] * w, p[1] * h]; }));
-    var pathIdx = {}; st.path.forEach(function (id, i) { (pathIdx[id] = pathIdx[id] || []).push(i + 1); });
-    allHexes().forEach(function (hx) { var id = hid(hx[0], hx[1], hx[2]), vs = hexVerts(hx[0], hx[1], hx[2]).map(function (p) { return P(p[0], p[1]); });
-      x.beginPath(); vs.forEach(function (p, i) { i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1]); }); x.closePath();
-      var ms = marksAt(id).filter(visible);
-      if (ms.length) { x.globalAlpha = opa; x.fillStyle = colr(ms[0]); x.fill(); x.globalAlpha = 1; x.lineWidth = 2.5; x.strokeStyle = SIDEC[ms[0].side] || '#fff'; x.stroke(); }
-      else { x.lineWidth = 0.6; x.strokeStyle = 'rgba(255,255,255,.35)'; x.stroke(); }
-      var ctr = P.apply(null, hexUnit(hx[0], hx[1], hx[2])), fs = Math.max(8, Math.min(16, w / (COLS * st.sheets * 2.2)));
-      if (ms.length) { x.font = 'bold ' + fs + 'px sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.lineWidth = 3; x.strokeStyle = '#000'; var t = ms.map(glyph).join(' ');
-        if (ms.some(function (m) { return m.k === 'mine' && m.g <= 0; })) x.globalAlpha = 0.5; x.strokeText(t, ctr[0], ctr[1]); x.fillStyle = '#fff'; x.fillText(t, ctr[0], ctr[1]); x.globalAlpha = 1; }
-      if (pathIdx[id]) { x.font = 'bold ' + fs + 'px sans-serif'; x.textAlign = 'center'; x.fillStyle = '#fde047'; x.strokeStyle = '#000'; x.lineWidth = 3; var pt = pathIdx[id].join(','); x.strokeText(pt, ctr[0], ctr[1] + fs); x.fillText(pt, ctr[0], ctr[1] + fs); }
-    });
-    if (st.path.length > 1) { x.setLineDash([4, 4]); x.strokeStyle = '#fde047'; x.lineWidth = 2; x.beginPath(); st.path.forEach(function (id, i) { var p = parse(id); if (!p) return; var q = P.apply(null, hexUnit(p[0], p[1], p[2])); i ? x.lineTo(q[0], q[1]) : x.moveTo(q[0], q[1]); }); x.stroke(); x.setLineDash([]); }
-    if (mode === 'align') { var cs = alignPts.length ? alignPts : corners(); cs.forEach(function (p, i) { x.fillStyle = '#22d3ee'; x.beginPath(); x.arc(p[0] * w, p[1] * h, 7, 0, 7); x.fill(); x.fillStyle = '#000'; x.font = 'bold 10px sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(String(i + 1), p[0] * w, p[1] * h); }); }
-  }
-  function parse(id) { var m = /^(?:S(\d) )?(\d\d)(\d\d)$/.exec(id); if (!m) return null; return [+(m[1] || 1), +m[2], +m[3]]; }
-  function hexAt(px, py) { var c = cv(), w = parseFloat(c.style.width), h = parseFloat(c.style.height), P = homog(corners().map(function (p) { return [p[0] * w, p[1] * h]; })), best = null, bd = 1e9;
-    allHexes().forEach(function (hx) { var q = P.apply(null, hexUnit(hx[0], hx[1], hx[2])), d = (q[0] - px) * (q[0] - px) + (q[1] - py) * (q[1] - py); if (d < bd) { bd = d; best = hx; } });
-    var g = unitGeo(), a = P.apply(null, hexUnit(1, 1, 1)), b = P.apply(null, hexUnit(1, 1, 2)), lim = Math.pow(Math.hypot(a[0] - b[0], a[1] - b[1]) * 0.75, 2);
-    return best && bd <= lim * 1.2 ? hid(best[0], best[1], best[2]) : null; }
-  function onTap(e) {
-    var c = cv(), r = c.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top, w = r.width, h = r.height;
-    if (mode === 'align') { alignPts.push([px / w, py / h]); if (alignPts.length === 4) { st.corners = alignPts; alignPts = []; mode = 'mark'; save(); msg('Grid aligned. Now pick an effect and tap hexes.'); } else msg('Corner ' + (alignPts.length + 1) + ' of 4: ' + ['top-left', 'top-right', 'bottom-right', 'bottom-left'][alignPts.length] + ' corner of the hex area.'); render(); return; }
-    var id = hexAt(px, py); if (!id) return; applyTap(id);
-  }
+  function stamp() { return new Date().toLocaleString(); }
+  /* plain SVG grid: flat-top hexes, even columns half a hex lower (printed mapsheet layout, Core p.218) */
+  function grid() { var R = 20, H = SQ3 * R, sw = 26 * R, tw = sw * st.sheets, th = 15.5 * H, pathIdx = {}, o = '';
+    st.path.forEach(function (id, i) { (pathIdx[id] = pathIdx[id] || []).push(i + 1); });
+    function ctr(s, c, r) { return [(s - 1) * sw + R + (c - 1) * 1.5 * R, H / 2 + (r - 1) * H + (c % 2 === 0 ? H / 2 : 0)]; }
+    for (var s = 1; s <= st.sheets; s++) for (var c = 1; c <= COLS; c++) for (var r = 1; r <= ROWS; r++) { var id = hid(s, c, r), p = ctr(s, c, r), pts = [];
+      for (var i = 0; i < 6; i++) { var t = Math.PI / 3 * i; pts.push((p[0] + R * 0.97 * Math.cos(t)).toFixed(1) + ',' + (p[1] + R * 0.97 * Math.sin(t)).toFixed(1)); }
+      var ms = marksAt(id).filter(visible), used = ms.length && ms.every(function (m) { return m.k === 'mine' && m.g <= 0; });
+      o += '<g class="art-hx" data-hex="' + id + '"><polygon points="' + pts.join(' ') + '" fill="' + (ms.length ? colr(ms[0]) : '#111827') + '" fill-opacity="' + (ms.length ? (used ? .2 : .55) : 1) + '" stroke="' + (ms.length ? SIDEC[ms[0].side] : '#475569') + '" stroke-width="' + (ms.length ? 2.5 : 1) + '"' + (ms.length && st.locked ? ' stroke-dasharray="4 2"' : '') + '/>' +
+        '<text x="' + p[0] + '" y="' + (p[1] - R * 0.45) + '" class="art-hid">' + pad(c) + pad(r) + '</text>' +
+        (ms.length ? '<text x="' + p[0] + '" y="' + (p[1] + R * 0.2) + '" class="art-gl">' + E(ms.map(glyph).join(' ')) + (st.locked ? ' \ud83d\udd12' : '') + '</text>' : '') +
+        (pathIdx[id] ? '<text x="' + p[0] + '" y="' + (p[1] + R * 0.75) + '" class="art-pn">' + pathIdx[id].join(',') + '</text>' : '') + '</g>'; }
+    if (st.sheets > 1) o += '<line x1="' + sw + '" y1="0" x2="' + sw + '" y2="' + th + '" stroke="#fde047" stroke-width="2"/><text x="' + (sw / 2) + '" y="' + (th + 14) + '" class="art-hid">SHEET 1</text><text x="' + (sw * 1.5) + '" y="' + (th + 14) + '" class="art-hid">SHEET 2</text>';
+    return '<svg id="artGrid" class="art-grid' + (st.sheets > 1 ? ' two' : '') + '" viewBox="0 0 ' + tw + ' ' + (th + (st.sheets > 1 ? 18 : 0)) + '" role="img" aria-label="Hex grid">' + o + '</svg>'; }
   function applyTap(id) {
     if (mode === 'path') { st.path.push(id); save(); render(); return; }
+    if (st.locked) { render(); msg('Hexes are locked for this game. Use PATH to log entered hexes, or UNLOCK HEXES to change marks.'); return; }
     var ms = st.marks[id] || [];
     if (tool === 'erase') { var keep = ms.filter(function (m) { return m.side !== side; }); if (keep.length) st.marks[id] = keep; else delete st.marks[id]; save(); render(); return; }
     var m = { side: side };
-    if (/^mine/.test(tool)) { m.k = 'mine'; m.d = tool.slice(4); m.g = MINE[m.d].g; var tot = ms.filter(function (x) { return x.k === 'mine' && x.side === side; }).reduce(function (s, x) { return s + MINE[x.d].g; }, 0);
+    if (/^mine/.test(tool)) { m.k = 'mine'; m.d = tool.slice(4); m.g = MINE[m.d].g; var tot = ms.filter(function (x) { return x.k === 'mine' && x.side === side; }).reduce(function (s, x) { return s + (MINE[x.d] ? MINE[x.d].g : 0); }, 0);
       if (tot + MINE[m.d].g > 6) { msg('Max 6 minefield damage groupings per player in one hex (Core p.156). Hex ' + id + ' already has ' + tot + '.'); return; } }
     else if (tool === 'smoke') m.k = 'smoke';
     else if (tool === 'cop') m.k = 'cop';
     else if (tool === 'custom') { var l = window.prompt('Custom effect label (short):', ''); if (l == null) return; m.k = 'custom'; m.label = String(l).slice(0, 30); }
-    else { m.k = 'art'; m.w = tool.replace(/^art_/, ''); m.pre = pre; if (pre) { var n = 0; Object.keys(st.marks).forEach(function (k) { st.marks[k].forEach(function (x) { if (x.k === 'art' && x.pre && x.side === side) n++; }); }); if (n >= 5) msg('Note: five pre-designated hexes per Artillery Strike selection, max five per mapsheet (Core p.155). This side already has ' + n + '.'); } }
+    else { m.k = 'art'; m.w = tool.replace(/^art_/, ''); m.pre = pre; if (pre) { var n = 0; Object.keys(st.marks).forEach(function (k) { st.marks[k].forEach(function (x) { if (x.k === 'art' && x.pre && x.side === side) n++; }); }); if (n >= 5) { ms.push(m); st.marks[id] = ms; save(); render(); msg('Note: five pre-designated hexes per Artillery Strike selection, max five per mapsheet (Core p.155). This side already has ' + n + '.'); return; } } }
     ms.push(m); st.marks[id] = ms; save(); render();
   }
-  function triggers() { var out = [];
-    st.path.forEach(function (id, i) { marksAt(id).forEach(function (m, j) { out.push({ step: i + 1, id: id, m: m, j: j }); }); }); return out; }
+  function triggers() { var out = []; st.path.forEach(function (id, i) { marksAt(id).forEach(function (m, j) { if (visible(m)) out.push({ step: i + 1, id: id, m: m, j: j }); }); }); return out; }
   function trigText(t) { var m = t.m;
     if (m.k === 'mine') return m.g <= 0 ? 'Minefield used up (0 groupings left): no further effect (p.156).' : 'Minefield (' + MINE[m.d].n + '): owner announces it and rolls 2D6 vs <b>TN ' + MINE[m.d].tn + '</b> (no modifiers except Low Visibility +1). Hit: ' + m.g + ' groupings of 5 damage, each on the <b>front column of the Kick Location Table</b>; then the field loses 1 grouping. Miss: the field stays active. Infantry, hovercraft and VTOLs never trigger; jumping units only if they end their move here. <span class="cm-cite">Core p.156</span>';
     if (m.k === 'art') return (m.pre ? 'Pre-designated hex: automatic hit, no scatter, ' : 'Not pre-designated: 2D6 vs <b>TN 8</b> (\u22122 with a spotter on the launch and arrival turns; +1 Low Visibility), a miss scatters 1 hex per point of MOF (1D6 on the Scatter Diagram), ') + 'lands in the Ranged Attack Phase of the turn after firing. ' + (W[m.w] ? W[m.w].n + ': ' + W[m.w].g + ' groupings of 5 (target hex / adjacent ring / next ring).' : '') + ' A unit that only moved through does not trigger it; what counts is who is in the radius when it lands. <span class="cm-cite">Core pp.153, 155\u2013156</span>';
@@ -23105,30 +23083,32 @@ var BtArt = (function () {
     if (m.k === 'smoke') return 'Smoke hex: treated as hit by a Smoke Arrow IV missile (Core p.190); Thumper smoke fills only the target hex, Sniper / Long Tom smoke use their normal radius. <span class="cm-cite">Core p.156</span>';
     return 'Custom effect: resolve as you agreed. <span class="bt-custom">Custom</span>'; }
   function msg(t) { var e = document.getElementById('artMsg'); if (e) e.textContent = t || ''; }
-  function tb(lbl, act, a, on, title) { return '<button type="button" class="' + (on ? 'btn' : 'btn-grey') + ' btn-sm" data-art="' + act + '"' + (a != null ? ' data-a="' + E(a) + '"' : '') + (title ? ' title="' + E(title) + '"' : '') + '>' + lbl + '</button>'; }
+  function tb(lbl, act, a, on, title, cls) { return '<button type="button" class="' + (on ? 'btn' : 'btn-grey') + ' btn-sm' + (cls ? ' ' + cls : '') + '" data-art="' + act + '"' + (a != null ? ' data-a="' + E(a) + '"' : '') + (title ? ' title="' + E(title) + '"' : '') + '>' + lbl + '</button>'; }
+  var ASK = { reset: 'RESET GAME: clear every mark, the lock, the entered-hex path and the result log in this tool? Nothing else in the app changes.', clearA: 'Clear every side A mark?', clearB: 'Clear every side B mark?', unlock: 'Unlock the hexes? Taps in MARK will change marks again.' };
   function render() {
     load(); var host = document.getElementById('artTool'); if (!host) return;
     var tools = [['mineL', 'Mine L \u2737\u2022'], ['mineM', 'Mine M \u2737\u2022\u2022'], ['mineH', 'Mine H \u2737\u2022\u2022\u2022'], ['art_thumper', 'Thumper \u2295'], ['art_sniper', 'Sniper \u2295'], ['art_longtom', 'Long Tom \u2295'], ['art_arrow', 'Arrow IV \u2295'], ['cop', 'Copperhead'], ['smoke', 'Smoke \u2601'], ['custom', 'Custom \u2691'], ['erase', 'ERASE']];
-    var trig = triggers(), h = '';
-    h += '<div class="art-bar">' + tb('PHOTO', 'photo', null, false, 'Take or choose a picture of the mapsheet(s); kept in memory only') + tb('ALIGN GRID (tap 4 corners)', 'align', null, mode === 'align') + tb('SHEETS: ' + st.sheets, 'sheets', null, false, '1 mapsheet, or 2 side by side / one neoprene mat (Core pp.16, 218)') +
-      '<label class="art-lab">Overlay <input type="range" min="10" max="90" value="' + Math.round(opa * 100) + '" data-art-in="opa"></label></div>';
-    h += '<div class="art-bar">' + tb('MARK', 'mode', 'mark', mode === 'mark') + tb('PATH (tap entered hexes)', 'mode', 'path', mode === 'path') + '<span class="art-lab">Side:</span>' + tb('<span style="color:' + SIDEC.A + '">\u25cf</span> A', 'side', 'A', side === 'A') + tb('<span style="color:' + SIDEC.B + '">\u25cf</span> B', 'side', 'B', side === 'B') +
+    var trig = triggers(), n = Object.keys(st.marks).length, h = '';
+    h += '<div class="art-lockbar' + (st.locked ? ' on' : '') + '">' + (st.locked ? '<b>\ud83d\udd12 HEXES LOCKED</b> <span>' + n + ' marked hex' + (n === 1 ? '' : 'es') + ' frozen for this game. PATH, HIT and MISS still work.</span>' + tb('UNLOCK HEXES', 'ask', 'unlock') : '<b>Hexes unlocked</b> <span>Mark your hexes, then lock them for the game.</span>' + tb('\ud83d\udd12 LOCK HEXES', 'lock', null, true)) + '</div>';
+    if (pending) h += '<div class="art-confirm" role="alertdialog"><b>' + E(ASK[pending]) + '</b><div class="art-bar">' + tb('CONFIRM', 'yes', pending, true) + tb('CANCEL', 'no') + '</div></div>';
+    h += '<div class="art-bar">' + tb('MARK', 'mode', 'mark', mode === 'mark') + tb('PATH (tap entered hexes)', 'mode', 'path', mode === 'path') + tb('SHEETS: ' + st.sheets, 'sheets', null, false, '1 mapsheet, or 2 side by side / one neoprene mat (Core pp.16, 218)') + '</div>';
+    h += '<div class="art-bar"><span class="art-lab">Side:</span>' + tb('<span style="color:' + SIDEC.A + '">\u25cf</span> A', 'side', 'A', side === 'A') + tb('<span style="color:' + SIDEC.B + '">\u25cf</span> B', 'side', 'B', side === 'B') +
       tb(st.hide.A ? 'SHOW A' : 'HIDE A', 'hide', 'A', false, 'Hidden information: hide side A marks on this screen') + tb(st.hide.B ? 'SHOW B' : 'HIDE B', 'hide', 'B', false) + '</div>';
-    if (mode === 'mark') h += '<div class="art-bar art-tools">' + tools.map(function (t) { return tb(t[1], 'tool', t[0], tool === t[0]); }).join('') + tb('PRE-DESIGNATED: ' + (pre ? 'ON' : 'OFF'), 'pre', null, pre, 'Artillery marks placed while ON are pre-designated hexes (auto-hit, no scatter; Core p.155)') + '</div>';
+    if (mode === 'mark' && !st.locked) h += '<div class="art-bar art-tools">' + tools.map(function (t) { return tb(t[1], 'tool', t[0], tool === t[0]); }).join('') + tb('PRE-DESIGNATED: ' + (pre ? 'ON' : 'OFF'), 'pre', null, pre, 'Artillery marks placed while ON are pre-designated hexes (auto-hit, no scatter; Core p.155)') + '</div>';
     if (mode === 'path') h += '<div class="art-bar">' + tb('UNDO LAST HEX', 'pathUndo') + tb('CLEAR PATH', 'pathClear') + '<span class="art-lab">Path: ' + (st.path.length ? E(st.path.join(' \u2192 ')) : '(tap hexes in the order the unit entered them)') + '</span></div>';
-    h += '<div id="artMsg" class="bld-msg" role="status"></div><div class="art-cvwrap"><canvas id="artCanvas" aria-label="Mapsheet grid"></canvas></div>';
+    if (mode === 'path' || !st.locked) h += '<div class="art-bar"><label class="art-lab">Hex number <input id="artHexIn" class="art-hexin" inputmode="numeric" maxlength="8" placeholder="' + (st.sheets > 1 ? 'S2 0805' : '0805') + '"></label>' + tb(mode === 'path' ? 'ADD TO PATH' : 'MARK HEX', 'typed', null, true) + '</div>';
+    h += '<div id="artMsg" class="bld-msg" role="status"></div><div class="art-gwrap">' + grid() + '</div>';
     h += '<div class="art-res"><h3>WHAT TRIGGERS' + (st.path.length ? ' (' + st.path.length + ' hexes entered)' : '') + '</h3>' + (trig.length ? trig.map(function (t) { var m = t.m;
       return '<div class="art-trig"><b>Step ' + t.step + ' \u00b7 hex ' + E(t.id) + '</b> <span style="color:' + SIDEC[m.side] + '">side ' + m.side + '</span> \u00b7 ' + E(markLabel(m)) + '<div>' + trigText(t) + '</div>' +
         (m.k === 'mine' && m.g > 0 ? '<div class="art-bar">' + tb('HIT: \u22121 GROUPING', 'mineHit', t.id + '|' + t.j) + tb('MISS: STAYS ACTIVE', 'mineMiss', t.id + '|' + t.j) + '</div>' : '') + '</div>'; }).join('') : '<p class="ie-desc">' + (st.path.length ? 'No marked effects on the entered hexes.' : 'Switch to PATH and tap the hexes a unit entered.') + '</p>') + '</div>';
-    var list = Object.keys(st.marks).sort(); h += '<details class="art-list"><summary>ALL MARKS (' + list.length + ' hexes)</summary>' + (list.length ? list.map(function (id) { return '<div>' + E(id) + ': ' + st.marks[id].map(function (m) { return '<span style="color:' + SIDEC[m.side] + '">' + m.side + '</span> ' + E(markLabel(m)); }).join('; ') + '</div>'; }).join('') : '<p>None yet.</p>') +
-      '<div class="art-bar">' + tb('CLEAR ALL MARKS', 'clearAll') + '</div></details>';
-    if (st.log.length) h += '<details class="art-list"><summary>RESULT LOG (' + st.log.length + ')</summary>' + st.log.slice(-40).reverse().map(function (l) { return '<div>' + E(l) + '</div>'; }).join('') + '</details>';
-    host.innerHTML = h; draw();
+    var list = Object.keys(st.marks).sort(); h += '<details class="art-list"><summary>ALL MARKS (' + list.length + ' hexes)' + (st.locked ? ' \ud83d\udd12 locked' : '') + '</summary>' + (list.length ? list.map(function (id) { return '<div class="art-mrow">' + (st.locked ? '\ud83d\udd12 ' : '') + '<b>' + E(id) + '</b>: ' + st.marks[id].map(function (m, j) { return '<span style="color:' + SIDEC[m.side] + '">' + m.side + '</span> ' + E(markLabel(m)) + (st.locked ? '' : ' ' + tb('\u2715', 'del', id + '|' + j, false, 'Erase this mark', 'art-x')); }).join('; ') + '</div>'; }).join('') : '<p>None yet.</p>') + '</details>';
+    h += '<details class="art-list"' + (st.log.length ? '' : '') + '><summary>RESULT LOG (' + st.log.length + ')</summary>' + (st.log.length ? st.log.slice(-40).reverse().map(function (l) { return '<div>' + E(l) + '</div>'; }).join('') + '<div class="art-bar">' + tb('COPY LOG TEXT', 'copyLog') + '</div>' : '<p>Nothing logged yet.</p>') + '</details>';
+    h += '<div class="art-sec"><div class="art-sh">CLEAR / RESET</div><div class="art-bar">' + (st.locked ? '<span class="art-lab">CLEAR SIDE and per-mark \u2715 need UNLOCK HEXES first.</span>' : tb('CLEAR SIDE A', 'ask', 'clearA') + tb('CLEAR SIDE B', 'ask', 'clearB')) + tb('RESET GAME (clear all)', 'ask', 'reset', false, 'Clears marks, lock, path and result log in this tool only', 'art-danger') + '</div></div>';
+    host.innerHTML = h;
   }
   function act(a, v) {
-    if (a === 'photo') { document.getElementById('artFile').click(); return; }
-    if (a === 'align') { mode = 'align'; alignPts = []; msg('Corner 1 of 4: tap the top-left corner of the hex area.'); }
-    else if (a === 'sheets') { st.sheets = st.sheets === 1 ? 2 : 1; save(); }
+    load();
+    if (a === 'sheets') { if (st.locked) { msg('Unlock the hexes to change the number of sheets.'); return; } st.sheets = st.sheets === 1 ? 2 : 1; save(); }
     else if (a === 'mode') mode = v;
     else if (a === 'tool') tool = v;
     else if (a === 'side') side = v;
@@ -23136,19 +23116,27 @@ var BtArt = (function () {
     else if (a === 'hide') { st.hide[v] = !st.hide[v]; save(); }
     else if (a === 'pathUndo') { st.path.pop(); save(); }
     else if (a === 'pathClear') { st.path = []; save(); }
-    else if (a === 'clearAll') { if (!window.confirm('Remove every mark on this grid?')) return; st.marks = {}; save(); }
+    else if (a === 'lock') { st.locked = true; st.lockedAt = stamp(); st.log.push(stamp() + ' \u00b7 hexes LOCKED (' + Object.keys(st.marks).length + ' marked)'); mode = 'path'; save(); }
+    else if (a === 'ask') pending = v;
+    else if (a === 'no') pending = null;
+    else if (a === 'yes') { pending = null;
+      if (v === 'unlock') { st.locked = false; st.log.push(stamp() + ' \u00b7 hexes unlocked'); mode = 'mark'; }
+      else if (v === 'clearA' || v === 'clearB') { if (st.locked) return render(); var sd = v.slice(-1); Object.keys(st.marks).forEach(function (k) { var keep = st.marks[k].filter(function (m) { return m.side !== sd; }); if (keep.length) st.marks[k] = keep; else delete st.marks[k]; }); }
+      else if (v === 'reset') { var sh = st.sheets; st = def(); st.sheets = sh; mode = 'mark'; }
+      save(); }
+    else if (a === 'del') { if (st.locked) return render(); var q = v.split('|'), arr = st.marks[q[0]]; if (arr) { arr.splice(+q[1], 1); if (!arr.length) delete st.marks[q[0]]; save(); } }
+    else if (a === 'typed') { var inp = document.getElementById('artHexIn'), id = norm(inp && inp.value); if (!id) { msg('Type a hex number like 0805 (columns 01-17, rows 01-15' + (st.sheets > 1 ? '; S2 0805 for sheet 2' : '') + ').'); return; } applyTap(id); return; }
+    else if (a === 'copyLog') { var txt = st.log.join('\n'); try { navigator.clipboard.writeText(txt).then(function () { msg('Result log copied.'); }, function () { window.prompt('Copy the log:', txt); }); } catch (e) { window.prompt('Copy the log:', txt); } return; }
     else if (a === 'mineHit' || a === 'mineMiss') { var p = v.split('|'), m = (st.marks[p[0]] || [])[+p[1]]; if (!m) return;
-      if (a === 'mineHit') { m.g = Math.max(0, m.g - 1); st.log.push(new Date().toLocaleString() + ' \u00b7 ' + p[0] + ' ' + MINE[m.d].n + ' minefield (side ' + m.side + ') HIT \u2192 ' + m.g + ' groupings left' + (m.g ? '' : ' (gone)')); }
-      else st.log.push(new Date().toLocaleString() + ' \u00b7 ' + p[0] + ' ' + MINE[m.d].n + ' minefield (side ' + m.side + ') missed, stays active'); save(); }
+      if (a === 'mineHit') { m.g = Math.max(0, m.g - 1); st.log.push(stamp() + ' \u00b7 ' + p[0] + ' ' + MINE[m.d].n + ' minefield (side ' + m.side + ') HIT \u2192 ' + m.g + ' groupings left' + (m.g ? '' : ' (gone)')); }
+      else st.log.push(stamp() + ' \u00b7 ' + p[0] + ' ' + MINE[m.d].n + ' minefield (side ' + m.side + ') missed, stays active'); save(); }
     render();
   }
-  function file(inp) { var f = inp.files && inp.files[0]; if (!f) return; if (imgUrl) try { URL.revokeObjectURL(imgUrl); } catch (e) {} imgUrl = URL.createObjectURL(f); var i = new Image(); i.onload = function () { img = i; render(); msg(st.corners ? 'Photo loaded; grid alignment kept (re-align if the camera moved).' : 'Photo loaded. Tap ALIGN GRID and then the 4 corners of the hex area.'); }; i.src = imgUrl; inp.value = ''; }
   function bind() { var host = document.getElementById('artTool'); if (!host || host._b) return; host._b = 1;
-    host.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-art]'); if (b) { act(b.getAttribute('data-art'), b.getAttribute('data-a')); return; } if (e.target.id === 'artCanvas') onTap(e); });
-    host.addEventListener('input', function (e) { if (e.target.getAttribute('data-art-in') === 'opa') { opa = e.target.value / 100; draw(); } });
-    window.addEventListener('resize', function () { var p = document.getElementById('artilleryTab'); if (p && p.classList.contains('active')) draw(); }); }
+    host.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-art]'); if (b) { act(b.getAttribute('data-art'), b.getAttribute('data-a')); return; } var g = e.target.closest && e.target.closest('[data-hex]'); if (g) applyTap(g.getAttribute('data-hex')); });
+    host.addEventListener('keydown', function (e) { if (e.target.id === 'artHexIn' && e.key === 'Enter') act('typed'); }); }
   function onShow() { bind(); render(); }
-  return { onShow: onShow, file: file, render: render, _state: function () { return load(); }, _hexAt: hexAt, _tap: onTap, _applyTap: function (id) { load(); applyTap(id); }, _mode: function () { return mode; }, _act: act, _homog: homog };
+  return { onShow: onShow, render: render, _state: function () { return load(); }, _applyTap: function (id) { load(); applyTap(id); }, _mode: function () { return mode; }, _act: act, _norm: function (t) { load(); return norm(t); } };
 })();
 (function () { if (typeof switchTab === 'function') { var o = switchTab; switchTab = function (t) { var r = o.apply(this, arguments); if (t === 'artilleryTab') try { BtArt.onShow(); } catch (e) {} return r; }; } })();
 </script>
