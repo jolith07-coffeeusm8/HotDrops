@@ -5,7 +5,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Hot Drops">
-  <meta name="hdpwa-version" content="20261029-f31cf76c">
+  <meta name="hdpwa-version" content="20261103-8369c2cd">
   <script>window.__BT_NO_ICON = true; /* HDPWA: use the real manifest.webmanifest, not the runtime blob */</script>
 
   <meta charset="UTF-8">
@@ -1445,6 +1445,24 @@
   #artilleryTab .art-danger { border-color: #ef4444 !important; color: #fca5a5 !important; }
   #artilleryTab .art-x { min-height: 32px !important; padding: 0 8px; }
   #artilleryTab .art-mrow { margin: 4px 0; overflow-wrap: anywhere; }
+/* ===== 2026-11-03: Contract & Mission Builder — one vertical stack (layout only) ===== */
+#hsBuilderTab .bld-grid { display: flex; flex-direction: column; gap: 12px; grid-template-columns: none; }
+#hsBuilderTab .bld-grid > .card { width: 100%; box-sizing: border-box; margin: 0; }
+#hsBuilderTab .bld-treecard { margin-top: 12px; }
+#hsBuilderTab .bld-row { flex-wrap: wrap; align-items: stretch; }
+#hsBuilderTab .bld-row .bld-pickbtn { flex: 1 1 240px; min-width: 0; width: auto; white-space: normal; word-break: normal; overflow-wrap: anywhere; }
+#hsBuilderTab .bld-row > button:not(.bld-pickbtn) { flex: 0 0 auto; min-height: 46px; padding: 10px 14px; white-space: nowrap; }
+@media (max-width: 560px) { #hsBuilderTab .bld-row .bld-pickbtn { flex-basis: 100%; } #hsBuilderTab .bld-row > button:not(.bld-pickbtn) { flex: 1 1 0; } }
+  /* 2026-11-03 (b) Campaign Map game board */
+  #hsCampaignMapTab .cm-bt { font: 700 8px sans-serif; fill: #fecaca; text-anchor: middle; pointer-events: none; }
+  #hsCampaignMapTab .cm-turnin { width: 5.5em; text-align: center; font-size: 1.1rem; min-height: 44px; }
+  #hsCampaignMapTab .cm-turnbar .btn-grey { min-width: 48px; }
+  #hsCampaignMapTab .cm-frow.cm-on { outline: 2px solid #fde047; }
+  #hsCampaignMapTab .cm-burow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0; }
+  #hsCampaignMapTab .cm-burow .cm-in { flex: 1 1 10em; min-width: 0; }
+  #hsCampaignMapTab .cm-burow .cm-num { width: 4.5em; }
+  #hsCampaignMapTab .cm-blipcard .cm-ch .cm-in { flex: 1 1 8em; min-width: 0; }
+  #hsCampaignMapTab details.cm-sec > summary { cursor: pointer; }
 </style>
 </head>
 <body data-section="aces">
@@ -22826,8 +22844,10 @@ ZZV5YBNPJH	Rifleman	RFL-5M	1227	31	60	1	1
 <script>
 /* ===== 2026-10-28 (b): build stamp + WHAT'S NEW, storage protection, SHARE PNG, declutter (tap-to-expand). =====
    Device prefs only: bt_whatsnew_v1 {seen} written when the WHAT'S NEW card is dismissed. No save keys touched. */
-var BT_BUILD = { id: '20261029', date: '2026-10-29' };
+var BT_BUILD = { id: '20261103b', date: '2026-11-03' };
 var BT_WHATSNEW = [
+  'Campaign Map is now a one-sided game board: move your lances and enemy radar blips (mech names, PV, BSP) anywhere, set the turn freely, and create, duplicate, clear, reset or delete games; no turn flow or income rules.',
+  'Contract & Mission Builder: cards now stack top to bottom (1 Setup, 2 Offer, 3 Terms, 4 World & Lore, 5 Track Tree); Employer / Mission rows no longer squash.',
   'Artillery Tool is now a hex recorder (no photos): mark hexes by tap or hex number, LOCK HEXES for a game, RESET GAME to clear.',
   'Campaign Map tidied: world picker rows no longer squash into one letter per line; Official / Custom world cards with START; toolbar and BACKUP row lined up.',
   'White line on the right edge (tablet / PWA): the page scrollbar is now dark.',
@@ -23144,6 +23164,153 @@ var BtArt = (function () {
 (function(){ if (typeof cmAct !== 'function') return; var base = cmAct;
   window.cmAct = function (act, a, el) { if (act === 'startOn') { var ws = cmWorlds(), j = ws.findIndex(function (w) { return w.id === a; }); if (j >= 0) cmStartOnWorld(ws[j]); return; } return base.apply(this, arguments); };
   try { cmAct = window.cmAct; } catch (e) {} })();
+</script>
+<script>
+/* ===== 2026-11-03 (b) CAMPAIGN MAP -> one-sided free-form GAME BOARD (informational only).
+   My lances move freely; enemy forces are radar blips (unit name / PV / BSP). No turn flow, income, Yakuza check,
+   battles or SEND TO MISSIONS on the board. Old engine functions are left in place (unused by the board) and old saves
+   load unchanged: new fields c.blips / c.boardNote are optional and only written when used. ===== */
+(function () {
+  if (typeof cmRender !== 'function') return;
+  var E = cmE, B = cmB; window.cmRenderPlayLegacy = cmRenderPlay; window.cmHeaderInfoLegacy = cmHeaderInfo; window.cmHeaderLinesLegacy = cmHeaderLines;   /* old two-sided view kept for tests / reference only */
+  function uid(p) { return p + Date.now().toString(36) + btRandInt(9999); }
+  function blips(c) { return Array.isArray(c.blips) ? c.blips : []; }
+  function blip(c, id) { return blips(c).find(function (b) { return b.id === id; }) || null; }
+  function bTot(b) { var pv = 0, bsp = 0; (b.units || []).forEach(function (x) { pv += (parseInt(x.pv, 10) || 0); bsp += (parseInt(x.bsp, 10) || 0); }); return { pv: pv, bsp: bsp, n: (b.units || []).length }; }
+  function myForms(c) { return c.forms.filter(function (f) { return f.side === 'A'; }); }
+  function fName(c, f) { return (f.name || 'Lance'); }
+  window.cmBlips = blips; window.cmBlipTotals = bTot;
+  /* --- map drawing: blips as radar markers; tokens keep their old look --- */
+  var baseSvg = cmSvg;
+  cmSvg = function (w, o) { var h = baseSvg.apply(this, arguments); o = o || {}; var c = o.c; if (!c || !blips(c).length) return h;
+    var g = cmGeom(w), add = '', at = {};
+    blips(c).forEach(function (b) { if (!b.hex || !cmInGrid(w, cmParse(b.hex).c, cmParse(b.hex).r)) return; var k = at[b.hex] = (at[b.hex] || 0) + 1; var xy = cmCenter(w, b.hex);
+      var x = xy[0] + (k - 1) * 11 - 6, y = xy[1] - 6, sel = o.selBlip === b.id;
+      add += '<g class="cm-blip" pointer-events="none"><circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="9" fill="none" stroke="#f87171" stroke-width="1" opacity=".6"/><circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="6" fill="#7f1d1d" stroke="' + (sel ? '#fde047' : '#f87171') + '" stroke-width="' + (sel ? 3 : 1.5) + '"/><text x="' + x.toFixed(1) + '" y="' + (y + 3).toFixed(1) + '" class="cm-bt" font-family="sans-serif" font-size="8" font-weight="700" fill="#fecaca" text-anchor="middle">' + (b.revealed ? 'E' : '?') + '</text></g>'; });
+    return h.replace(/<\/svg>$/, add + '</svg>'); };
+  cmSnapCamp = function (c, s) { return Object.assign({}, c, { own: s.own, forms: s.forms, blips: s.blips || [] }); };
+  cmHeaderInfo = function (c) { var mine = myForms(c).filter(function (f) { return f.hex && !f.dead; }).length, bl = blips(c).filter(function (b) { return b.hex; }); var pv = 0, bsp = 0; bl.forEach(function (b) { var t = bTot(b); pv += t.pv; bsp += t.bsp; });
+    return { world: c.name + ' (' + c.world.name + ')', turn: c.turn, A: 'My lances on the map: ' + mine, B: 'Enemy blips: ' + bl.length + ' (PV ' + pv + ', BSP ' + bsp + ')', held: 'Game board (informational)' }; };
+  cmHeaderLines = function (hd) { return [hd.world + ' \u2014 TURN ' + hd.turn, hd.A + '   |   ' + hd.B, hd.held]; };
+  /* --- snapshots: manual SAVE SNAPSHOT, restore, delete (bt_cmsnap_v1, extra fields optional) --- */
+  function snapTake(c) { cmSnapTake(c); try { var o = cmSnapLoad(), L = o.c[c.id], s = L[L.length - 1]; s.blips = cmClone(blips(c)); s.manual = 1; localStorage.setItem(CM_SNAP_KEY, JSON.stringify(o)); } catch (e) {} }
+  function snapDel(c, i) { try { var o = cmSnapLoad(), L = o.c[c.id] || []; L.splice(i, 1); localStorage.setItem(CM_SNAP_KEY, JSON.stringify(o)); } catch (e) {} }
+  function snapRestore(c, i) { var s = cmSnapList(c)[i]; if (!s) return; cmPush(c);
+    (s.forms || []).forEach(function (sf) { var f = cmForm(c, sf.id); if (f) { f.hex = sf.hex; f.dead = !!sf.dead; } });
+    c.turn = s.turn; if (s.blips) c.blips = cmClone(s.blips); cmLog(c, 'Snapshot ' + s.t + ' restored.'); cmSave(); }
+  /* --- game management --- */
+  function blankWorld(name, cols, rows) { return { id: uid('w'), schema: 1, name: name, badge: 'custom', source: 'Custom blank board', cols: cols, rows: rows, defBiome: 'savannah', defType: 'empty', hexes: {},
+    types: { empty: { name: 'Empty Hex', icon: 'none', color: '#e5e7eb', pay: 0, enter: true, named: false, track: '', bonus: 'None.', terrain: '' } }, ends: [], lzTypes: {}, lzPen: {}, turnLimit: 0, forms: {}, bsp: {}, move: { lm: 4, ha: 2 }, econ: {}, victory: [], reinf: { n: 0 }, rules: [], final: { text: [] } }; }
+  function addGame(w, nm) { var c = cmNewCampaign(w, nm); c.sides.A.name = 'My Force'; c.sides.B.name = 'Enemy'; c.blips = []; var s = cmS(); s.campaigns.push(c); s.activeId = c.id; s.ui.view = 'play'; s.ui.sel = null; s.ui.selForm = null; s.ui.selBlip = null; cmLog(c, 'Game created on ' + w.name + '.'); cmSave(); }
+  function newGame() { var ws = cmWorlds();
+    btPick({ title: 'NEW GAME / MAP', intro: 'Pick a board. Mallory\u2019s World is the starting template; a blank board is Custom.', items: [{ label: 'BLANK BOARD (Custom)', detail: 'you set the size' }].concat(ws.map(function (w) { return { label: w.name, detail: (w.badge === 'official' ? 'TEMPLATE \u00b7 ' : 'CUSTOM \u00b7 ') + (w.source || '') }; })),
+      onPick: function (j) { if (j === 0) { var nm = prompt('Game name:', 'New board'); if (nm === null) return; var sz = prompt('Board size (columns x rows):', '11x14'); if (sz === null) return; var m = String(sz).match(/(\d+)\D+(\d+)/) || [0, 11, 14];
+          addGame(blankWorld(String(nm || 'New board').slice(0, 60), Math.max(1, Math.min(40, m[1] | 0)), Math.max(1, Math.min(40, m[2] | 0))), String(nm || 'New board').slice(0, 60)); return; }
+        var w = ws[j - 1]; var n2 = prompt('Game name:', w.name); if (n2 === null) return; addGame(w, String(n2 || w.name).slice(0, 60)); } }); }
+  function pickGame() { var s = cmS(); if (!s.campaigns.length) { newGame(); return; }
+    btPick({ title: 'GAMES / MAPS', items: s.campaigns.map(function (c) { return { label: c.name + (c.id === s.activeId ? ' (open)' : ''), detail: c.world.name + ' \u00b7 turn ' + c.turn }; }),
+      onPick: function (j) { s.activeId = s.campaigns[j].id; s.ui.sel = null; s.ui.selForm = null; s.ui.selBlip = null; cmSave(); } }); }
+  function confirmDo(title, intro, label, fn) { btPick({ title: title, intro: intro, items: [{ label: label }, { label: 'CANCEL' }], onPick: function (j) { if (j === 0) fn(); } }); }
+  function clearBoard(c) { cmPush(c); c.forms.forEach(function (f) { f.hex = null; f.moved = false; }); c.blips = []; c.battle = null; var u = cmS().ui; u.selForm = null; u.selBlip = null; cmLog(c, 'Map cleared (lances taken off the board, enemy blips removed).'); cmSave(); }
+  /* --- tapping: tap a token (or pick it in the list), then tap any hex to move it there --- */
+  function boardTap(id) { var s = cmS(), u = s.ui, c = cmCamp(); if (!c) return;
+    if (u.selBlip) { var b = blip(c, u.selBlip); if (b && b.hex !== id) { cmPush(c); b.hex = id; u.sel = id; cmLog(c, (b.name || 'Blip') + ' moved to ' + id + '.'); cmSave(); return; } }
+    else if (u.selForm) { var f = cmForm(c, u.selForm); if (f && f.hex !== id) { cmPush(c); var from = f.hex; f.hex = id; f.dead = false; u.sel = id; cmLog(c, fName(c, f) + (from ? ' moved ' + from + ' \u2192 ' + id : ' placed at ' + id) + '.'); cmSave(); return; } }
+    var toks = cmFormsAt(c, id).map(function (f) { return 'f:' + f.id; }).concat(blips(c).filter(function (b) { return b.hex === id; }).map(function (b) { return 'b:' + b.id; }));
+    var cur = u.selBlip ? 'b:' + u.selBlip : u.selForm ? 'f:' + u.selForm : null; var i = toks.indexOf(cur);
+    var nx = u.sel === id && i >= 0 ? toks[i + 1] : (i >= 0 ? null : toks[0]);
+    u.sel = id; u.selForm = nx && nx[0] === 'f' ? nx.slice(2) : null; u.selBlip = nx && nx[0] === 'b' ? nx.slice(2) : null; cmSave(); }
+  window.cmBoardTap = boardTap;
+  /* --- rendering --- */
+  function formCard(c, f) { var ed = cmS().ui.editForm === f.id;
+    var h = '<div class="cm-card"><div class="cm-ch"><span class="cm-dot" style="background:' + CM_SIDE_COL.A + '"></span> <b>' + E(fName(c, f)) + '</b> <small>my lance</small></div><div>' + (f.hex ? 'Hex <b>' + f.hex + '</b>' : 'Off the board') + ' \u00b7 ' + (f.units || []).length + ' units \u00b7 ' + (f.bsp | 0) + ' BSP</div>';
+    h += '<div class="ok">Tap any hex to move it there.</div><div class="cm-units">' + (f.units || []).map(function (un, i) { return '<div class="cm-urow">' + E(un.n) + (ed ? B('\u2715', 'uDel', f.id + ':' + i, 'btn-danger btn-danger-soft') : '') + '</div>'; }).join('') + '</div><div class="cm-row">';
+    if (ed) h += '<input class="cm-in cm-fname" value="' + E(f.name) + '" maxlength="40" data-cmf="f.' + f.id + '">' + B('+ UNIT', 'uAdd', f.id) + B('+ FROM HOT SPOTS', 'uHs', f.id) + B('BSP \u22121', 'bsp', f.id + ':-1') + B('BSP +1', 'bsp', f.id + ':1') + B('DONE', 'fDone', null, 'btn');
+    else h += B('EDIT', 'fEdit', f.id);
+    h += (f.hex ? B('TAKE OFF MAP', 'bdOff', f.id) : '') + B('DELETE', 'fDel', f.id, 'btn-danger btn-danger-soft') + '</div></div>'; return h; }
+  function blipCard(c, b) { var t = bTot(b);
+    var h = '<div class="cm-card cm-blipcard"><div class="cm-ch"><span class="cm-dot" style="background:#f87171"></span> <input class="cm-in cm-fname" value="' + E(b.name) + '" maxlength="40" data-cmf="bl.' + b.id + '.name"> <small>enemy blip</small></div>';
+    h += '<div>' + (b.hex ? 'Hex <b>' + b.hex + '</b>' : 'Off the board') + ' \u00b7 <b>PV ' + t.pv + '</b> \u00b7 <b>BSP ' + t.bsp + '</b> \u00b7 ' + t.n + ' units</div><div class="ok">Tap any hex to move it there.</div>';
+    h += '<div class="cm-bunits">' + (b.units || []).map(function (x, i) { var k = 'bu.' + b.id + '.' + i + '.'; return '<div class="cm-burow"><input class="cm-in" placeholder="Mech name" value="' + E(x.n) + '" maxlength="50" data-cmf="' + k + 'n"><label class="cm-lab">PV <input class="cm-num" type="number" min="0" value="' + (x.pv == null ? '' : x.pv) + '" data-cmf="' + k + 'pv"></label><label class="cm-lab">BSP <input class="cm-num" type="number" min="0" value="' + (x.bsp == null ? '' : x.bsp) + '" data-cmf="' + k + 'bsp"></label>' + B('\u2715', 'blUDel', b.id + ':' + i, 'btn-danger btn-danger-soft') + '</div>'; }).join('') + '</div>';
+    h += '<div class="cm-row">' + B('+ UNIT', 'blUAdd', b.id) + B(b.revealed ? 'REVEALED' : 'UNKNOWN', 'blRev', b.id, b.revealed ? 'btn' : 'btn-grey', 'Mark the blip revealed or unknown') + (b.hex ? B('TAKE OFF MAP', 'blOff', b.id) : '') + B('DELETE BLIP', 'blDel', b.id, 'btn-danger btn-danger-soft') + '</div>';
+    h += '<p class="hs-rule-cite">PV fills in from the MUL when the name is found (optional); type over it any time. Blips are plain markers: no damage or stats tracked.</p></div>'; return h; }
+  function snapSec(c) { var L = cmSnapList(c);
+    var h = '<div class="cm-sec cm-imgsec"><div class="cm-sh">SAVE &amp; MAP IMAGE</div><div class="cm-row">' + B('SAVE SNAPSHOT', 'bdSnap', null, 'btn') + B('SAVE MAP IMAGE (PNG)', 'imgPng', null, 'btn-grey') + B('PRINT MAP', 'imgPrint', null, 'btn-grey') + '</div>';
+    h += '<p class="hs-rule-cite">The board saves itself on every change. SAVE SNAPSHOT keeps a copy of positions, blips and turn (last 30, this device) you can restore later.</p>';
+    if (L.length) h += '<div class="cm-gal">' + L.map(function (s, i) { return { s: s, i: i }; }).reverse().map(function (o) { return '<div class="cm-gi"><div class="cm-gt">' + cmSvg(c.world, { c: cmSnapCamp(c, o.s), zoom: 1 }).replace(/ class="cm-hex" data-cm="hex" data-a="\d+"/g, '') + '</div><div class="cm-gl">Turn ' + o.s.turn + ' <small>' + E(o.s.t) + '</small></div><div class="cm-row">' + B('RESTORE', 'bdSnapRes', o.i) + B('PNG', 'imgPng', o.i) + B('PRINT', 'imgPrint', o.i) + B('\u2715', 'bdSnapDel', o.i, 'btn-danger btn-danger-soft') + '</div></div>'; }).join('') + '</div>';
+    else h += '<div class="cm-note">No snapshots yet.</div>';
+    return h + '</div>'; }
+  cmRenderPlay = function (c, u) { var w = c.world, h = '';
+    var f = u.selForm ? cmForm(c, u.selForm) : null, b = u.selBlip ? blip(c, u.selBlip) : null;
+    h += '<div class="cm-sec cm-boardbar"><div class="cm-sh">' + cmBadge(w) + ' ' + E(c.name) + ' <span class="cm-cite">' + E(w.name) + ' \u00b7 game board, informational only</span></div>';
+    h += '<div class="cm-row cm-turnbar"><span class="cm-turn">TURN</span>' + B('\u2212', 'bdTurn', '-1') + '<input class="cm-num cm-turnin" type="number" value="' + (c.turn | 0) + '" data-cmf="c.turn" aria-label="Turn">' + B('+', 'bdTurn', '1') + '</div>';
+    h += '<div class="cm-row cm-gamebar">' + B('RENAME', 'bdRename') + B('DUPLICATE', 'bdDup') + B('CLEAR MAP', 'bdClear') + B('RESET TO MALLORY\u2019S WORLD', 'bdReset') + B('DELETE GAME', 'bdDelete', null, 'btn-danger btn-danger-soft') + '</div></div>';
+    h += '<div class="cm-grid"><div class="cm-mapcol">' + cmMapBlock(w, { c: c, sel: u.sel, selForm: u.selForm, selBlip: u.selBlip }) + '<div class="cm-legend"><span style="color:' + CM_SIDE_COL.A + '">\u25cf ' + E(c.sides.A.name) + '</span> <span style="color:#f87171">\u25ce enemy blip (? unknown, E revealed)</span> <span>Tap a token, then any hex to move it.</span></div></div>';
+    var nav = '<div class="cm-row cm-navrow">' + (u.sel || u.selForm || u.selBlip ? B('\u2715 CLOSE CARD', 'btDesel', null, 'btn-grey', 'Deselect') : '') + B('\u2191 BACK TO MAP', 'btToMap', null, 'btn-grey cm-tomap') + '</div>';
+    h += '<div class="cm-sidecol" id="cmSideCol">' + nav;
+    if (f) h += formCard(c, f); if (b) h += blipCard(c, b);
+    if (u.sel && !f && !b) h += cmTypeCard(w, cmHex(w, u.sel).t, u.sel, c) + (typeof cmMapsheetHtml === 'function' ? cmMapsheetHtml(cmHex(w, u.sel).b) : '');
+    if (!u.sel && !f && !b) h += '<div class="cm-card"><small>Tap a hex for its card. Pick a lance or blip (on the map or in the lists), then tap any hex to move it.</small></div>';
+    h += '</div></div>';
+    var mf = myForms(c);
+    h += '<div class="cm-sides"><div class="cm-sec cm-side" style="border-top:3px solid ' + CM_SIDE_COL.A + '"><div class="cm-sh" style="color:' + CM_SIDE_COL.A + '"><input class="cm-in cm-sname" value="' + E(c.sides.A.name) + '" maxlength="30" data-cmf="c.sides.A.name"></div><div class="cm-sub">MY LANCES ' + mf.filter(function (x) { return x.hex; }).length + ' on map / ' + mf.length + '</div>';
+    h += mf.map(function (x) { return '<div class="cm-frow' + (u.selForm === x.id ? ' cm-on' : '') + '" data-cm="bdSelF" data-a="' + x.id + '"><span class="cm-dot" style="background:' + CM_SIDE_COL.A + '"></span><b>' + E(fName(c, x)) + '</b> <small>' + (x.units || []).length + 'u \u00b7 ' + (x.bsp | 0) + ' BSP \u00b7 ' + (x.hex || 'off map') + '</small></div>'; }).join('');
+    h += '<div class="cm-row">' + B('+ LANCE', 'bdNewF', null, 'btn') + '</div></div>';
+    var bl = blips(c), pv = 0, bs = 0; bl.forEach(function (x) { var t = bTot(x); pv += t.pv; bs += t.bsp; });
+    h += '<div class="cm-sec cm-side" style="border-top:3px solid #f87171"><div class="cm-sh" style="color:#f87171">ENEMY BLIPS</div><div class="cm-sub">' + bl.length + ' BLIPS \u00b7 PV ' + pv + ' \u00b7 BSP ' + bs + '</div>';
+    h += bl.map(function (x) { var t = bTot(x); return '<div class="cm-frow' + (u.selBlip === x.id ? ' cm-on' : '') + '" data-cm="bdSelB" data-a="' + x.id + '"><span class="cm-dot" style="background:#f87171"></span><b>' + E(x.name) + '</b> <small>' + (x.revealed ? 'revealed' : 'unknown') + ' \u00b7 ' + t.n + 'u \u00b7 PV ' + t.pv + ' \u00b7 BSP ' + t.bsp + ' \u00b7 ' + (x.hex || 'off map') + '</small></div>'; }).join('');
+    h += '<div class="cm-row">' + B('+ ENEMY BLIP', 'blNew', null, 'btn') + '</div></div></div>';
+    var oldB = c.forms.filter(function (x) { return x.side === 'B'; }); if (oldB.length) h += '<div class="cm-note">This game also has ' + oldB.length + ' opponent formation(s) from the old two-sided tracker. They stay on the map as red tokens and can be moved by tapping; add enemy blips for new contacts.</div>';
+    h += snapSec(c);
+    h += '<details class="cm-sec"><summary class="cm-sh">GAME LOG</summary><div class="cm-log">' + (c.log || []).slice(0, 60).map(function (t) { return '<div class="cm-logl">' + E(t) + '</div>'; }).join('') + '</div></details>';
+    return h; };
+  /* --- field edits (turn, blips) --- */
+  var baseSet = cmSetField;
+  cmSetField = function (path, val) { var c = cmCamp(), p = String(path).split('.');
+    if (path === 'c.turn') { if (!c) return; var v = parseInt(val, 10); c.turn = isNaN(v) ? c.turn : v; cmSave(); return; }
+    if (p[0] === 'bl' && c) { var b = blip(c, p[1]); if (b) { b.name = String(val || '').slice(0, 40) || 'Blip'; cmSave(); } return; }
+    if (p[0] === 'bu' && c) { var b2 = blip(c, p[1]); var x = b2 && b2.units[p[2] | 0]; if (!x) return; var k = p[3];
+      if (k === 'n') { x.n = String(val || '').slice(0, 50); if ((x.pv == null || x.pv === '') && x.n && typeof msMulFind === 'function') { var m = msMulFind(x.n); if (m && m.pv) x.pv = m.pv; } }
+      else { var s2 = String(val).trim(); x[k] = s2 === '' ? null : Math.max(0, parseInt(s2, 10) || 0); }
+      cmSave(); return; }
+    return baseSet.apply(this, arguments); };
+  /* --- actions --- */
+  var baseAct = cmAct;
+  cmAct = window.cmAct = function (act, a, el) { var s = cmS(), u = s.ui, c = cmCamp(), ap = String(a == null ? '' : a).split(':');
+    if (act === 'newCamp') { newGame(); return; }
+    if (act === 'pickCamp') { pickGame(); return; }
+    if (act === 'hex' && u.view !== 'edit' && u.view !== 'rules') { boardTap(a); return; }
+    if (act === 'btDesel') { u.sel = null; u.selForm = null; u.selBlip = null; cmSave(); return; }
+    if (!c) return baseAct.apply(this, arguments);
+    switch (act) {
+      case 'bdTurn': cmPush(c); c.turn = (c.turn | 0) + (parseInt(a, 10) || 0); cmSave(); return;
+      case 'bdSelF': u.selForm = a; u.selBlip = null; var f0 = cmForm(c, a); u.sel = f0 && f0.hex ? f0.hex : null; cmSave(); return;
+      case 'bdSelB': u.selBlip = a; u.selForm = null; var b0 = blip(c, a); u.sel = b0 && b0.hex ? b0.hex : null; cmSave(); return;
+      case 'bdNewF': { cmPush(c); var f = { id: uid('f'), side: 'A', name: 'Lance ' + (myForms(c).length + 1), units: [], bsp: 0, hex: null, moved: false, dead: false }; c.forms.push(f); u.selForm = f.id; u.selBlip = null; u.editForm = f.id; cmSave(); cmMsg('Lance added off the board: tap any hex to place it.'); return; }
+      case 'bdOff': { var f1 = cmForm(c, a); if (f1) { cmPush(c); f1.hex = null; u.sel = null; cmSave(); } return; }
+      case 'blNew': { cmPush(c); if (!Array.isArray(c.blips)) c.blips = []; var b = { id: uid('b'), name: 'Blip ' + (c.blips.length + 1), hex: null, revealed: false, units: [] }; c.blips.push(b); u.selBlip = b.id; u.selForm = null; cmSave(); cmMsg('Blip added off the board: tap any hex to place it.'); return; }
+      case 'blDel': { var b1 = blip(c, a); if (!b1) return; confirmDo('DELETE ' + b1.name + '?', 'Removes this enemy blip and its unit list.', 'YES, DELETE', function () { cmPush(c); c.blips = blips(c).filter(function (x) { return x.id !== a; }); u.selBlip = null; cmSave(); }); return; }
+      case 'blOff': { var b2 = blip(c, a); if (b2) { cmPush(c); b2.hex = null; u.sel = null; cmSave(); } return; }
+      case 'blRev': { var b3 = blip(c, a); if (b3) { cmPush(c); b3.revealed = !b3.revealed; cmSave(); } return; }
+      case 'blUAdd': { var b4 = blip(c, a); if (b4) { cmPush(c); b4.units = b4.units || []; b4.units.push({ n: '', pv: null, bsp: null }); cmSave(); } return; }
+      case 'blUDel': { var b5 = blip(c, ap[0]); if (b5) { cmPush(c); b5.units.splice(ap[1] | 0, 1); cmSave(); } return; }
+      case 'bdRename': { var n = prompt('Game name:', c.name); if (n === null) return; cmPush(c); c.name = String(n || c.name).slice(0, 60); cmSave(); return; }
+      case 'bdDup': { var d = cmClone(c); d.id = uid('c'); d.name = (c.name + ' (copy)').slice(0, 60); s.campaigns.push(d); s.activeId = d.id; u.selForm = null; u.selBlip = null; cmSave(); cmMsg('Duplicated.'); return; }
+      case 'bdClear': confirmDo('CLEAR "' + c.name + '"?', 'Takes every lance off the board and removes all enemy blips. Lances (and their units) stay in the list. UNDO can bring it back.', 'YES, CLEAR MAP', function () { clearBoard(c); }); return;
+      case 'bdReset': confirmDo('RESET "' + c.name + '" TO MALLORY\u2019S WORLD?', 'Puts the Mallory\u2019s World map back (template), takes lances off the board and removes enemy blips. Lances stay in the list.', 'YES, RESET', function () { clearBoard(c); var M = cmMallory(); c.world = cmClone(M); c.worldId = M.id; c.own = {}; cmLog(c, 'Map reset to Mallory\u2019s World.'); cmSave(); }); return;
+      case 'bdDelete': confirmDo('DELETE GAME "' + c.name + '"?', 'Removes only this game / map save. Export first if unsure.', 'YES, DELETE', function () { s.campaigns = s.campaigns.filter(function (x) { return x.id !== c.id; }); s.activeId = s.campaigns.length ? s.campaigns[0].id : null; u.selForm = null; u.selBlip = null; u.sel = null; cmSave(); }); return;
+      case 'bdSnap': snapTake(c); cmMsg('Snapshot saved.'); cmRender(); return;
+      case 'bdSnapRes': confirmDo('RESTORE THIS SNAPSHOT?', 'Lance positions, enemy blips and turn go back to the snapshot. UNDO can bring the current board back.', 'YES, RESTORE', function () { snapRestore(c, a | 0); }); return;
+      case 'bdSnapDel': confirmDo('DELETE THIS SNAPSHOT?', '', 'YES, DELETE', function () { snapDel(c, a | 0); cmRender(); }); return;
+    }
+    return baseAct.apply(this, arguments); };
+  /* toolbar wording: CAMPAIGN -> GAME, PLAY -> BOARD (same buttons) */
+  var baseRender = cmRender;
+  cmRender = function () { var r = baseRender.apply(this, arguments); try { var body = document.getElementById('cmBody'); if (body) {
+      var c = cmCamp(), pk = body.querySelector('.cm-top [data-cm="pickCamp"]'); if (pk) pk.textContent = 'GAME: ' + (c ? c.name : '(none)');
+      var nw = body.querySelector('.cm-top [data-cm="newCamp"]'); if (nw) nw.textContent = '+ NEW GAME / MAP';
+      var pl = body.querySelector('.cm-top [data-cm="view"][data-a="play"]'); if (pl) pl.textContent = 'BOARD'; } } catch (e) {} return r; };
+})();
 </script>
 <script>/* HDPWA only: service worker (relative path, works under any subfolder) */
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
