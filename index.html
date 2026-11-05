@@ -5,7 +5,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Hot Drops">
-  <meta name="hdpwa-version" content="20261103-8369c2cd">
+  <meta name="hdpwa-version" content="20261105-24d2130f">
   <script>window.__BT_NO_ICON = true; /* HDPWA: use the real manifest.webmanifest, not the runtime blob */</script>
 
   <meta charset="UTF-8">
@@ -1463,6 +1463,64 @@
   #hsCampaignMapTab .cm-burow .cm-num { width: 4.5em; }
   #hsCampaignMapTab .cm-blipcard .cm-ch .cm-in { flex: 1 1 8em; min-width: 0; }
   #hsCampaignMapTab details.cm-sec > summary { cursor: pointer; }
+  /* ===== 2026-11-05 batch ===== */
+  /* 2. Campaign Map hex ownership colours (easy to change) */
+  :root {
+    --cm-own-yours: #3b82f6;      /* Yours (side A) outline */
+    --cm-own-enemy: #ef4444;      /* Enemy (side B) outline */
+    --cm-own-contested: #f59e0b;  /* Contested outline */
+  }
+  #hsCampaignMapTab .cm-ownbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0; }
+  #hsCampaignMapTab .cm-ownbar .btn-sm, #hsCampaignMapTab .cm-ownbar .btn, #hsCampaignMapTab .cm-ownbar .btn-grey { min-height: 40px; }
+  #hsCampaignMapTab .cm-own-sw { display: inline-block; width: 12px; height: 12px; border: 2px solid currentColor; margin-right: 4px; vertical-align: -1px; border-radius: 2px; }
+  #hsCampaignMapTab .cm-own-leg { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem; color: #cbd5e1; margin: 4px 0 8px; }
+  #hsCampaignMapTab .cm-own-leg span { display: inline-flex; align-items: center; gap: 4px; }
+  #hsCampaignMapTab .cm-furow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0; }
+  #hsCampaignMapTab .cm-furow .cm-in { flex: 1 1 10em; min-width: 0; }
+  #hsCampaignMapTab .cm-furow .cm-num { width: 4.5em; }
+  #hsCampaignMapTab .cm-urow-sum { font-size: 0.85rem; color: #94a3b8; margin: 4px 0; }
+
+  /* 3. Roster / Hot Spots unit rows: widen PILOT using left space on the row */
+  #hsUnitsBody tr.hs-u-row {
+    grid-template-areas: "name name name type tons bv del" "pilot pilot pilot tech status repair glance";
+  }
+  @media (max-width: 860px) {
+    #hsUnitsBody tr.hs-u-row {
+      grid-template-areas: "name name name name del" "type tons bv tech tech" "pilot pilot status repair repair" "glance glance glance glance glance";
+    }
+  }
+  @media (min-width: 861px) {
+    #hsUnitsBody tr.hs-u-row {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.6fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.3fr) auto;
+      grid-template-areas: "name name name type tons bv del" "pilot pilot pilot tech status repair glance";
+    }
+  }
+  #hsUnitsBody .hs-u-pilot select.table-input { min-width: 12ch; }
+  .callsign-input { min-width: 180px; max-width: 100%; }
+
+  /* 4. Reference salvage calculator */
+  #hsRefSalvCard .hs-ref-salv-out { font-family: 'Russo One', sans-serif; font-size: 1.15rem; margin: 10px 0 6px; }
+  #hsRefSalvCard .hs-ref-salv-out b { color: var(--red-hover); }
+
+  /* 5. Artillery Tool tab removed from navigation (panel + script kept; bt_artillery_v1 untouched) */
+  #artilleryTab { display: none !important; }
+  .bsp-hex-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 4px 0; }
+  .bsp-hex-row input[type="text"] { width: 7.5em; min-height: 40px; font-size: 1rem; }
+
+  /* 6. Reference card speaker buttons */
+  .bt-speak-bar { display: inline-flex; gap: 6px; align-items: center; margin-left: auto; }
+  .bt-speak-bar .btn-sm { min-height: 36px; padding: 4px 10px; }
+  .card h2 .bt-speak-bar { flex-shrink: 0; }
+  .bt-speak-unsupported { display: none; }
+  /* ===== 2026-11-05 (b) BSP artillery: 5 pre-designated hexes (Core p.155) ===== */
+  .bsp-art-hexes { display: flex; flex-direction: column; gap: 6px; margin: 6px 0; padding: 8px; border: 1px solid #334155; background: #0a0a0a; }
+  .bsp-art-hexes .bsp-art-h { font-size: 0.78rem; color: #fbbf24; font-weight: 700; letter-spacing: 0.3px; }
+  .bsp-art-hexes .bsp-art-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .bsp-art-hexes label { display: inline-flex; align-items: center; gap: 4px; margin: 0; font-size: 0.8rem; color: #94a3b8; }
+  .bsp-art-hexes input[type="text"] { width: 6.5em; min-height: 40px; font-size: 1rem; }
+  .bsp-art-hexes .bsp-art-cite { font-size: 0.78rem; color: #94a3b8; line-height: 1.35; margin: 0; }
+  .bsp-art-fire { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0; }
+  .bsp-art-fire select { min-height: 40px; font-size: 1rem; max-width: 100%; }
 </style>
 </head>
 <body data-section="aces">
@@ -1584,7 +1642,6 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
       <div class="bts-mgroup">&nbsp;</div>
       <button type="button" class="bts-mbtn" data-tab="missionsTab">MISSIONS<small>pick-up games &middot; share forces &middot; results</small></button>
       <button type="button" class="bts-mbtn" data-tab="bspTab">BATTLEFIELD SUPPORT<small>BSP decks &amp; cards</small></button>
-      <button type="button" class="bts-mbtn" data-tab="artilleryTab">ARTILLERY TOOL<small>hex recorder &middot; minefields &middot; artillery &middot; lock for a game</small></button>
       <button type="button" class="bts-mbtn" data-tab="impexpTab">IMPORT / EXPORT<small>save backups &amp; restore</small></button>
       <button type="button" class="bts-mbtn" data-tab="forceLogTab">FORCE BATTLE LOG<small>every battle per force &amp; salvage record</small></button>
       <button type="button" class="bts-mbtn" data-tab="calcTab">CHARGE / DFA CALCULATOR<small>Core pp.77&ndash;80 to-hit &amp; damage</small></button>
@@ -1619,7 +1676,6 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
           <button onclick="switchTab('missionsTab')" title="Missions: Core pp.212-233 (Classic) and ASCE pp.126-134 (Alpha Strike) pick-up games, share codes, results log">Missions</button>
           <div class="menu-sep" style="color:#38bdf8;background:#04121a;border-bottom-color:#0c4a6e;">── BATTLEFIELD SUPPORT ──</div>
           <button onclick="switchTab('bspTab')">BSP Decks &amp; Cards</button>
-          <button onclick="switchTab('artilleryTab')" title="Hex recorder: minefields / artillery / smoke by hex number, lock for a game (Core pp.153-156)">Artillery Tool</button>
           <div class="menu-sep" style="color:#94a3b8;background:#0f1419;border-bottom-color:#2a3340;">── SAVE / BACKUP ──</div>
           <button onclick="switchTab('impexpTab')" title="Export / import Aces, Hot Spots, Battlefield Support saves and BSP photo backups">Import / Export</button>
           <button onclick="switchTab('forceLogTab')" title="One battle log per force: date, source, opponent, outcome, salvage">Force Battle Log</button>
@@ -6848,7 +6904,7 @@ function cmFromHs(f) {
   if (!units.length) { cmMsg('No Hot Spots force units found (read-only lookup).'); return; }
   const c = cmCamp();
   btPick({ title: 'ADD FROM HOT SPOTS FORCE (read-only)', intro: 'Copies the unit name and weight class into this formation only. Your Hot Spots save is not changed.', items: units.map(u => ({ label: u.name, detail: (u.tons ? u.tons + ' t' : u.size ? 'AS SZ ' + u.size : '') + ' \u00b7 ' + (u.type || '') + ' \u00b7 ' + (u.status || '') })),
-    onPick: j => { const u = units[j]; cmPush(c); const heavy = u.tons ? (u.tons | 0) >= 60 : (u.size | 0) >= 3; f.units.push({ n: u.name, c: heavy ? 'HA' : 'LM', m: !u.type || /mech/i.test(u.type) }); cmSave(); } });
+    onPick: j => { const u = units[j]; cmPush(c); const heavy = u.tons ? (u.tons | 0) >= 60 : (u.size | 0) >= 3; f.units.push({ n: u.name, c: heavy ? 'HA' : 'LM', m: !u.type || /mech/i.test(u.type), bv: (parseInt(u.bv, 10) || parseInt(u.pv, 10) || null), bsp: null }); cmSave(); } });
 }
 function cmCopy(t) { try { if (navigator.clipboard) navigator.clipboard.writeText(t).catch(() => {}); } catch (e) {} cmS().ui.copy = t; cmSave(); cmMsg('Copied (when the browser allows). The text is also shown below.'); }
 function cmIncomeText(c, side) { const I = cmIncome(c, side), S = c.sides[side];
@@ -7109,7 +7165,7 @@ function cmActBase(act, a, el) {
     case 'fDone': u.editForm = null; cmSave(); return;
     case 'fDel': { const f = F(); if (!f) return; btPick({ title: 'DELETE ' + cmFormName(c, f) + '?', items: [{ label: 'YES, DELETE' }], onPick: () => { cmPush(c); c.forms = c.forms.filter(x => x.id !== f.id); u.selForm = null; cmSave(); } }); return; }
     case 'fDead': { const f = F(); if (!f) return; cmPush(c); f.dead = !f.dead; if (f.dead) f.hex = null; else f.hex = c.sides[f.side].lz; cmLog(c, cmFormName(c, f) + (f.dead ? ' marked destroyed; its BSP may be rebalanced at the start of the next map turn (p.135).' : ' restored at the LZ.')); cmSave(); return; }
-    case 'uAdd': { const f = F(); if (!f) return; const n = prompt('Unit name:', ''); if (n === null || !String(n).trim()) return; cmPush(c); f.units.push({ n: String(n).trim().slice(0, 50), c: 'LM', m: true }); cmSave(); return; }
+    case 'uAdd': { const f = F(); if (!f) return; const n = prompt('Unit name:', ''); if (n === null || !String(n).trim()) return; cmPush(c); f.units.push({ n: String(n).trim().slice(0, 50), c: 'LM', m: true, bv: null, bsp: null }); cmSave(); return; }
     case 'uHs': { const f = F(); if (f) cmFromHs(f); return; }
     case 'uCls': { const f = F(); const x = f && f.units[ap[1] | 0]; if (x) { cmPush(c); x.c = x.c === 'HA' ? 'LM' : 'HA'; cmSave(); } return; }
     case 'uMech': { const f = F(); const x = f && f.units[ap[1] | 0]; if (x) { cmPush(c); x.m = x.m === false; cmSave(); } return; }
@@ -11137,6 +11193,13 @@ function bspNormalize(raw) {
         ni.revealedTurn = it.revealedTurn == null ? null : bspInt(it.revealedTurn, 0);
         if (card.kind === 'minefield') ni.left = Math.max(0, Math.min(99, bspInt(it.left, bspMineGroups(card))));
         if (card.kind === 'artillery' || card.kind === 'minefield') ni.hex = bspClean(it.hex, 24);
+        if (card.kind === 'artillery') {
+          ni.hexes = ['', '', '', '', ''];
+          if (Array.isArray(it.hexes)) { for (let hi = 0; hi < 5; hi++) ni.hexes[hi] = bspClean(it.hexes[hi], 24); }
+          if (!ni.hexes[0] && ni.hex) ni.hexes[0] = ni.hex;
+          else if (ni.hexes[0] && !ni.hex) ni.hex = ni.hexes[0];
+          ni.firedHex = bspClean(it.firedHex, 24);
+        }
         if (card.kind === 'aircover') ni.vs = Math.max(0, Math.min(9, bspInt(it.vs, 0)));
       } else {
         ni.skilled = !!it.skilled;
@@ -11255,6 +11318,7 @@ function bspNewItem(card, skilled) {
     it.status = 'hidden'; it.revealedTurn = null;
     if (card.kind === 'minefield') it.left = bspMineGroups(card);
     if (card.kind === 'artillery' || card.kind === 'minefield') it.hex = '';
+    if (card.kind === 'artillery') { it.hexes = ['', '', '', '', '']; it.firedHex = ''; }
     if (card.kind === 'aircover') it.vs = 0;
   } else {
     it.skilled = !!skilled; it.check = card.check == null ? null : card.check; it.dmg = 0; it.destroyed = false; it.ai = false; it.last = '';
@@ -11350,6 +11414,7 @@ function bspResetPlayItems(d) {
       it.status = 'hidden'; it.revealedTurn = null;
       if (c.kind === 'minefield') it.left = bspMineGroups(c);
       if (c.kind === 'artillery' || c.kind === 'minefield') it.hex = '';
+      if (c.kind === 'artillery') { it.hexes = ['', '', '', '', '']; it.firedHex = ''; }
       if (c.kind === 'aircover') it.vs = 0;
     } else {
       it.check = c.check == null ? null : c.check; it.dmg = 0; it.destroyed = false; it.ai = false; it.last = '';
@@ -22844,8 +22909,10 @@ ZZV5YBNPJH	Rifleman	RFL-5M	1227	31	60	1	1
 <script>
 /* ===== 2026-10-28 (b): build stamp + WHAT'S NEW, storage protection, SHARE PNG, declutter (tap-to-expand). =====
    Device prefs only: bt_whatsnew_v1 {seen} written when the WHAT'S NEW card is dismissed. No save keys touched. */
-var BT_BUILD = { id: '20261103b', date: '2026-11-03' };
+var BT_BUILD = { id: '20261105b', date: '2026-11-05' };
 var BT_WHATSNEW = [
+  'BSP Artillery strikes: up to 5 pre-designated hexes per card (Core p.155); FIRE picks which hex the strike targets. Minefields stay one hex.',
+  'Campaign Map lances list each mech with name, BV and BSP; hex control outlines (Yours / Enemy / Contested / None) use easy-to-change colours; Artillery Tool tab removed (hex + DETONATE / FIRE stay on BSP strike cards); Reference Calcs gains a salvage calculator and SPEAK / STOP on reference cards; roster Pilot field widened.',
   'Campaign Map is now a one-sided game board: move your lances and enemy radar blips (mech names, PV, BSP) anywhere, set the turn freely, and create, duplicate, clear, reset or delete games; no turn flow or income rules.',
   'Contract & Mission Builder: cards now stack top to bottom (1 Setup, 2 Offer, 3 Terms, 4 World & Lore, 5 Track Tree); Employer / Mission rows no longer squash.',
   'Artillery Tool is now a hex recorder (no photos): mark hexes by tap or hex number, LOCK HEXES for a game, RESET GAME to clear.',
@@ -23224,7 +23291,11 @@ var BtArt = (function () {
   /* --- rendering --- */
   function formCard(c, f) { var ed = cmS().ui.editForm === f.id;
     var h = '<div class="cm-card"><div class="cm-ch"><span class="cm-dot" style="background:' + CM_SIDE_COL.A + '"></span> <b>' + E(fName(c, f)) + '</b> <small>my lance</small></div><div>' + (f.hex ? 'Hex <b>' + f.hex + '</b>' : 'Off the board') + ' \u00b7 ' + (f.units || []).length + ' units \u00b7 ' + (f.bsp | 0) + ' BSP</div>';
-    h += '<div class="ok">Tap any hex to move it there.</div><div class="cm-units">' + (f.units || []).map(function (un, i) { return '<div class="cm-urow">' + E(un.n) + (ed ? B('\u2715', 'uDel', f.id + ':' + i, 'btn-danger btn-danger-soft') : '') + '</div>'; }).join('') + '</div><div class="cm-row">';
+        var _ft = (function (u) { var bv = 0, bsp = 0; (u || []).forEach(function (x) { bv += (parseInt(x.bv, 10) || 0); bsp += (parseInt(x.bsp, 10) || 0); }); return { bv: bv, bsp: bsp, n: (u || []).length }; })(f.units);
+    h += '<div class="ok">Tap any hex to move it there.</div><div class="cm-units"><div class="cm-urow-sum"><b>BV ' + _ft.bv + '</b> \u00b7 <b>BSP ' + _ft.bsp + '</b> \u00b7 ' + _ft.n + ' units</div>' + (f.units || []).map(function (un, i) {
+      if (ed) { var k = 'fu.' + f.id + '.' + i + '.'; return '<div class="cm-furow"><input class="cm-in" placeholder="Mech name" value="' + E(un.n || '') + '" maxlength="50" data-cmf="' + k + 'n"><label class="cm-lab">BV <input class="cm-num" type="number" min="0" value="' + (un.bv == null ? '' : un.bv) + '" data-cmf="' + k + 'bv"></label><label class="cm-lab">BSP <input class="cm-num" type="number" min="0" value="' + (un.bsp == null ? '' : un.bsp) + '" data-cmf="' + k + 'bsp"></label>' + B('\u2715', 'uDel', f.id + ':' + i, 'btn-danger btn-danger-soft') + '</div>'; }
+      return '<div class="cm-urow">' + E(un.n || '(unnamed)') + ' <small>BV ' + (un.bv == null || un.bv === '' ? '\u2014' : un.bv) + ' \u00b7 BSP ' + (un.bsp == null || un.bsp === '' ? '\u2014' : un.bsp) + '</small></div>';
+    }).join('') + '</div><div class="cm-row">';
     if (ed) h += '<input class="cm-in cm-fname" value="' + E(f.name) + '" maxlength="40" data-cmf="f.' + f.id + '">' + B('+ UNIT', 'uAdd', f.id) + B('+ FROM HOT SPOTS', 'uHs', f.id) + B('BSP \u22121', 'bsp', f.id + ':-1') + B('BSP +1', 'bsp', f.id + ':1') + B('DONE', 'fDone', null, 'btn');
     else h += B('EDIT', 'fEdit', f.id);
     h += (f.hex ? B('TAKE OFF MAP', 'bdOff', f.id) : '') + B('DELETE', 'fDel', f.id, 'btn-danger btn-danger-soft') + '</div></div>'; return h; }
@@ -23310,6 +23381,444 @@ var BtArt = (function () {
       var c = cmCamp(), pk = body.querySelector('.cm-top [data-cm="pickCamp"]'); if (pk) pk.textContent = 'GAME: ' + (c ? c.name : '(none)');
       var nw = body.querySelector('.cm-top [data-cm="newCamp"]'); if (nw) nw.textContent = '+ NEW GAME / MAP';
       var pl = body.querySelector('.cm-top [data-cm="view"][data-a="play"]'); if (pl) pl.textContent = 'BOARD'; } } catch (e) {} return r; };
+})();
+</script>
+<script>
+/* ===== 2026-11-05 batch: CM hex ownership + lance BV/BSP field handlers,
+   Artillery Tool nav redirect, BSP detonate/fire labels, salvage calc, reference speak. ===== */
+(function () {
+  /* ---- Hex ownership colours (CSS vars --cm-own-*; change those to recolour) ---- */
+  function ownCol() {
+    var cs = (typeof getComputedStyle === 'function') ? getComputedStyle(document.documentElement) : null;
+    return {
+      A: (cs && cs.getPropertyValue('--cm-own-yours').trim()) || '#3b82f6',
+      B: (cs && cs.getPropertyValue('--cm-own-enemy').trim()) || '#ef4444',
+      X: (cs && cs.getPropertyValue('--cm-own-contested').trim()) || '#f59e0b'
+    };
+  }
+  window.cmOwnCol = function (k) { return ownCol()[k] || null; };
+  window.cmOwnLabel = function (k) { return ({ A: 'Yours', B: 'Enemy', X: 'Contested' })[k] || 'None'; };
+  window.CM_OWN_COL = ownCol();
+
+  if (typeof cmSvg === 'function') {
+    var _cmSvg = cmSvg;
+    window.cmSvg = function (w, o) {
+      var h = _cmSvg.apply(this, arguments);
+      o = o || {}; var c = o.c; if (!c || !c.own) return h;
+      try {
+        var cols = ownCol();
+        if (typeof CM_SIDE_COL !== 'undefined') {
+          if (CM_SIDE_COL.A) h = h.split('fill="' + CM_SIDE_COL.A + '" fill-opacity="0.22" stroke="' + CM_SIDE_COL.A + '"').join('fill="' + cols.A + '" fill-opacity="0.22" stroke="' + cols.A + '"');
+          if (CM_SIDE_COL.B) h = h.split('fill="' + CM_SIDE_COL.B + '" fill-opacity="0.22" stroke="' + CM_SIDE_COL.B + '"').join('fill="' + cols.B + '" fill-opacity="0.22" stroke="' + cols.B + '"');
+        }
+        var g = cmGeom(w), add = '';
+        Object.keys(c.own).forEach(function (id) {
+          if (c.own[id] !== 'X') return;
+          var pr = cmParse(id); if (!cmInGrid(w, pr.c, pr.r)) return;
+          var xy = cmCenter(w, id);
+          add += '<polygon points="' + cmPoly(xy[0], xy[1], g.R - 3) + '" fill="' + cols.X + '" fill-opacity="0.18" stroke="' + cols.X + '" stroke-width="3" pointer-events="none"/>';
+        });
+        if (add) h = h.replace(/<\/svg>$/, add + '</svg>');
+      } catch (e) {}
+      return h;
+    };
+  }
+
+  function ownBar(c, hexId) {
+    if (!hexId || !c) return '';
+    var cur = (c.own && c.own[hexId]) || '';
+    var cols = ownCol();
+    function Btn(lab, k, col) {
+      var on = cur === k || (!k && !cur);
+      return '<button type="button" class="' + (on ? 'btn' : 'btn-grey') + ' btn-sm" data-cm="bdOwn" data-a="' + hexId + ':' + (k || '') + '" title="Set hex control: ' + lab + '">' +
+        (col ? '<span class="cm-own-sw" style="color:' + col + ';background:' + col + '"></span>' : '') + lab + '</button>';
+    }
+    var h = '<div class="cm-card cm-owncard"><div class="cm-ch"><b>HEX CONTROL</b> <span class="cm-cite">Custom</span></div>';
+    h += '<div class="cm-own-leg"><span><span class="cm-own-sw" style="color:' + cols.A + ';background:' + cols.A + '"></span>Yours</span>';
+    h += '<span><span class="cm-own-sw" style="color:' + cols.B + ';background:' + cols.B + '"></span>Enemy</span>';
+    h += '<span><span class="cm-own-sw" style="color:' + cols.X + ';background:' + cols.X + '"></span>Contested</span>';
+    h += '<span>None = no outline</span></div>';
+    h += '<div class="cm-ownbar">' + Btn('YOURS', 'A', cols.A) + Btn('ENEMY', 'B', cols.B) + Btn('CONTESTED', 'X', cols.X) + Btn('NONE', '', null) + '</div>';
+    h += '<p class="hs-rule-cite">Outline colour shows who holds the hex on this Custom game board. Colours are CSS variables (--cm-own-yours / --cm-own-enemy / --cm-own-contested).</p></div>';
+    return h;
+  }
+
+  function fTot(f) {
+    var bv = 0, bsp = 0, n = 0;
+    (f.units || []).forEach(function (x) { bv += (parseInt(x.bv, 10) || 0); bsp += (parseInt(x.bsp, 10) || 0); n++; });
+    return { bv: bv, bsp: bsp, n: n };
+  }
+  window.cmFormUnitTotals = fTot;
+
+  if (typeof cmRenderPlay === 'function') {
+    var _cmRenderPlay = cmRenderPlay;
+    window.cmRenderPlay = function (c, u) {
+      var h = _cmRenderPlay.apply(this, arguments);
+      try {
+        if (u && u.sel && h.indexOf('cm-owncard') < 0) {
+          var bar = ownBar(c, u.sel);
+          if (bar) {
+            if (h.indexOf('</div></div><div class="cm-sides">') >= 0)
+              h = h.replace('</div></div><div class="cm-sides">', bar + '</div></div><div class="cm-sides">');
+            else h += bar;
+          }
+        }
+        if (h.indexOf('cm-own-leg-map') < 0) {
+          var cols = ownCol();
+          var leg = '<div class="cm-own-leg cm-own-leg-map">' +
+            '<span><span class="cm-own-sw" style="color:' + cols.A + ';background:' + cols.A + '"></span>Yours</span>' +
+            '<span><span class="cm-own-sw" style="color:' + cols.B + ';background:' + cols.B + '"></span>Enemy</span>' +
+            '<span><span class="cm-own-sw" style="color:' + cols.X + ';background:' + cols.X + '"></span>Contested</span></div>';
+          h = h.replace('<div class="cm-legend">', leg + '<div class="cm-legend">');
+        }
+      } catch (e) {}
+      return h;
+    };
+  }
+
+  if (typeof cmSetField === 'function') {
+    var _cmSetField = cmSetField;
+    window.cmSetField = function (path, val) {
+      var c = typeof cmCamp === 'function' ? cmCamp() : null;
+      var p = String(path).split('.');
+      if (p[0] === 'fu' && c) {
+        var f = cmForm(c, p[1]); var x = f && f.units && f.units[p[2] | 0]; if (!x) return;
+        var k = p[3];
+        if (k === 'n') {
+          x.n = String(val || '').slice(0, 50);
+          if ((x.bv == null || x.bv === '') && x.n && typeof msMulFind === 'function') {
+            var m = msMulFind(x.n); if (m && m.bv) x.bv = m.bv; else if (m && m.pv) x.bv = m.pv;
+          }
+        } else {
+          var s2 = String(val).trim(); x[k] = s2 === '' ? null : Math.max(0, parseInt(s2, 10) || 0);
+        }
+        cmSave(); return;
+      }
+      return _cmSetField.apply(this, arguments);
+    };
+  }
+
+  if (typeof cmAct === 'function') {
+    var _cmAct = cmAct;
+    window.cmAct = function (act, a, el) {
+      if (act === 'bdOwn') {
+        var c = cmCamp(); if (!c) return;
+        var ap = String(a == null ? '' : a).split(':');
+        var hex = ap[0], own = ap[1] || '';
+        if (!hex) return;
+        cmPush(c); c.own = c.own || {};
+        if (!own) { delete c.own[hex]; cmLog(c, 'Hex ' + hex + ' control cleared.'); }
+        else { c.own[hex] = own; cmLog(c, 'Hex ' + hex + ' control: ' + cmOwnLabel(own) + '.'); }
+        cmSave(); return;
+      }
+      return _cmAct.apply(this, arguments);
+    };
+  }
+
+  if (typeof cmFromHs === 'function') {
+    var _cmFromHs = cmFromHs;
+    window.cmFromHs = function (f) {
+      var _btPick = window.btPick;
+      window.btPick = function (opts) {
+        if (opts && typeof opts.onPick === 'function') {
+          var op = opts.onPick;
+          opts.onPick = function (j) {
+            op(j);
+            try {
+              var last = f.units[f.units.length - 1];
+              var hf = (typeof hsForce === 'function') ? hsForce() : null;
+              var units = hf && Array.isArray(hf.units) ? hf.units.filter(function (u) { return u.status !== 'Destroyed' && u.status !== 'Sold'; }) : [];
+              var src = units[j];
+              if (last && src) {
+                var bv = parseInt(src.bv, 10); if (!bv && src.pv) bv = parseInt(src.pv, 10);
+                if (bv) last.bv = bv;
+                if (last.bsp === undefined) last.bsp = null;
+                if (last.bv === undefined) last.bv = null;
+                cmSave();
+              }
+            } catch (e) {}
+          };
+        }
+        return _btPick.apply(this, arguments);
+      };
+      try { return _cmFromHs.apply(this, arguments); }
+      finally { window.btPick = _btPick; }
+    };
+  }
+
+  /* Artillery Tool tab removed from menus; leftover last-tab redirects to BSP */
+  var _switchTab = typeof switchTab === 'function' ? switchTab : null;
+  window.switchTab = function (tabId) {
+    if (tabId === 'artilleryTab') tabId = 'bspTab';
+    var r = _switchTab ? _switchTab.apply(this, arguments) : undefined;
+    try {
+      if (tabId === 'hsRefTab' || tabId === 'calcTab') {
+        injectSalvageCard(); BtSpeak.wire();
+        if (tabId === 'hsRefTab' && typeof hsRefSalvCalc === 'function') hsRefSalvCalc();
+      }
+    } catch (e) {}
+    return r;
+  };
+
+  if (typeof bspRenderStrikePlay === 'function') {
+    var _bspRSP = bspRenderStrikePlay;
+    window.bspRenderStrikePlay = function (it, c, d, n) {
+      var h = _bspRSP.apply(this, arguments);
+      try {
+        if (c && c.kind === 'minefield') h = h.replace('>HIT \u2014 \u22121 GROUPING<', '>DETONATE (\u22121 grouping)<');
+        if (c && c.kind === 'artillery') h = h.replace("onclick=\"bspDiscard('" + it.iid + "')\">DISCARD<", "onclick=\"bspDiscard('" + it.iid + "')\">FIRE / DISCARD<");
+      } catch (e) {}
+      return h;
+    };
+  }
+  window.bspFireStrike = function (iid) { return bspDiscard(iid); };
+  window.bspDetonateMine = function (iid) { return bspMineHit(iid); };
+
+  /* ---- Reference Calcs: salvage calculator (same hsSalvageCalc as checklist) ---- */
+  window.hsRefSalvCalc = function () {
+    var bvEl = document.getElementById('hsRefSalvBv');
+    var rightsEl = document.getElementById('hsRefSalvRights');
+    var out = document.getElementById('hsRefSalvOut');
+    var detail = document.getElementById('hsRefSalvDetail');
+    if (!out) return;
+    var raw = bvEl ? bvEl.value : '';
+    var key = rightsEl ? rightsEl.value : 'None';
+    var fake;
+    if (key === '__contract__') {
+      fake = (typeof hsContract === 'function') ? hsContract() : null;
+      if (!fake) { out.innerHTML = 'PAYOUT: <b>\u2014</b>'; if (detail) detail.textContent = 'No active contract.'; return; }
+    } else if (key === 'None') fake = { salvageType: 'None', salvagePct: 0 };
+    else if (key === 'Exchange') fake = { salvageType: 'Exchange', salvagePct: 0 };
+    else fake = { salvageType: 'Percent', salvagePct: parseInt(key, 10) || 0 };
+    var sc = (typeof hsSalvageCalc === 'function') ? hsSalvageCalc(fake, raw) : null;
+    if (!sc) { out.innerHTML = 'PAYOUT: <b>\u2014</b>'; if (detail) detail.textContent = 'Enter a BV (or PV) or SP amount.'; return; }
+    out.innerHTML = 'PAYOUT: <b>' + sc.sp + '</b> SP' + (sc.exchange ? ' (repairs only)' : '');
+    if (detail) detail.textContent = sc.text;
+  };
+
+  function injectSalvageCard() {
+    var tab = document.getElementById('hsRefTab');
+    if (!tab || document.getElementById('hsRefSalvCard')) return;
+    var card = document.createElement('div');
+    card.className = 'card'; card.id = 'hsRefSalvCard'; card.style.marginTop = '16px';
+    card.innerHTML =
+      '<h2>SALVAGE CALCULATOR</h2>' +
+      '<div class="hs-form-grid">' +
+      '<div class="form-group"><label title="Battle Value (Classic) or type SP 123 for a raw SP amount. Alpha Strike: enter PV; payout uses PV \u00d7 20 as salvage value (Reach p.154 / existing checklist tool).">BV / PV (or SP n)</label>' +
+      '<input type="text" id="hsRefSalvBv" value="1000" inputmode="numeric" oninput="hsRefSalvCalc()"></div>' +
+      '<div class="form-group"><label>Salvage Rights</label>' +
+      '<select id="hsRefSalvRights" onchange="hsRefSalvCalc()">' +
+      '<option value="__contract__">Active contract</option>' +
+      '<option value="None">None</option>' +
+      '<option value="Exchange">Exchange (\u00bc repairs only)</option>' +
+      '<option value="10%">10%</option><option value="20%">20%</option><option value="30%">30%</option>' +
+      '<option value="40%">40%</option><option value="50%" selected>50%</option><option value="60%">60%</option>' +
+      '<option value="70%">70%</option><option value="80%">80%</option><option value="90%">90%</option>' +
+      '<option value="100%">100%</option>' +
+      '</select></div></div>' +
+      '<p class="hs-ref-salv-out" id="hsRefSalvOut">PAYOUT: <b>\u2014</b></p>' +
+      '<p class="hs-rule-cite" id="hsRefSalvDetail"></p>' +
+      '<p class="hs-rule-cite">Same math as the checklist Salvage claim / Log Salvage won tool (hsSalvageCalc): salvage value = BV\u00f72 (Classic) or PV\u00d720 (Alpha Strike); then \u00d7 Salvage Rights % (Exchange = \u00bc for repairs only; None = 0). Reach p.27, p.32. Display-only \u2014 does not touch the ledger.</p>';
+    var grid = tab.querySelector('.grid');
+    if (grid && grid.parentNode) grid.parentNode.insertBefore(card, grid.nextSibling);
+    else tab.appendChild(card);
+    try { hsRefSalvCalc(); } catch (e) {}
+  }
+
+  window.BtSpeak = {
+    supported: typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined',
+    _u: null,
+    stop: function () { try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {} this._u = null; },
+    speakCard: function (btn) {
+      if (!this.supported) return;
+      this.stop();
+      var card = btn && btn.closest ? btn.closest('.card') : null;
+      if (!card) return;
+      var text = (card.innerText || card.textContent || '').replace(/\bSPEAK\b/g, '').replace(/\bSTOP\b/g, '').replace(/\s+/g, ' ').trim();
+      if (!text) return;
+      try {
+        var u = new SpeechSynthesisUtterance(text);
+        u.rate = 1; u.lang = 'en-US'; this._u = u; window.speechSynthesis.speak(u);
+      } catch (e) {}
+    },
+    wire: function (root) {
+      root = root || document;
+      root.querySelectorAll('#hsRefTab .card, #calcTab .card').forEach(function (card) {
+        if (card.querySelector('.bt-speak-bar')) return;
+        var h2 = card.querySelector('h2'); if (!h2) return;
+        var bar = document.createElement('span');
+        bar.className = 'bt-speak-bar' + (BtSpeak.supported ? '' : ' bt-speak-unsupported');
+        if (!BtSpeak.supported) bar.hidden = true;
+        bar.innerHTML = '<button type="button" class="btn-grey btn-sm" title="Read this card aloud">SPEAK</button>' +
+          '<button type="button" class="btn-grey btn-sm" title="Stop reading">STOP</button>';
+        var buttons = bar.querySelectorAll('button');
+        buttons[0].addEventListener('click', function (ev) { ev.preventDefault(); BtSpeak.speakCard(buttons[0]); });
+        buttons[1].addEventListener('click', function (ev) { ev.preventDefault(); BtSpeak.stop(); });
+        h2.appendChild(bar);
+      });
+    }
+  };
+
+  function onReady() { injectSalvageCard(); BtSpeak.wire(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady);
+  else onReady();
+
+  if (typeof renderRoster === 'function') {
+    var _rr = renderRoster;
+    window.renderRoster = function () {
+      var r = _rr.apply(this, arguments);
+      try {
+        document.querySelectorAll('#rosterLances .callsign-input').forEach(function (inp) {
+          inp.setAttribute('maxlength', '40');
+          inp.style.minWidth = '180px';
+        });
+      } catch (e) {}
+      return r;
+    };
+  }
+})();
+</script>
+<script>
+/* ===== 2026-11-05 (b) BSP artillery: 5 pre-designated hexes (Core p.155). Additive it.hexes[5];
+   migrates existing it.hex into slot 1; keeps it.hex for old readers. Minefields unchanged. ===== */
+(function () {
+  function emptyHexes() { return ['', '', '', '', '']; }
+  function padHexes(arr, legacy) {
+    var out = emptyHexes();
+    if (Array.isArray(arr)) for (var i = 0; i < 5; i++) out[i] = (typeof bspClean === 'function' ? bspClean(arr[i], 24) : String(arr[i] || '').slice(0, 24));
+    if (!out[0] && legacy) out[0] = (typeof bspClean === 'function' ? bspClean(legacy, 24) : String(legacy || '').slice(0, 24));
+    return out;
+  }
+  window.bspArtHexes = function (it) {
+    if (!it) return emptyHexes();
+    return padHexes(it.hexes, it.hex);
+  };
+  window.bspEnsureArtHexes = function (it) {
+    if (!it) return emptyHexes();
+    var h = padHexes(it.hexes, it.hex);
+    it.hexes = h.slice();
+    it.hex = h[0] || '';
+    return h;
+  };
+  window.bspArtFilled = function (it) {
+    return bspArtHexes(it).map(function (h, i) { return h ? { i: i, hex: h } : null; }).filter(Boolean);
+  };
+  window.bspSetArtHex = function (iid, idx, v) {
+    var it = bspItem(iid); if (!it) return;
+    var c = bspCard(it.cardId); if (!c || c.kind !== 'artillery') return;
+    var h = bspEnsureArtHexes(it);
+    idx = Math.max(0, Math.min(4, idx | 0));
+    h[idx] = bspClean(v, 24);
+    it.hexes = h;
+    it.hex = h[0] || '';
+    bspPersist();
+  };
+  /* Keep bspSetHex: minefield = single hex; artillery = slot 1 (compat) */
+  if (typeof bspSetHex === 'function') {
+    var _bspSetHex = bspSetHex;
+    window.bspSetHex = function (iid, v) {
+      var it = bspItem(iid); var c = it && bspCard(it.cardId);
+      if (c && c.kind === 'artillery') { bspSetArtHex(iid, 0, v); return; }
+      return _bspSetHex.apply(this, arguments);
+    };
+  }
+
+  function artHexBlock(it, editable) {
+    var h = bspArtHexes(it);
+    var id = it.iid;
+    var rows = '';
+    for (var i = 0; i < 5; i++) {
+      rows += '<label>#' + (i + 1) + ' <input type="text" id="bspArtHex_' + id + '_' + i + '" value="' + bspEsc(h[i] || '') + '" maxlength="24" placeholder="hex" ' +
+        (editable ? 'onchange="bspSetArtHex(\'' + id + '\',' + i + ',this.value)"' : 'readonly') + '></label>';
+    }
+    return '<div class="bsp-art-hexes"><div class="bsp-art-h">PRE-DESIGNATED HEXES (up to 5)</div>' +
+      '<div class="bsp-art-row">' + rows + '</div>' +
+      '<p class="bsp-art-cite">Core p.155: five pre-designated hexes per Artillery Strike selection (max five per mapsheet). A strike fired at one of these hits automatically (no roll, no scatter). <span class="bt-custom">Custom</span> tracker layout.</p></div>';
+  }
+
+  function artFireControls(it) {
+    var filled = bspArtFilled(it);
+    var opts = filled.length
+      ? filled.map(function (f) { return '<option value="' + f.i + '">#' + (f.i + 1) + ' \u2014 ' + bspEsc(f.hex) + '</option>'; }).join('')
+      : '<option value="">(no hex set \u2014 still allowed)</option>';
+    return '<div class="bsp-art-fire"><label style="margin:0">FIRE AT <select id="bspArtFire_' + it.iid + '">' + opts + '</select></label>' +
+      '<button type="button" class="btn" onclick="bspFireStrike(\'' + it.iid + '\')">FIRE</button>' +
+      '<button type="button" class="btn-grey btn-sm" onclick="bspDiscard(\'' + it.iid + '\')">DISCARD</button></div>';
+  }
+
+  /* Replace artillery card body when rendering */
+  if (typeof bspRenderStrikePlay === 'function') {
+    var _rsp = bspRenderStrikePlay;
+    window.bspRenderStrikePlay = function (it, c, d, n) {
+      if (!c || c.kind !== 'artillery') return _rsp.apply(this, arguments);
+      /* face-down / peek / discarded: keep structure, inject hex block where useful */
+      if (it.status === 'discarded') {
+        var fh = it.firedHex ? (' \u2014 fired at ' + bspEsc(it.firedHex)) : '';
+        return '<div class="bsp-card strike discarded"><div class="bsp-card-head"><div><div class="bsp-card-name">' + bspEsc(c.name) + ' \u2014 DISCARDED' + fh + '</div><div class="bsp-card-fam">Spent (one-time use)</div></div></div>' +
+          '<div class="bsp-actions"><button class="btn-grey btn-sm" onclick="bspRestoreStrike(\'' + it.iid + '\')">UNDO DISCARD</button></div></div>';
+      }
+      var peek = !!bspUi.peek[it.iid];
+      if (it.status === 'hidden' && !peek) {
+        /* Face-down: allow secret hex entry without revealing the card name */
+        return '<div class="bsp-card facedown"><div class="bsp-card-head"><div><div class="bsp-card-name">\u25a0 FACE-DOWN STRIKE #' + n + '</div><div class="bsp-card-fam">Artillery \u2014 pre-designate hexes (secret)</div></div></div>' +
+          artHexBlock(it, true) +
+          '<div class="bsp-actions"><button class="btn btn-sm" onclick="bspReveal(\'' + it.iid + '\')">REVEAL / USE</button><button class="btn-grey btn-sm" onclick="bspPeek(\'' + it.iid + '\')">PEEK</button></div></div>';
+      }
+      if (it.status === 'hidden' && peek) {
+        return '<div class="bsp-card facedown"><div class="bsp-card-head"><div><div class="bsp-card-name">\u25a0 #' + n + ' (peeking): ' + bspEsc(c.name) + '</div><div class="bsp-card-fam">' + bspEsc(c.family) + '</div></div>' + bspCostHtml(c) + '</div>' +
+          bspStrikeStats(c) + artHexBlock(it, true) +
+          '<div class="bsp-actions"><button class="btn btn-sm" onclick="bspReveal(\'' + it.iid + '\')">REVEAL / USE</button><button class="btn-grey btn-sm" onclick="bspPeek(\'' + it.iid + '\')">HIDE</button></div></div>';
+      }
+      /* revealed */
+      var tn = bspStrikeTn(c);
+      var land = (it.revealedTurn == null ? d.turn : it.revealedTurn) + 1;
+      var h = '<div class="bsp-card strike"><div class="bsp-card-head"><div><div class="bsp-card-name">' + bspEsc(c.name) + ' \u2014 REVEALED</div><div class="bsp-card-fam">' + bspEsc(c.family) + '</div></div>' + bspThumbHtml(c.id) + '</div>';
+      h += bspStrikeStats(c);
+      h += '<div class="bsp-chkline"><span>Fired turn <b>' + (it.revealedTurn == null ? d.turn : it.revealedTurn) + '</b></span><span>ARRIVES turn <b>' + land + '</b> (Ranged Attack Phase)' + (d.turn >= land ? ' \u2014 <b>NOW</b>' : '') + '</span></div>';
+      h += artHexBlock(it, true);
+      h += '<div class="bsp-trig">ARTILLERY: when it arrives roll 2D6 \u2265 ' + (tn == null ? '?' : tn) + ' (+1 Low Visibility, \u22122 if spotted both turns; pre-designated hex = automatic hit). Damage groupings ' + bspEsc(bspGroupingsText(c.groupings)) + ': first number in the target hex, next in adjacent hexes' + (String(c.groupings).split('/').length > 2 ? ', last in the outer ring' : '') + '. Then DISCARD. Pick which of the 5 pre-designated hexes this strike targets, then FIRE.</div>';
+      h += '<ul class="bsp-rules">' + bspStrikeRules(c).map(function (r) { return '<li>' + bspEsc(r) + '</li>'; }).join('') + '</ul>';
+      if (c.dmgType) h += '<div class="bsp-note">' + bspEsc(BSP_DMG_NOTE) + '</div>';
+      if (c.note) h += '<div class="bsp-note">' + bspEsc(c.note) + '</div>';
+      h += artFireControls(it);
+      h += '<div class="bsp-actions"><button class="btn-grey btn-sm" onclick="bspHideAgain(\'' + it.iid + '\')">TURN FACE-DOWN AGAIN</button></div></div>';
+      return h;
+    };
+  }
+
+  window.bspFireStrike = function (iid, slot) {
+    var it = bspItem(iid); var c = it && bspCard(it.cardId);
+    if (!it || !c || c.kind !== 'artillery' || it.status === 'discarded') return false;
+    var filled = bspArtFilled(it);
+    var hex = '';
+    if (slot == null || slot === '') {
+      var sel = document.getElementById('bspArtFire_' + iid);
+      if (sel && sel.value !== '') slot = sel.value;
+    }
+    if (slot != null && slot !== '') {
+      var h = bspArtHexes(it);
+      var i = parseInt(slot, 10);
+      if (isFinite(i) && i >= 0 && i < 5 && h[i]) hex = h[i];
+    }
+    if (!hex && filled.length === 1) hex = filled[0].hex;
+    if (!hex && filled.length > 1) {
+      /* prompt pick */
+      var list = filled.map(function (f) { return (f.i + 1) + '=' + f.hex; }).join(', ');
+      var pick = prompt('FIRE which pre-designated hex? Enter 1-5 (' + list + '):', String(filled[0].i + 1));
+      if (pick === null) return false;
+      var pi = parseInt(pick, 10) - 1;
+      var h2 = bspArtHexes(it);
+      if (!isFinite(pi) || pi < 0 || pi > 4 || !h2[pi]) { bspMsg('Pick a filled hex slot 1\u20135.', 'bad'); return false; }
+      hex = h2[pi];
+    }
+    it.firedHex = hex || '';
+    bspEnsureArtHexes(it);
+    it.status = 'discarded';
+    delete bspUi.peek[iid];
+    bspSave();
+    bspMsg(c.name + ' FIRED' + (hex ? ' at hex ' + hex : ' (no hex recorded)') + ' \u2014 discarded after resolution (CRB p.152 / p.155).', 'ok');
+    return true;
+  };
 })();
 </script>
 <script>/* HDPWA only: service worker (relative path, works under any subfolder) */
