@@ -5,7 +5,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Hot Drops">
-  <meta name="hdpwa-version" content="20261105-24d2130f">
+  <meta name="hdpwa-version" content="20261110-49847b12">
   <script>window.__BT_NO_ICON = true; /* HDPWA: use the real manifest.webmanifest, not the runtime blob */</script>
 
   <meta charset="UTF-8">
@@ -1521,6 +1521,33 @@
   .bsp-art-hexes .bsp-art-cite { font-size: 0.78rem; color: #94a3b8; line-height: 1.35; margin: 0; }
   .bsp-art-fire { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0; }
   .bsp-art-fire select { min-height: 40px; font-size: 1rem; max-width: 100%; }
+
+  /* ===== 2026-11-10 Act of Piracy (Reach pp.124–126) ===== */
+  .hs-pir-card { margin-top: 14px; padding: 10px 12px; background: #0b0b0b; border: 1px solid #3f3a1a; border-left: 4px solid var(--amber); }
+  .hs-pir-h { font-family: 'Russo One', sans-serif; color: var(--amber-text); letter-spacing: 1.5px; font-size: 0.85rem; margin-bottom: 8px; }
+  .hs-pir-h span, .hs-pir-sub span { font-family: inherit; color: var(--text-muted); letter-spacing: 0; font-size: 0.75rem; margin-left: 8px; }
+  .hs-pir-terms { color: #c9c9c9; font-size: 0.85rem; line-height: 1.45; margin-bottom: 10px; }
+  .hs-pir-terms b { color: #fff; }
+  .hs-pir-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .hs-pir-box { background: #000; border: 1px solid #2a2a2a; border-top: 3px solid var(--amber); padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .hs-pir-lbl { color: var(--amber-text); letter-spacing: 0.6px; text-transform: uppercase; font-size: 0.74rem; }
+  .hs-pir-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 4px; }
+  .hs-pir-row label { color: #c9c9c9; font-size: 0.82rem; display: inline-flex; gap: 4px; align-items: center; }
+  .hs-pir-row input, .hs-pir-row select, .hs-pir-rrow select { background: #000; border: 2px solid var(--border-light); color: #fff; padding: 4px 6px; border-radius: 4px; }
+  .hs-pir-out { color: #e5e5e5; font-size: 0.92rem; }
+  .hs-pir-out b, .hs-pir-haul b { color: #22c55e; }
+  .hs-pir-out .m { color: var(--text-muted); }
+  .hs-pir-done { color: #86efac; font-size: 0.78rem; }
+  .hs-pir-haul { margin: 10px 0 4px; font-family: 'Russo One', sans-serif; color: var(--amber-text); letter-spacing: 1px; }
+  .hs-pir-haul b { font-size: 1.15rem; }
+  .hs-pir-haul span { font-family: inherit; color: var(--text-muted); font-size: 0.8rem; letter-spacing: 0; }
+  .hs-pir-rrow { display: grid; grid-template-columns: minmax(120px, 160px) auto auto 1fr; gap: 6px 8px; align-items: center; padding: 5px 0; border-bottom: 1px dashed #2a2a2a; }
+  .hs-pir-res { color: #e5e5e5; font-size: 0.84rem; line-height: 1.35; }
+  .hs-pir-sys { margin: 6px 0; padding: 6px 8px; background: #000; border: 1px solid #3f3a1a; color: #c9c9c9; font-size: 0.84rem; }
+  .hs-pir-sys b { color: #fff; }
+  .hs-pir-sub { font-family: 'Russo One', sans-serif; color: var(--amber-text); letter-spacing: 1.2px; font-size: 0.78rem; margin: 12px 0 6px; }
+  .hs-pir-ts { color: var(--text-muted); font-size: 0.78rem; }
+  @media (max-width: 560px) { .hs-pir-rrow { grid-template-columns: 1fr auto auto; } .hs-pir-rrow .hs-pir-res { grid-column: 1 / -1; } }
 </style>
 </head>
 <body data-section="aces">
@@ -2011,6 +2038,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
     <div class="hs-panel-label" data-as-html="HOT SPOTS (Alpha Strike) — Contract &amp; Ledger">HOT SPOTS (Classic BT) — Contract &amp; Ledger</div>
     <div class="hs-toolbar">
       <button class="btn btn-sm" onclick="hsNewContract()">NEW CONTRACT</button>
+      <button class="btn-grey btn-sm" id="hsStartPiracyBtn" onclick="hsStartPiracy()" title="Optional preset: creates a NEW Act of Piracy contract (Hot Spots: Draconis Reach pp.124-126) and makes it active. NEW CONTRACT stays the blank contract.">START ACT OF PIRACY</button>
       <button class="btn-grey btn-sm" onclick="hsCloseContract()">CLOSE CONTRACT</button>
       <select id="hsActiveContractSelect" onchange="hsSetActiveContract(this.value)" style="min-width:180px;"></select>
     </div>
@@ -2055,6 +2083,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
         </div>
         <div class="form-group"><label>Notes</label><textarea id="hsCtrNotes" rows="2" style="width:100%;background:#0a0a0a;border:2px solid var(--border-light);color:#fff;padding:8px;border-radius:4px;" onchange="hsUpdateContractField('notes', this.value)"></textarea></div>
         <p class="hs-rule-cite">Contract Steps Table: <b style="color:#fff;">Hot Spots: Draconis Reach p.28</b> (Claybird HSDR REFERENCE &amp; CALC; e.g. Base Pay step 8 = 110%, Support step 7 = Straight/90%). Hinterlands pp.17–20 = older 13-step table. Maint. = 500 × Scale /mo; Transport = 300 × Scale; Base Pay = % of maint. Combat Pay: Success 500×Scale, Unsuccessful 250×Scale, All Objectives 750×Scale (highest only). Negotiation: Reputation → step ups (Reach caps per-term; Claybird Max Step Term Increase). Pilot award (Reach p.34 errata): up to 200×Scale total, max 100 SP per named pilot per track, split evenly (rounded down) among named pilots that took part (DEPLOY) incl. KIA, who are not paid; benched get nothing.</p>
+        <div class="hs-pir-card" id="hsPiracyPay" hidden></div>
       </div>
       <div class="card">
         <h2>TRACK OUTCOME QUICK LOG</h2>
@@ -2070,6 +2099,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
           <button class="btn-grey btn-sm" id="hsUndoTrackBtn" onclick="hsUndoLastTrack()" title="Delete the most recently appended track on this contract and reverse its Reputation / checklist effects (confirm first)">UNDO LAST TRACK</button>
         </div>
         <div id="hsTracksList" class="hs-ledger"></div>
+        <div class="hs-pir-card" id="hsPiracyRoll" hidden></div>
       </div>
     </div>
     <div class="card hs-pp-collapsed" id="hsPilotPayCard" style="margin-top:16px;">
@@ -4670,7 +4700,8 @@ let hsMode = false;
 const HS_CONTRACT_TYPES = [
   'Raid', 'Objective Raid', 'Diversionary Raid', 'Pirate Raid',
   'Expedition', 'Reconnaissance', 'Intelligence Support', 'Guerrilla',
-  'Pirate Hunt', 'Garrison', 'Cadre Duty', 'Invasion', 'Retainer'
+  'Pirate Hunt', 'Garrison', 'Cadre Duty', 'Invasion', 'Retainer',
+  'Act of Piracy'   /* 2026-11-10: Reach pp.124-126 (Type of Action: Piracy) */
 ];
 
 /** Reach p.28 Base Pay % by step 1–17 (Claybird CHOOSE). */
@@ -9591,7 +9622,7 @@ function hsChecklistDefs(f) {
   const transportNet = transportCover - transportCost; // usually negative or 0
   const st = hsChecklistState(f);
   const latestOutcome = hsLatestTrackOutcome(f);
-  const combatPay = hsCombatPayForOutcome(latestOutcome, scale);
+  const combatPay = (c && c.type === 'Act of Piracy') ? 0 : hsCombatPayForOutcome(latestOutcome, scale);   // 2026-11-10: no combat bonuses on piracy (Reach p.126)
   const clayPilotPool = Math.round(200 * scale);
   const supportCredit = hsSupportReimbursePrefill(f, st);
   const lossCredit = hsBattleLossPrefill(f, st);
@@ -9637,7 +9668,7 @@ function hsChecklistDefs(f) {
     {
       id: 'combat',
       title: 'Collect Combat Pay',
-      cite: 'Prefill from latest APPEND TRACK (“' + latestOutcome + '”): Success 500× / Unsuccessful 250× / All Objectives 750× / Broke 0 × Track Scale — Hinterlands p.18. Skip if no track.',
+      cite: ((c && c.type === 'Act of Piracy') ? 'Act of Piracy: no combat bonuses (Reach p.126) — SKIP. ' : '') + 'Prefill from latest APPEND TRACK (“' + latestOutcome + '”): Success 500× / Unsuccessful 250× / All Objectives 750× / Broke 0 × Track Scale — Hinterlands p.18. Skip if no track.',
       defaultAmt: combatPay,
       skippable: true,
       when: 'track'
@@ -22909,8 +22940,9 @@ ZZV5YBNPJH	Rifleman	RFL-5M	1227	31	60	1	1
 <script>
 /* ===== 2026-10-28 (b): build stamp + WHAT'S NEW, storage protection, SHARE PNG, declutter (tap-to-expand). =====
    Device prefs only: bt_whatsnew_v1 {seen} written when the WHAT'S NEW card is dismissed. No save keys touched. */
-var BT_BUILD = { id: '20261105b', date: '2026-11-05' };
+var BT_BUILD = { id: '20261110', date: '2026-11-10' };
 var BT_WHATSNEW = [
+  'Contract & Ledger: START ACT OF PIRACY (beside NEW CONTRACT) makes a pre-filled Act of Piracy contract (Reach pp.124\u2013126) with Goods \u00d7 Scale / Components payout, a piracy dice roller under Track Outcome, and piracy roll + component logs.',
   'BSP Artillery strikes: up to 5 pre-designated hexes per card (Core p.155); FIRE picks which hex the strike targets. Minefields stay one hex.',
   'Campaign Map lances list each mech with name, BV and BSP; hex control outlines (Yours / Enemy / Contested / None) use easy-to-change colours; Artillery Tool tab removed (hex + DETONATE / FIRE stay on BSP strike cards); Reference Calcs gains a salvage calculator and SPEAK / STOP on reference cards; roster Pilot field widened.',
   'Campaign Map is now a one-sided game board: move your lances and enemy radar blips (mech names, PV, BSP) anywhere, set the turn freely, and create, duplicate, clear, reset or delete games; no turn flow or income rules.',
@@ -23819,6 +23851,312 @@ var BtArt = (function () {
     bspMsg(c.name + ' FIRED' + (hex ? ' at hex ' + hex : ' (no hex recorded)') + ' \u2014 discarded after resolution (CRB p.152 / p.155).', 'ok');
     return true;
   };
+})();
+</script>
+<script>
+/* ===== 2026-11-10 Act of Piracy contract preset + payout + dice roller + piracy / component logs.
+   Hot Spots: Draconis Reach pp.124–126 (Act of Piracy), p.25 (Reputation), p.36 (debt), p.171 (Objective Raid: Raid),
+   p.176 (Sea Fox purchase). Additive: c.piracy is written ONLY when START ACT OF PIRACY or a piracy tool is used.
+   The blank NEW CONTRACT flow / "NO ACTIVE CONTRACT" state is unchanged. Nothing written on open. ===== */
+var HS_PIRACY_TYPE = 'Act of Piracy';
+/* Piracy Goods & Components Table (p.126): goods paid x contract Scale; component payment per component (roll 7 = +1 result). */
+var HS_PIRACY_GOODS = [null, 0, 375, 750, 1250, 1500, 1650];
+var HS_PIRACY_COMP = [null, 250, 300, 400, 500, 550, 600, 650];
+/* Track Table (p.125, 1D6, Pirates roll) */
+var HS_PIRACY_TRACK = [null,
+  { sys: 'Beaumont', ter: 'Savannah', loot: 'Agricultural Machinery', opfor: 'Federated Suns', cond: 'No special conditions.' },
+  { sys: 'De Berry', ter: 'Grassland', loot: 'Mining Machinery', opfor: 'Mercenary', cond: 'Ice: all water and Level 1+ hexes are iced; piloting/driving checks on ice +4 TN (AS: all terrain features +1 MP per inch).' },
+  { sys: 'Tancredi IV', ter: 'Urban', loot: 'Laser Weapons', opfor: 'Draconis Combine', cond: 'Lasers: the raider may designate some or all Piracy payment for repairs only; those SP are doubled and kept in a separate repairs-only pool. Component sale roll +1.' },
+  { sys: 'Mirach', ter: 'Mountains', loot: 'Ores', opfor: 'Mercenary', cond: 'Low Gravity: all units +1 Walking/Cruising MP (AS: +2" MV). Component sale roll +1.' },
+  { sys: 'Johnsondale', ter: 'Urban', loot: 'Combat Vehicles', opfor: 'Federated Suns', cond: 'Salvage: choose when rolled — components only (no special conditions) or capture vehicles: each objective component is a shutdown Striker Light Tank (added to your force after the contract instead of being sold); the Law gets two free Striker Light Tanks per Scale this track.' },
+  { sys: 'Hazelhurst', ter: 'Hills', loot: 'Casks of Wine', opfor: 'Raven Alliance', cond: 'Units carrying the raid objective may not move more than half their MV or 8" (whichever is slower) without destroying the cargo.' }
+];
+/* Command Complications Table (p.126): one 1D6 for the track, not per player. */
+var HS_PIRACY_COMPL = [null,
+  'No Complication.', 'No Complication.', 'No Complication.',
+  'Minefield: each player may place two Minefield Supports within 3 hexes (AS: 5") of the map center line.',
+  'Encounter: only half (rounded up) of each player\u2019s units deploy on turn 1; the rest enter on turn 2.',
+  'Torrential downpour: clear Depth 0 water hexes are mud (+1 MP per hex, PSR on entering, +1 PSR TN; AS: may bog down). Fewer than six: each player picks three mud hexes (AS: opposing player places two 6" AOE mud templates).'
+];
+
+function hsIsPiracy(c) { return !!(c && c.type === HS_PIRACY_TYPE); }
+function hsPiracyGoodsSP(roll, scale) {
+  const r = parseInt(roll, 10); if (!(r >= 1 && r <= 6)) return 0;
+  return Math.round(HS_PIRACY_GOODS[r] * (parseFloat(scale) || 1));
+}
+function hsPiracyCompRoll(roll, plus1) {
+  const r = parseInt(roll, 10); if (!(r >= 1 && r <= 6)) return null;
+  return Math.min(7, r + (plus1 ? 1 : 0));
+}
+function hsPiracyCompEach(roll, plus1) { const m = hsPiracyCompRoll(roll, plus1); return m == null ? 0 : HS_PIRACY_COMP[m]; }
+/** Piracy sub-state; created only when create=true (a user action). */
+function hsPiracyState(c, create) {
+  if (!c) return null;
+  if (!c.piracy && create) c.piracy = { v: 1, system: null, compl: null, goodsRoll: null, compRoll: null, compPlus1: null, compCount: null, repRoll: null, victorious: null, buyRoll: null, goodsApplied: null, compApplied: null, repApplied: null, log: [], compLog: [] };
+  const p = c.piracy || null;
+  if (p) { if (!Array.isArray(p.log)) p.log = []; if (!Array.isArray(p.compLog)) p.compLog = []; }
+  return p;
+}
+/** +1 on the component roll: explicit checkbox, else auto when the rolled system is Tancredi IV (3) or Mirach (4) (p.126). */
+function hsPiracyPlus1(c) {
+  const p = (c && c.piracy) || {};
+  if (p.compPlus1 === true || p.compPlus1 === false) return p.compPlus1;
+  const s = parseInt(p.system, 10); if (s === 3 || s === 4) return true;
+  return /tancredi|mirach/i.test(String((c && c.location) || ''));
+}
+function hsPiracyLogCount(c) { const p = (c && c.piracy) || {}; return (p.compLog || []).reduce((s, e) => s + (parseInt(e.count, 10) || 0), 0); }
+function hsPiracyCount(c) { const p = (c && c.piracy) || {}; return p.compCount != null ? (parseInt(p.compCount, 10) || 0) : hsPiracyLogCount(c); }
+function hsPiracyVictorious(c) {
+  const p = (c && c.piracy) || {};
+  if (p.victorious === true || p.victorious === false) return p.victorious;
+  return (c.tracks || []).some(t => /success|all obj/i.test(t.result || '') && !/unsuccess/i.test(t.result || ''));
+}
+function hsPiracyTotals(c) {
+  const p = (c && c.piracy) || {};
+  const goods = hsPiracyGoodsSP(p.goodsRoll, c.scale);
+  const each = hsPiracyCompEach(p.compRoll, hsPiracyPlus1(c));
+  const count = hsPiracyCount(c);
+  return { goods: goods, each: each, count: count, comp: each * count, total: goods + each * count };
+}
+/** p.25: 2D6 at the end of each act of piracy, TN 9+ (−2 if victorious = 7+). Failure: −1 Reputation per 500 SP (rounded up) earned. */
+function hsPiracyRepSuggest(c) {
+  const p = (c && c.piracy) || {};
+  const tn = hsPiracyVictorious(c) ? 7 : 9;
+  const t = hsPiracyTotals(c);
+  const earned = (p.goodsApplied ? p.goodsApplied.sp : t.goods) + (p.compApplied ? p.compApplied.sp : t.comp);
+  const roll = parseInt(p.repRoll, 10);
+  if (!(roll >= 2 && roll <= 12)) return { tn: tn, earned: earned, roll: null, delta: null };
+  return { tn: tn, earned: earned, roll: roll, ok: roll >= tn, delta: roll >= tn ? 0 : -Math.ceil(earned / 500) };
+}
+/** Fill a contract with the printed Act of Piracy terms (p.124; salvage per forum errata topic 90893 = 100%, step 13). */
+function hsPiracyPreset(c, scale) {
+  c.name = 'Act of Piracy';
+  c.type = HS_PIRACY_TYPE;
+  c.location = c.location || '';
+  c.lengthMonths = 3;
+  c.scale = parseFloat(scale) || 1;
+  c.basePayStep = 0; c.basePayPct = 0;                                   // printed "0 percent (0)"
+  c.supportStep = 1; c.supportType = 'None'; c.supportPct = 0;           // printed "0 percent (0)"; p.28 step 1 = None (0%)
+  c.transportStep = 5; c.transportPct = 0;                               // printed "0 percent (0)"; p.28 step 5 = 0%
+  c.salvageStep = 13; c.salvageType = 'Percent'; c.salvagePct = 100;     // printed (11); errata: 100% (13)
+  c.commandStep = 11; c.commandRights = 'Independent';
+  const line = '[Act of Piracy] Contract # N/A \u00b7 Employer: None \u00b7 Intensity 1 track: Objective Raid, Pirates always the Attacker \u00b7 Month 1 travel, Month 2 raid, Month 3 quiet (sell / escape) \u00b7 Terms cannot be negotiated; no Base Pay, combat bonuses, Support or Transport pay; maintenance may run into the red until the contract ends (Reach pp.124\u2013126, debt p.36).';
+  const notes = String(c.notes || '').split('\n').filter(l => l.indexOf('[Act of Piracy]') !== 0);
+  notes.push(line); c.notes = notes.join('\n').replace(/^\n+/, '');
+  hsPiracyState(c, true);
+  return c;
+}
+function hsStartPiracy() {
+  const f = hsForce();
+  if (!f) return;
+  const prev = hsContract();
+  if (!confirm('START ACT OF PIRACY (Hot Spots: Draconis Reach pp.124\u2013126)?\n\n' +
+      'Creates a NEW contract and makes it active, pre-filled: 3 months, 1 Objective Raid track (Pirates attack), Base Pay 0%, Support 0%, Transport 0%, Salvage 100% (step 13, errata), Command Independent (11). Terms cannot be negotiated.' +
+      (prev ? '\n\n"' + (prev.name || 'contract') + '" is active now. It stays in the contract list unchanged (its ledger, tracks and logs are kept); pick it again any time.' : '') +
+      '\n\nNEW CONTRACT (blank) is still there for normal contracts.')) return;
+  let fresh = false;
+  if (f.checklist && hsMonthStateHasData(f.checklist, f.checklist.month)) {
+    fresh = confirm('Start this month\'s checklist fresh for the new contract?\n(ledger, Campaign Log and past contracts are never touched)\n\n' +
+      'OK = YES, start fresh: Month ' + f.checklist.month + ' step flags, amounts and tracks-this-month counter are cleared. A copy is kept so you can tap RESTORE PREVIOUS CHECKLIST.\n' +
+      'Cancel = NO, keep this month\'s checklist exactly as it is.');
+  }
+  const c = hsPiracyPreset(hsDefaultContract('Act of Piracy'), f.contractScale || 1);
+  f.contracts.push(c);
+  f.activeContractId = c.id;
+  if (fresh) hsChecklistStartFresh(f, prev);
+  if (f.checklist && f.checklist.hall && f.checklist.hall.on) {   // same as NEW CONTRACT: under contract now, hall rate off
+    f.checklist.hall.on = false;
+    delete f.checklist.amounts[hsChecklistFlagKey(f.checklist.month, 'maint')];
+    delete f.checklist.amounts[hsChecklistFlagKey(f.checklist.month, 'basepay')];
+  }
+  if (f.checklist && f.checklist.flags) {
+    Object.keys(f.checklist.flags).forEach(k => { if (/:travel$/.test(k)) delete f.checklist.flags[k]; });
+    delete f.checklist.travelFlagContractId;
+  }
+  hsSave();
+  if (typeof hsNcForceScreen === 'function') hsNcForceScreen(f);
+}
+
+function hsPirLog(c, kind, text, dice, src) {
+  const p = hsPiracyState(c, true);
+  p.log.unshift({ id: hsId('pl'), ts: new Date().toISOString(), kind: kind, text: text, dice: dice || null, src: src || 'roll' });
+  if (p.log.length > 80) p.log.length = 80;
+}
+function hsPirDescribe(c, kind, total) {
+  if (kind === 'system') { const t = HS_PIRACY_TRACK[total]; return t ? 'Track Table (p.125) ' + total + ': ' + t.sys + ' (' + t.ter + ') \u00b7 Loot ' + t.loot + ' \u00b7 Opposing force ' + t.opfor + ' \u00b7 ' + t.cond : ''; }
+  if (kind === 'compl') return 'Command Complication (p.126) ' + total + ': ' + (HS_PIRACY_COMPL[total] || '');
+  if (kind === 'goods') return 'Piracy Goods (p.126) ' + total + ': ' + (total === 1 ? 'None' : HS_PIRACY_GOODS[total] + ' SP') + ' \u00d7 Scale ' + (c.scale || 1) + ' = ' + hsPiracyGoodsSP(total, c.scale) + ' SP';
+  if (kind === 'comp') { const pl = hsPiracyPlus1(c); const m = hsPiracyCompRoll(total, pl); return 'Piracy Component (p.126) ' + total + (pl ? ' +1 = ' + m : '') + ': ' + HS_PIRACY_COMP[m] + ' SP per component'; }
+  if (kind === 'rep') { const tn = hsPiracyVictorious(c) ? 7 : 9; return 'Reputation (p.25) 2D6 ' + total + ' vs ' + tn + '+ \u2014 ' + (total >= tn ? 'pass: pirate stays unknown, no Reputation change' : 'FAIL: \u22121 Reputation per 500 SP earned (rounded up)'); }
+  if (kind === 'buy') return '\u2019Mech for sale (p.126) 2D6 ' + total + ': ' + (total >= 11 ? 'TWO \u2019Mechs \u2014 roll on the Sea Fox Purchase Options Table (p.176)' : total >= 7 ? 'one \u2019Mech \u2014 roll on the Sea Fox Purchase Options Table (p.176)' : 'nothing for sale this month');
+  return '';
+}
+var HS_PIR_FIELD = { system: 'system', compl: 'compl', goods: 'goodsRoll', comp: 'compRoll', rep: 'repRoll', buy: 'buyRoll' };
+/** Roll (or enter) a piracy die. Writes only the roll field + the roll log; never the ledger / Reputation. */
+function hsPirRoll(kind, entered) {
+  const c = hsContract(); if (!hsIsPiracy(c)) return null;
+  const n = (kind === 'rep' || kind === 'buy') ? 2 : 1;
+  let total, dice = null, src = 'roll';
+  if (entered != null) {
+    if (entered === '') { const p0 = hsPiracyState(c, true); p0[HS_PIR_FIELD[kind]] = null; hsSave(); return null; }
+    total = parseInt(entered, 10); src = 'entered';
+    if (!(total >= n && total <= 6 * n)) return null;
+  } else { const r = btRollDice(n); total = r.sum; dice = r.dice; }
+  const p = hsPiracyState(c, true);
+  p[HS_PIR_FIELD[kind]] = total;
+  hsPirLog(c, kind, hsPirDescribe(c, kind, total), dice, src);
+  hsSave();
+  return total;
+}
+function hsPirSet(field, value) {
+  const c = hsContract(); if (!hsIsPiracy(c)) return;
+  const p = hsPiracyState(c, true);
+  if (field === 'compPlus1' || field === 'victorious') p[field] = value === 'auto' ? null : value === 'yes';
+  else if (field === 'compCount') p.compCount = value === '' || value == null ? null : Math.max(0, parseInt(value, 10) || 0);
+  hsSave();
+}
+function hsPirUseLocation() {
+  const c = hsContract(); const p = c && c.piracy; const t = p && HS_PIRACY_TRACK[parseInt(p.system, 10)];
+  if (!t) return;
+  c.location = t.sys + ' (' + t.ter + ')';
+  hsSave();
+}
+function hsPirApply(kind) {
+  const c = hsContract(); const f = hsForce(); if (!f || !hsIsPiracy(c)) return false;
+  const p = hsPiracyState(c, true);
+  const T = hsPiracyTotals(c);
+  const sc = c.scale || 1;
+  if (kind === 'goods') {
+    if (!(p.goodsRoll >= 1)) { alert('Roll or enter the Piracy Goods 1D6 first.'); return false; }
+    const label = 'Piracy Goods (1D6 ' + p.goodsRoll + ': ' + (p.goodsRoll === 1 ? 'None' : HS_PIRACY_GOODS[p.goodsRoll] + ' SP') + ' \u00d7 Scale ' + sc + ') \u2014 Reach p.126';
+    if (!confirm((p.goodsApplied ? 'Piracy Goods were already posted (' + p.goodsApplied.sp + ' SP on ' + String(p.goodsApplied.ts).slice(0, 10) + '). Post AGAIN?\n\n' : '') + 'Post +' + T.goods + ' SP to the ledger?\n"' + label + '"')) return false;
+    if (T.goods) hsAppendLedger(label, T.goods);
+    p.goodsApplied = { ts: new Date().toISOString(), sp: T.goods, roll: p.goodsRoll, scale: sc };
+    hsPirLog(c, 'apply', 'Posted to ledger: ' + label + ' = +' + T.goods + ' SP', null, 'apply');
+  } else if (kind === 'comp') {
+    if (!(p.compRoll >= 1)) { alert('Roll or enter the Piracy Component 1D6 first.'); return false; }
+    if (!T.count) { alert('No components carried off: set the count (or log components below).'); return false; }
+    const pl = hsPiracyPlus1(c); const m = hsPiracyCompRoll(p.compRoll, pl);
+    const label = 'Piracy Components (1D6 ' + p.compRoll + (pl ? ' +1 = ' + m : '') + ': ' + T.each + ' SP \u00d7 ' + T.count + ') \u2014 Reach p.126';
+    if (!confirm((p.compApplied ? 'Piracy Components were already posted (' + p.compApplied.sp + ' SP). Post AGAIN?\n\n' : '') + 'Post +' + T.comp + ' SP to the ledger?\n"' + label + '"')) return false;
+    hsAppendLedger(label, T.comp);
+    p.compApplied = { ts: new Date().toISOString(), sp: T.comp, roll: p.compRoll, plus1: pl, count: T.count, each: T.each };
+    hsPirLog(c, 'apply', 'Posted to ledger: ' + label + ' = +' + T.comp + ' SP', null, 'apply');
+  } else if (kind === 'rep') {
+    const s = hsPiracyRepSuggest(c);
+    if (s.roll == null) { alert('Roll or enter the Reputation 2D6 first.'); return false; }
+    const cur = f.reputation != null ? f.reputation : 1;
+    if (s.ok) { alert('2D6 ' + s.roll + ' vs ' + s.tn + '+: pass. No Reputation change (Reach p.25).'); p.repApplied = { ts: new Date().toISOString(), roll: s.roll, delta: 0 }; hsPirLog(c, 'apply', 'Reputation roll passed (' + s.roll + ' vs ' + s.tn + '+): no change', null, 'apply'); hsSave(); return true; }
+    if (!confirm('2D6 ' + s.roll + ' vs ' + s.tn + '+: FAILED.\nEarned ' + s.earned + ' SP \u2192 ' + s.delta + ' Reputation (\u22121 per 500 SP, rounded up \u2014 Reach p.25).\n\nApply: Reputation ' + cur + ' \u2192 ' + (cur + s.delta) + '?' + (p.repApplied ? '\n\n(A piracy Reputation result was already applied: ' + p.repApplied.delta + '.)' : ''))) return false;
+    f.reputation = cur + s.delta;
+    p.repApplied = { ts: new Date().toISOString(), roll: s.roll, delta: s.delta, earned: s.earned };
+    hsPirLog(c, 'apply', 'Reputation ' + cur + ' \u2192 ' + f.reputation + ' (failed ' + s.roll + ' vs ' + s.tn + '+, ' + s.earned + ' SP earned)', null, 'apply');
+  }
+  hsSave();
+  return true;
+}
+function hsPirAddComp() {
+  const c = hsContract(); if (!hsIsPiracy(c)) return null;
+  const g = id => document.getElementById(id);
+  const n = parseInt((g('hsPirCompN') || {}).value, 10);
+  if (!(n > 0)) { alert('How many components did this unit carry off? (Reach p.171)'); return null; }
+  const p = hsPiracyState(c, true);
+  const e = { id: hsId('pc'), ts: new Date().toISOString(), carrier: String((g('hsPirCompCarrier') || {}).value || '').trim().slice(0, 60), count: n, notes: String((g('hsPirCompNotes') || {}).value || '').trim().slice(0, 200) };
+  p.compLog.push(e);
+  hsSave();
+  return e;
+}
+function hsPirDel(which, id) {
+  const c = hsContract(); const p = c && c.piracy; if (!p) return;
+  const arr = which === 'comp' ? p.compLog : p.log;
+  const i = arr.findIndex(e => e.id === id); if (i < 0) return;
+  if (!confirm('Delete this ' + (which === 'comp' ? 'component log' : 'piracy roll log') + ' entry? (Ledger and Reputation are not changed.)')) return;
+  arr.splice(i, 1);
+  hsSave();
+}
+
+function hsPirSel(id, kind, val, n) {
+  const max = 6 * n; let o = '<option value="">\u2014</option>';
+  for (let i = n; i <= max; i++) o += '<option value="' + i + '"' + (parseInt(val, 10) === i ? ' selected' : '') + '>' + i + '</option>';
+  return '<select id="' + id + '" class="hs-pir-sel" title="Enter the roll you made with your own dice" onchange="hsPirRoll(\'' + kind + '\', this.value)">' + o + '</select>';
+}
+function hsRenderPiracy() {
+  const pay = document.getElementById('hsPiracyPay');
+  const rol = document.getElementById('hsPiracyRoll');
+  const c = hsContract();
+  const on = hsIsPiracy(c);
+  ['hsCtrBasePay', 'hsCtrSupportRights', 'hsCtrTransport', 'hsCtrSalvageRights', 'hsCtrCommand'].forEach(id => {
+    const el = document.getElementById(id); if (!el) return;
+    if (on) { el.disabled = true; el.setAttribute('data-pir-lock', '1'); el.title = 'Act of Piracy: no employer, terms cannot be negotiated (Reach p.126). Change Type to unlock.'; }
+    else if (el.getAttribute('data-pir-lock')) { el.disabled = false; el.removeAttribute('data-pir-lock'); el.removeAttribute('title'); }
+  });
+  if (on) { const bp = document.getElementById('hsCtrBasePay'); const o = bp && bp.selectedOptions && bp.selectedOptions[0];
+    if (o && String(c.basePayStep) === '0') o.textContent = 'Step 0 \u2014 0% (Act of Piracy, p.124)'; }
+  if (pay) pay.hidden = !on;
+  if (rol) rol.hidden = !on;
+  if (!on) { if (pay) pay.innerHTML = ''; if (rol) rol.innerHTML = ''; return; }
+  const p = c.piracy || {};
+  const T = hsPiracyTotals(c);
+  const pl = hsPiracyPlus1(c);
+  const sc = c.scale || 1;
+  const E = hsEsc;
+  const sys = HS_PIRACY_TRACK[parseInt(p.system, 10)];
+  const pls = p.compPlus1 === true ? 'yes' : p.compPlus1 === false ? 'no' : 'auto';
+  const vics = p.victorious === true ? 'yes' : p.victorious === false ? 'no' : 'auto';
+  const rs = hsPiracyRepSuggest(c);
+  const ap = (a, txt) => a ? '<span class="hs-pir-done">posted ' + E(String(a.ts).slice(0, 10)) + (a.sp != null ? ': +' + a.sp + ' SP' : '') + '</span>' : '';
+  if (pay) pay.innerHTML =
+    '<div class="hs-pir-h">ACT OF PIRACY \u2014 PAYMENT <span>Reach pp.124\u2013126</span></div>' +
+    '<div class="hs-pir-terms">No employer \u00b7 <b>no Base Pay, combat bonuses, Support or Transport pay</b>; you pay transport and maintenance and may run into the red until the contract ends (p.126); still negative after the payments = debt (p.36). Terms are locked (cannot be negotiated, p.126). Salvage <b>100% (step 13)</b> per forum errata (printed: 100 percent (11)); the Objective Raid Attacker claims no salvage from the track (p.171) and ransom is not offered to a pirate (p.32).</div>' +
+    '<div class="hs-pir-grid">' +
+      '<div class="hs-pir-box"><div class="hs-pir-lbl" title="Piracy Goods Table (p.126): 1 None, 2 375, 3 750, 4 1250, 5 1500, 6 1650 SP; paid per contract Scale, regardless of the track result">GOODS 1D6 \u00d7 SCALE</div>' +
+        '<div class="hs-pir-row">' + hsPirSel('hsPirGoodsSel', 'goods', p.goodsRoll, 1) + '<button type="button" class="btn-grey btn-sm" onclick="hsPirRoll(\'goods\')">ROLL 1D6</button></div>' +
+        '<div class="hs-pir-out">' + (p.goodsRoll ? (p.goodsRoll === 1 ? 'None' : HS_PIRACY_GOODS[p.goodsRoll] + ' SP') + ' \u00d7 Scale ' + sc + ' = <b id="hsPirGoodsSP">' + T.goods + '</b> SP' : '<span id="hsPirGoodsSP" class="m">\u2014</span>') + '</div>' +
+        '<button type="button" class="btn btn-sm" onclick="hsPirApply(\'goods\')">ADD GOODS TO LEDGER</button> ' + ap(p.goodsApplied) + '</div>' +
+      '<div class="hs-pir-box"><div class="hs-pir-lbl" title="Piracy Component Table (p.126): 1 250, 2 300, 3 400, 4 500, 5 550, 6 600, 7 650 SP per component; +1 if the track was on Tancredi IV or Mirach">COMPONENTS 1D6 (+1)</div>' +
+        '<div class="hs-pir-row"><label>Carried off <input type="number" id="hsPirCount" min="0" value="' + T.count + '" style="width:64px" title="Defaults to the component log total; type to override" onchange="hsPirSet(\'compCount\', this.value)"></label>' +
+          (p.compCount != null ? '<button type="button" class="btn-grey btn-sm" onclick="hsPirSet(\'compCount\', \'\')" title="Back to the component log total (' + hsPiracyLogCount(c) + ')">USE LOG TOTAL</button>' : '') + '</div>' +
+        '<div class="hs-pir-row">' + hsPirSel('hsPirCompSel', 'comp', p.compRoll, 1) + '<button type="button" class="btn-grey btn-sm" onclick="hsPirRoll(\'comp\')">ROLL 1D6</button>' +
+          '<label title="+1 if the track took place on Tancredi IV or Mirach (p.126). Auto follows the rolled system / Location">+1 <select id="hsPirPlus1" onchange="hsPirSet(\'compPlus1\', this.value)"><option value="auto"' + (pls === 'auto' ? ' selected' : '') + '>auto (' + (pl ? 'on' : 'off') + ')</option><option value="yes"' + (pls === 'yes' ? ' selected' : '') + '>yes</option><option value="no"' + (pls === 'no' ? ' selected' : '') + '>no</option></select></label></div>' +
+        '<div class="hs-pir-out">' + (p.compRoll ? 'Roll ' + p.compRoll + (pl ? ' +1 = ' + hsPiracyCompRoll(p.compRoll, pl) : '') + ': <b id="hsPirEach">' + T.each + '</b> SP each \u00d7 ' + T.count + ' = <b id="hsPirCompSP">' + T.comp + '</b> SP' : '<span id="hsPirCompSP" class="m">\u2014</span>') + '</div>' +
+        '<button type="button" class="btn btn-sm" onclick="hsPirApply(\'comp\')">ADD COMPONENTS TO LEDGER</button> ' + ap(p.compApplied) + '</div>' +
+      '<div class="hs-pir-box"><div class="hs-pir-lbl" title="Reach p.25: roll 2D6 at the end of each act of piracy, 9+ (\u22122 TN if victorious = 7+). Failure: \u22121 Reputation per 500 SP (rounded up) earned by the piracy">REPUTATION 2D6</div>' +
+        '<div class="hs-pir-row">' + hsPirSel('hsPirRepSel', 'rep', p.repRoll, 2) + '<button type="button" class="btn-grey btn-sm" onclick="hsPirRoll(\'rep\')">ROLL 2D6</button>' +
+          '<label title="Victorious = the track was completed successfully (p.126 Victory). Auto = a logged Success / All Objectives track">Victorious <select id="hsPirVic" onchange="hsPirSet(\'victorious\', this.value)"><option value="auto"' + (vics === 'auto' ? ' selected' : '') + '>auto (' + (hsPiracyVictorious(c) ? 'yes' : 'no') + ')</option><option value="yes"' + (vics === 'yes' ? ' selected' : '') + '>yes</option><option value="no"' + (vics === 'no' ? ' selected' : '') + '>no</option></select></label></div>' +
+        '<div class="hs-pir-out" id="hsPirRepOut">Need ' + rs.tn + '+ \u00b7 earned ' + rs.earned + ' SP' + (rs.roll == null ? '' : ' \u00b7 rolled ' + rs.roll + ': ' + (rs.ok ? 'pass, no change' : '<b>suggest ' + rs.delta + '</b>')) + '</div>' +
+        '<button type="button" class="btn btn-sm" onclick="hsPirApply(\'rep\')">APPLY REPUTATION</button> ' + (p.repApplied ? '<span class="hs-pir-done">applied ' + E(String(p.repApplied.ts).slice(0, 10)) + ': ' + p.repApplied.delta + '</span>' : '') + '</div>' +
+    '</div>' +
+    '<div class="hs-pir-haul">COMBINED HAUL: <b id="hsPirHaul">' + T.total + '</b> SP <span>(goods ' + T.goods + ' + components ' + T.comp + ')</span></div>' +
+    '<p class="hs-rule-cite">Book example (p.126, errata: the Goods roll was a <b style="color:#fff;">four</b>, not three): Scale 2, Goods 4 \u2192 1,250 \u00d7 2 = 2,500 SP; Components 4 \u2192 500 \u00d7 6 = 3,000 SP; total 5,500 SP less 3,600 SP transport + maintenance. Tancredi IV Lasers option (repairs-only pool, doubled) is not automated: post it yourself if you take it. <i>Inference:</i> \u201cearned\u201d for the Reputation roll = Goods + Components payout (the book does not say gross or net).</p>';
+  if (rol) {
+    const row = (kind, label, n, val, tip) => '<div class="hs-pir-rrow"><span class="hs-pir-lbl" title="' + hsEscAttr(tip) + '">' + label + '</span>' + hsPirSel('hsPirSel_' + kind, kind, val, n) +
+      '<button type="button" class="btn-grey btn-sm" onclick="hsPirRoll(\'' + kind + '\')">ROLL ' + n + 'D6</button><span class="hs-pir-res">' + (val ? (kind === 'system' && HS_PIRACY_TRACK[parseInt(val, 10)] ? 'Track Table (p.125) ' + val + ': see below' : E(hsPirDescribe(c, kind, parseInt(val, 10)))) : '') + '</span></div>';
+    const logs = (p.log || []).map(e => '<div class="hs-ledger-row"><span><span class="hs-pir-ts">' + E(String(e.ts).slice(5, 16).replace('T', ' ')) + '</span> ' + (e.src === 'entered' ? '[entered] ' : e.dice ? '[' + e.dice.join('+') + '] ' : '') + E(e.text) + '</span>' +
+      '<span class="hs-ledger-actions"><button type="button" class="hs-ledger-trash" title="Delete this log entry" onclick="hsPirDel(\'log\', \'' + e.id + '\')">\u2715</button></span></div>').join('');
+    const each = T.each;
+    const comps = (p.compLog || []).map(e => '<div class="hs-ledger-row"><span><b>' + (parseInt(e.count, 10) || 0) + '</b> \u00d7 ' + E(e.carrier || '(unit)') + (e.notes ? ' <span style="color:var(--text-muted)">(' + E(e.notes) + ')</span>' : '') +
+      (p.compRoll ? ' <span class="hs-pir-ts">\u2192 ' + (each * (parseInt(e.count, 10) || 0)) + ' SP</span>' : '') + '</span>' +
+      '<span class="hs-ledger-actions"><span style="color:var(--text-muted);font-size:0.8rem;">' + E(String(e.ts).slice(0, 10)) + '</span><button type="button" class="hs-ledger-trash" title="Delete this component entry" onclick="hsPirDel(\'comp\', \'' + e.id + '\')">\u2715</button></span></div>').join('');
+    rol.innerHTML =
+      '<div class="hs-pir-h">PIRACY DICE <span>Reach pp.125\u2013126 \u00b7 rolls are logged, never posted until you tap ADD / APPLY</span></div>' +
+      row('system', 'SYSTEM / LOOT 1D6', 1, p.system, 'Track Table (p.125): the Pirates roll 1D6 for the system attacked, loot, opposing force and conditions') +
+      (sys ? '<div class="hs-pir-sys"><b>' + E(sys.sys) + '</b> (' + E(sys.ter) + ') \u00b7 Loot: ' + E(sys.loot) + ' \u00b7 Opposing force: ' + E(sys.opfor) + '<br>' + E(sys.cond) + ' <button type="button" class="btn-grey btn-sm" onclick="hsPirUseLocation()" title="Write this system into the contract Location field">USE AS LOCATION</button></div>' : '') +
+      row('compl', 'COMPLICATION 1D6', 1, p.compl, 'Command Complications Table (p.126): one roll for the track, not per player') +
+      row('goods', 'GOODS 1D6', 1, p.goodsRoll, 'Piracy Goods Table (p.126), paid \u00d7 contract Scale') +
+      row('comp', 'COMPONENTS 1D6' + (pl ? ' +1' : ''), 1, p.compRoll, 'Piracy Component Table (p.126); +1 on Tancredi IV or Mirach') +
+      row('rep', 'REPUTATION 2D6', 2, p.repRoll, 'Reach p.25: 9+, or 7+ if victorious') +
+      row('buy', '\u2019MECH FOR SALE 2D6', 2, p.buyRoll, 'p.126 Purchase Options: monthly 2D6, 7+ one, 11+ two; then Sea Fox table p.176') +
+      '<div class="hs-pir-sub">PIRACY ROLL LOG</div><div class="hs-ledger" id="hsPirLog">' + (logs || '<div class="hs-ledger-row"><span style="color:var(--text-muted)">No piracy rolls yet.</span></div>') + '</div>' +
+      '<div class="hs-pir-sub">COMPONENT LOG <span>total ' + hsPiracyLogCount(c) + '</span></div>' +
+      '<div class="hs-pir-row"><input id="hsPirCompCarrier" placeholder="Carrier (e.g. Axeman, J-37)" style="flex:2 1 140px"><input type="number" id="hsPirCompN" min="1" value="1" style="width:64px" title="Components carried off the Attacker\u2019s home edge"><input id="hsPirCompNotes" placeholder="Notes" style="flex:2 1 120px"><button type="button" class="btn btn-sm" onclick="hsPirAddComp()">LOG COMPONENTS</button></div>' +
+      '<div class="hs-ledger" id="hsPirCompLog">' + (comps || '<div class="hs-ledger-row"><span style="color:var(--text-muted)">No components logged yet.</span></div>') + '</div>' +
+      '<p class="hs-rule-cite">Objective Raid, Raid (Reach p.171): grabbers are \u2019Mechs with at least one hand, or infantry; carry up to weight class / SZ (Light 1 \u2026 Assault 4) or cargo tons \u00f7 5 (AS: CT \u00f7 3), round down; asset vehicles carry 1 if assisted with loading (\u22121 MP); carriers lose 1 MP (AS: \u22122\u201d). Each component carried off your home edge counts.</p>';
+  }
+}
+(function () {
+  if (typeof hsRenderContractTab !== 'function') return;
+  const orig = hsRenderContractTab;
+  hsRenderContractTab = function () { const r = orig.apply(this, arguments); try { hsRenderPiracy(); } catch (e) { console.warn('piracy render', e); } return r; };
 })();
 </script>
 <script>/* HDPWA only: service worker (relative path, works under any subfolder) */
