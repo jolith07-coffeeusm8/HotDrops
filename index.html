@@ -5,7 +5,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Hot Drops">
-  <meta name="hdpwa-version" content="20261115-d566c707">
+  <meta name="hdpwa-version" content="20261116-1869821a">
   <script>window.__BT_NO_ICON = true; /* HDPWA: use the real manifest.webmanifest, not the runtime blob */</script>
 
   <meta charset="UTF-8">
@@ -1758,6 +1758,149 @@ body.bt-theme .dropdown-content button{min-height:46px}
 @media (prefers-reduced-motion: reduce){.toe-ghost-wrap>.toe-ghost{animation:none;transform:none}}
 .toe-tok.toe-lifted{transition:opacity .08s}
 </style>
+<style id="bt1116Css">
+#missionsTab .ml-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:8px}
+#missionsTab .ml-head .bld-sh{margin:0}
+#missionsTab .ml-rec{color:#e5e7eb}
+#missionsTab .ml-rec b{font-family:'Russo One',sans-serif;letter-spacing:.04em}
+#missionsTab .ml-sp{flex:1 1 auto}
+.ml-sharebtn{min-height:44px;padding:8px 16px;font-weight:700;letter-spacing:.08em;background:#1e3a5f;color:#e0f2fe;border:1px solid #38bdf8;cursor:pointer;border-radius:4px}
+.ml-sharebtn:hover{background:#24476f}
+.ml-sharebtn .car{font-size:.7em;margin-left:6px}
+#missionsTab .ml-list{border:1px solid #2a3340;border-radius:6px;overflow:hidden}
+#missionsTab .ml-row{display:grid;grid-template-columns:92px minmax(0,1fr) 64px minmax(0,270px) 56px 22px;align-items:center;gap:10px;min-height:52px;padding:6px 12px;background:rgba(0,0,0,.35);border-bottom:1px solid #2a3340;cursor:pointer;width:100%;text-align:left;color:#e5e7eb;font:inherit;border-left:4px solid transparent;border-top:0;border-right:0}
+#missionsTab .ml-row:hover{background:rgba(255,255,255,.04)}
+#missionsTab .ml-row.w{border-left-color:#22c55e}#missionsTab .ml-row.l{border-left-color:#ef4444}#missionsTab .ml-row.t{border-left-color:#a1a1aa}
+#missionsTab .ml-date{font-family:'Courier New',monospace;color:#9ca3af;font-size:.86rem}
+#missionsTab .ml-vs{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#missionsTab .ml-vs b{color:#f3f4f6}#missionsTab .ml-vs i{color:#6b7280;font-style:normal;margin:0 6px;font-size:.8em}
+#missionsTab .ml-res{display:inline-block;text-align:center;font-weight:800;font-size:.72rem;letter-spacing:.08em;padding:3px 6px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#missionsTab .ml-res.w{background:#14532d;color:#bbf7d0;border:1px solid #22c55e}
+#missionsTab .ml-res.l{background:#450a0a;color:#fecaca;border:1px solid #ef4444}
+#missionsTab .ml-res.t{background:#27272a;color:#e4e4e7;border:1px solid #71717a}
+#missionsTab .ml-mis{color:#fbbf24;font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#missionsTab .ml-ico{color:#9ca3af;font-size:.8rem;white-space:nowrap;text-align:right}
+#missionsTab .ml-chev{color:#9ca3af;transition:transform .12s;text-align:center}
+#missionsTab .ml-item.open .ml-chev{transform:rotate(90deg);color:#fbbf24}
+#missionsTab .ml-item.open .ml-row{background:#141a22;border-bottom-color:#3f3f46}
+#missionsTab .ml-det{display:none;padding:12px 14px 14px 16px;background:#0f1319;border-bottom:1px solid #2a3340;border-left:4px solid #3f3f46}
+#missionsTab .ml-item.open .ml-det{display:block}
+#missionsTab .ml-score{display:grid;grid-template-columns:1fr auto 1fr;gap:6px 14px;align-items:center;margin-bottom:10px}
+#missionsTab .ml-side{background:#111827;border:1px solid #374151;border-radius:6px;padding:8px 10px}
+#missionsTab .ml-side.win{border-color:#22c55e;box-shadow:inset 0 0 0 1px #14532d}
+#missionsTab .ml-side .n{font-weight:700;color:#f3f4f6}
+#missionsTab .ml-side .vp{font-family:'Russo One',sans-serif;font-size:1.6rem;color:#fbbf24}
+#missionsTab .ml-side small{display:block;color:#9ca3af}
+#missionsTab .ml-dash{font-family:'Russo One',sans-serif;color:#6b7280;font-size:1.2rem}
+#missionsTab .ml-facts{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
+#missionsTab .ml-fact{background:#1b1f24;border:1px solid #374151;border-radius:3px;padding:3px 8px;font-size:.8rem;color:#d1d5db}
+#missionsTab .ml-fact b{color:#fbbf24;font-weight:600;margin-right:4px;letter-spacing:.06em;font-size:.72rem}
+#missionsTab .ml-lab{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin:10px 0 4px;display:flex;gap:8px;align-items:baseline}
+#missionsTab .ml-lab small{text-transform:none;letter-spacing:0;color:#6b7280}
+#missionsTab .ml-notes{width:100%;box-sizing:border-box;min-height:92px;padding:10px;font-size:1rem;background:#0b0f14;color:#e5e7eb;border:1px solid #52525b;border-radius:4px;resize:vertical;font-family:inherit;line-height:1.4}
+#missionsTab .ml-saved{color:#34d399;font-size:.76rem}
+#missionsTab .ml-photos{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scroll-snap-type:x mandatory}
+#missionsTab .ml-ph{position:relative;flex:0 0 auto;width:112px;height:84px;border-radius:5px;overflow:hidden;border:2px solid #374151;scroll-snap-align:start;background:#000}
+#missionsTab .ml-ph img{width:100%;height:100%;object-fit:cover;display:block}
+#missionsTab .ml-ph .x{position:absolute;top:3px;right:3px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.7);color:#fecaca;border:1px solid #ef4444;font-size:13px;line-height:22px;padding:0;cursor:pointer}
+#missionsTab .ml-addph{flex:0 0 auto;width:112px;height:84px;border:2px dashed #4b5563;border-radius:5px;background:#111827;color:#d1d5db;font-size:.78rem;font-weight:700;letter-spacing:.06em;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+#missionsTab .ml-addph span{font-size:1.4rem}
+#missionsTab .ml-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;padding-top:10px;border-top:1px dotted #3f3f46}
+#missionsTab .ml-acts .grow{flex:1}
+#missionsTab .ml-via{font-size:.72rem;color:#a78bfa;border:1px solid #7c3aed;border-radius:3px;padding:1px 5px;margin-left:6px}
+/* SHARE menu (popover on wide screens, bottom sheet in portrait) */
+.ml-menu-back{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.45);display:none}
+.ml-menu-back.on{display:block}
+.ml-menu{position:fixed;z-index:9001;width:400px;max-width:calc(100vw - 16px);max-height:calc(100vh - 24px);overflow:auto;background:#0d1117;border:2px solid #38bdf8;border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,.8);padding:8px 0;display:none;color:#e5e7eb}
+.ml-menu.on{display:block}
+.ml-menu h4{margin:0;padding:8px 14px 6px;font-family:'Russo One',sans-serif;letter-spacing:.1em;font-size:.86rem;color:#7dd3fc;display:flex;justify-content:space-between;align-items:center}
+.ml-menu h4 small{font-family:inherit;color:#9ca3af;letter-spacing:0;font-size:.74rem;font-weight:400}
+.ml-menu .grp{padding:8px 14px 2px;font-size:.68rem;letter-spacing:.14em;color:#9ca3af;border-top:1px solid #1f2937;margin-top:4px}
+.ml-menu .grp:first-of-type{border-top:0;margin-top:0}
+.ml-mi{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:2px 8px;width:100%;min-height:52px;padding:6px 14px;background:none;border:0;color:#e5e7eb;text-align:left;cursor:pointer;font:inherit}
+.ml-mi:hover,.ml-mi:focus-visible{background:#172033;outline:none}
+.ml-mi .ic{grid-row:1/3;font-size:1.25rem;text-align:center}
+.ml-mi b{font-weight:700;font-size:.95rem}
+.ml-mi small{grid-column:2;color:#9ca3af;font-size:.76rem;line-height:1.25}
+.ml-mi.warn b{color:#fca5a5}
+.ml-menu .cancel{display:block;width:calc(100% - 28px);margin:8px 14px 6px;min-height:46px;background:#1f2937;color:#e5e7eb;border:1px solid #4b5563;border-radius:4px;font-weight:700;letter-spacing:.08em;cursor:pointer}
+@media (max-width:820px){
+  #missionsTab .ml-row{grid-template-columns:minmax(0,1fr) auto 22px;grid-template-rows:auto auto;gap:2px 10px;padding:8px 12px;min-height:60px}
+  #missionsTab .ml-date{grid-column:1;grid-row:1;font-size:.78rem}
+  #missionsTab .ml-vs{grid-column:1;grid-row:2;white-space:normal}
+  #missionsTab .ml-res{grid-column:2;grid-row:1/3;align-self:center;max-width:110px}
+  #missionsTab .ml-mis{grid-column:1;grid-row:1;justify-self:end;margin-left:96px;max-width:calc(100% - 96px)}
+  #missionsTab .ml-ico{display:none}
+  #missionsTab .ml-chev{grid-column:3;grid-row:1/3}
+  #missionsTab .ml-score{grid-template-columns:1fr;gap:6px}
+  #missionsTab .ml-dash{display:none}
+  .ml-menu{left:0!important;right:0;bottom:0;top:auto!important;width:auto;max-width:none;border-radius:14px 14px 0 0;border-width:2px 0 0;max-height:78vh;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+  .ml-menu::before{content:'';display:block;width:44px;height:5px;border-radius:3px;background:#4b5563;margin:2px auto 6px}
+}
+/* Table theme flavour for the new parts */
+body.bt-theme #missionsTab .ml-list{border-color:#33497a}
+body.bt-theme #missionsTab .ml-row{background:linear-gradient(#17264a,#111c35);border-bottom-color:#25365a}
+body.bt-theme #missionsTab .ml-item.open .ml-row{background:#1b2d55}
+body.bt-theme #missionsTab .ml-det{background:#0f182b;border-left-color:#33497a}
+body.bt-theme #missionsTab .ml-side{background:#0a1020;border-color:#33497a}
+body.bt-theme #missionsTab .ml-fact{background:#0a1020;border-color:#25365a}
+body.bt-theme #missionsTab .ml-notes{background:#0a1020;border-color:#33497a}
+body.bt-theme .ml-menu{background:#0f182b;border-color:#00d4ff}
+body.bt-theme .ml-mi:hover{background:#17264a}
+body.bt-theme .ml-sharebtn{background:#00a3c4;color:#00131a;border-color:#7ef0ff}
+
+/* 20261116 additions beyond the mockup */
+#missionsTab .ml-row{appearance:none;-webkit-appearance:none}
+#missionsTab .ml-row:focus-visible,.ml-sharebtn:focus-visible{outline:2px solid #fbbf24;outline-offset:-2px}
+#missionsTab .ml-op{display:inline-block;margin-left:8px;font-size:.78rem;color:#c4b5fd;border:1px solid #4c1d95;border-radius:3px;padding:0 6px;vertical-align:1px}
+#missionsTab .ml-op::before{content:'\1F464  ';font-size:.8em}
+#missionsTab .ml-hint{margin-top:8px;font-size:.78rem;color:#9ca3af}
+#missionsTab .ml-lnotes{white-space:pre-wrap;background:#111827;border:1px dashed #4b5563;border-radius:4px;padding:8px 10px;color:#d1d5db;font-size:.9rem}
+#missionsTab .ml-phimg{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:zoom-in}
+#missionsTab .ml-linkbox{margin-top:10px}
+#missionsTab .ms-reports{margin-top:10px}
+#missionsTab .ml-rm{min-height:44px}
+.ml-mi.on .ic{color:#4ade80}
+.ml-mi[role=menuitemcheckbox] b::after{content:''}
+.ml-phview{position:fixed;inset:0;z-index:99000;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:14px}
+.ml-phview-in{max-width:min(96vw,1100px);text-align:center;color:#d1d5db}
+.ml-phview-in img{max-width:100%;max-height:78vh;display:block;margin:0 auto 10px;border:2px solid #374151;border-radius:6px}
+.ml-phview-in .bld-row{justify-content:center}
+#mlPrintArea{display:none}
+@media print{body.ml-printing>*:not(#mlPrintArea){display:none!important}body.ml-printing #mlPrintArea{display:block!important}#mlPrintArea .ml-pcard{width:100%;max-width:900px;display:block}#mlPrintArea .ml-pphotos{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}#mlPrintArea .ml-pphotos img{width:48%;page-break-inside:avoid}}
+body.bt-theme #missionsTab .ml-op{border-color:#33497a;color:#9fd7ff}
+body.bt-theme #missionsTab .ml-lnotes{background:#0a1020;border-color:#33497a}
+/* mini photo crop + BLACK BG */
+.hs-crop-back{position:fixed;inset:0;z-index:99000;background:rgba(0,0,0,.88);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:12px}
+.hs-crop-back.show{display:flex}
+.hs-crop{background:#0d1117;border:2px solid #f59e0b;border-radius:8px;padding:12px 14px;color:#e5e7eb;max-width:min(920px,100%);width:100%;box-shadow:0 16px 40px #000}
+.hs-crop-h{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:10px}
+.hs-crop-h b{font-family:'Russo One',sans-serif;letter-spacing:.08em;color:#fbbf24}
+.hs-crop-h small{color:#9ca3af}
+.hs-crop-stage{position:relative;margin:0 auto 10px;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;background:#000}
+.hs-crop-stage canvas{display:block}
+.hs-crop-box{position:absolute;box-sizing:border-box;border:2px solid #fbbf24;box-shadow:0 0 0 9999px rgba(0,0,0,.58);cursor:move;touch-action:none}
+.hs-crop-box::before,.hs-crop-box::after{content:'';position:absolute;left:33.33%;right:33.33%;top:0;bottom:0;border-left:1px dashed rgba(251,191,36,.55);border-right:1px dashed rgba(251,191,36,.55);pointer-events:none}
+.hs-crop-box::after{left:0;right:0;top:33.33%;bottom:33.33%;border:0;border-top:1px dashed rgba(251,191,36,.55);border-bottom:1px dashed rgba(251,191,36,.55)}
+.hs-crop-box .hc{position:absolute;width:22px;height:22px;background:#fbbf24;border:2px solid #111;border-radius:4px;touch-action:none;z-index:2}
+.hs-crop-box .hc::before{content:'';position:absolute;inset:-12px}
+.hs-crop-box .hc.nw{left:-11px;top:-11px;cursor:nwse-resize}.hs-crop-box .hc.ne{right:-11px;top:-11px;cursor:nesw-resize}
+.hs-crop-box .hc.sw{left:-11px;bottom:-11px;cursor:nesw-resize}.hs-crop-box .hc.se{right:-11px;bottom:-11px;cursor:nwse-resize}
+.hs-crop-box.drag{border-color:#fde68a}
+.hs-crop-tools{justify-content:center;flex-wrap:wrap;gap:8px;margin:6px 0}
+.hs-crop-tools button,.hs-crop-acts button,.hs-bg-ctl button{min-height:44px}
+.hs-crop-acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin-top:12px;padding-top:10px;border-top:1px dotted #3f3f46}
+.hs-crop-prev{display:flex;justify-content:center;margin-bottom:8px;background:repeating-conic-gradient(#1f2937 0 25%,#111827 0 50%) 0 0/20px 20px;padding:8px;border-radius:6px}
+.hs-crop-prev canvas{max-width:100%;max-height:56vh;display:block;border:1px solid #374151}
+.hs-crop-prev canvas.tap{cursor:crosshair}
+.hs-crop-note{color:#9ca3af;font-size:.8rem}
+.hs-bg-sw{display:inline-block;width:28px;height:28px;border:2px solid #9ca3af;border-radius:4px;vertical-align:middle}
+.hs-bg-ctl{border:1px solid #374151;border-radius:6px;padding:8px 10px;margin:6px 0}
+.hs-bg-ctl label{display:flex;align-items:center;gap:10px;font-size:.85rem;letter-spacing:.06em}
+.hs-bg-ctl input[type=range]{flex:1;min-height:36px}
+body.bt-theme .hs-crop{background:#0f182b;border-color:#00d4ff}
+body.bt-theme .hs-crop-h b{color:#7ef0ff}
+</style>
 </head>
 <body data-section="aces">
 <script id="btUiScript">
@@ -1951,7 +2094,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
       <button class="btn btn-sm btn-grey hs-only hs-inline" onclick="hsPromptWarchest()">SET SP</button>
     </div>
   </header>
-  <div class="bt-backup-line due" id="btBackupLine" role="status"><span id="btBackupTxt">Last backup: never</span><button type="button" class="btn-grey btn-sm" id="btBackupNowBtn" onclick="btBackupNow()" title="Runs Export both (Aces + Hot Spots + BSP) now">BACK UP NOW</button></div>
+  <div class="bt-backup-line due" id="btBackupLine" role="status"><span id="btBackupTxt">Last backup: never</span><button type="button" class="btn-grey btn-sm" id="btBackupNowBtn" onclick="btBackupNow()" title="Runs Export both (Aces + Hot Spots + BSP + Missions) now">BACK UP NOW</button></div>
 
   <!-- PANEL 1: ROSTER -->
   <div id="rosterTab" class="panel active">
@@ -2647,7 +2790,7 @@ function hsToggleChecklist() { return BtUi.toggleChecklist(); }
       <h2>EVERYTHING AT ONCE</h2>
       <p class="ie-desc">One combined JSON with Aces + Hot Spots (+ Battlefield Support data). Best for moving to a new device or a full safety copy. BSP photo images are <b>not</b> in it &mdash; use the photo backup below.</p>
       <div class="ie-row">
-        <button class="btn" id="ieExportBoth" onclick="exportBothSaves()" title="Download Aces + Hot Spots (+ Battlefield Support) in one JSON. Photos are NOT included.">Export both (Aces+HS+BSP)</button>
+        <button class="btn" id="ieExportBoth" onclick="exportBothSaves()" title="Download Aces + Hot Spots (+ Battlefield Support + Missions) in one JSON. Photos are NOT included.">Export both (Aces+HS+BSP+Missions)</button>
         <button class="btn-grey" id="ieImportBoth" onclick="document.getElementById('importBothFile').click()" title="Import Aces + Hot Spots (+ Battlefield Support if present) from combined JSON">Import both</button>
       </div>
     </div>
@@ -5897,12 +6040,13 @@ function exportBothSaves() {
     if (typeof persistOnly === 'function' && typeof state !== 'undefined' && state) persistOnly();
     if (typeof hsPersist === 'function' && hsState) hsPersist();
     if (typeof bspPersist === 'function' && bspState) bspPersist();
-    if (!state && !hsState) { alert('No Aces or Hot Spots state loaded.'); return; }
+    const msWrapData = (typeof mlMissionsForBackup === 'function') ? mlMissionsForBackup() : null;   // 20261116: Missions too
+    if (!state && !hsState && !msWrapData) { alert('No Aces or Hot Spots state loaded.'); return; }
     const payload = {
       app: 'Mercs Unplugged / Aces + Hot Spots combined',
       exportedAt: new Date().toISOString(),
       photosIncluded: false,
-      note: 'Battlefield Support card photos are stored in the browser (IndexedDB) and are NOT included in this file.',
+      note: 'Battlefield Support card photos, painted-mini photos and Missions game photos are stored in the browser (IndexedDB) and are NOT included in this file.',
       wraps: {
         bt_aces_v4_tactical: state ? {
           app: 'Mercs Unplugged / Alpha Strike Hot Drops Aces',
@@ -5918,6 +6062,11 @@ function exportBothSaves() {
           app: 'Mercs Unplugged / Battlefield Support (BSP)',
           key: BSP_KEY,
           data: bspState
+        } : null,
+        bt_missions_v1: msWrapData ? {
+          app: 'Mercs Unplugged / Missions pick-up games',
+          key: 'bt_missions_v1',
+          data: msWrapData
         } : null
       }
     };
@@ -5939,7 +6088,9 @@ function importBothSaves(input) {
       let acesRaw = null;
       let hsRaw = null;
       let bspRaw = null;
+      let msRaw = null;   // 20261116: Missions (optional; older files have none)
       if (parsed && parsed.wraps && typeof parsed.wraps === 'object') {
+        msRaw = parsed.wraps.bt_missions_v1 || null;
         acesRaw = parsed.wraps.bt_aces_v4_tactical || parsed.wraps[STORAGE_KEY_V4] || null;
         hsRaw = parsed.wraps.bt_hotspots_v1 || parsed.wraps[HS_KEY] || null;
         bspRaw = parsed.wraps.bt_bsp_v1 || parsed.wraps[BSP_KEY] || null;
@@ -5966,7 +6117,13 @@ function importBothSaves(input) {
         input.value = '';
         return;
       }
-      if (!acesData && !hsData && !bspData) {
+      const msData = msRaw ? unwrapSavePayload(msRaw, 'bt_missions_v1') : null;
+      if (msData && !Array.isArray(msData.forces)) {
+        alert('Combined file has an invalid Missions block (need forces[]).');
+        input.value = '';
+        return;
+      }
+      if (!acesData && !hsData && !bspData && !msData) {
         alert('Not a combined Aces+Hot Spots export (need wraps.bt_aces_v4_tactical and/or wraps.bt_hotspots_v1).');
         input.value = '';
         return;
@@ -5975,6 +6132,7 @@ function importBothSaves(input) {
       if (acesData) parts.push('Aces');
       if (hsData) parts.push('Hot Spots');
       if (bspData) parts.push('Battlefield Support');
+      if (msData) parts.push('Missions');
       if (!confirm('Replace current ' + parts.join(' + ') + ' save(s) from "' + file.name + '"?')) {
         input.value = '';
         return;
@@ -5991,6 +6149,7 @@ function importBothSaves(input) {
         hsPersist();
       }
       if (bspData) bspApplyImport(bspData);
+      if (msData && typeof mlApplyMissionsImport === 'function') mlApplyMissionsImport(msData);
       if (typeof renderAll === 'function') renderAll();
       if (typeof hsRenderAll === 'function') hsRenderAll();
       if (bspData && typeof bspRender === 'function') bspRender();
@@ -23160,8 +23319,13 @@ ZZV5YBNPJH	Rifleman	RFL-5M	1227	31	60	1	1
 <script>
 /* ===== 2026-10-28 (b): build stamp + WHAT'S NEW, storage protection, SHARE PNG, declutter (tap-to-expand). =====
    Device prefs only: bt_whatsnew_v1 {seen} written when the WHAT'S NEW card is dismissed. No save keys touched. */
-var BT_BUILD = { id: '20261115d', date: '2026-11-15' };
+var BT_BUILD = { id: '20261116', date: '2026-11-16' };
 var BT_WHATSNEW = [
+  'Missions Results Log: each game is one tidy line (date, forces, opponent player, result, mission); tap it to see the full record. One SHARE menu per game (share picture, send result link, copy as text, save PNG, print) and one for the whole log (battle reports, CSV, back up / restore, add from a link, Force Battle Log).',
+  'Missions: game notes and up to 6 photos per game (snap or pick), kept on this device. They stay private: nothing goes into links, pictures or text unless you tick Include my notes / Include photos in the SHARE menu.',
+  'Missions: new Opponent player field (shown on the log line and copied into the Force Battle Log). After you log a game the setup clears for the next pick-up game; NEW MATCH \u203a REMATCH brings back the same forces.',
+  'Export both / BACK UP NOW now include your Missions forces, results log and notes. Photos (game photos, mini photos, BSP card photos) stay on the device and are not in the file, same as before.',
+  'Mini photos: every new photo opens a crop step first (drag the box, pull a corner, rotate, free or square), then saves a 480 px picture. Optional BLACK BG (off by default) paints the backdrop black, with a tolerance slider, tap-to-black touch-up, undo and reset. Works offline.',
   'Missions: every step now shows green when it is done and yellow when it needs more info (hints only), with a NEXT bar and GO button that takes you to the next thing to fill in. Logging a result needs one force plus an opponent (any force: OPFOR, custom units, an imported list); until both are set step 4 shows red and PUBLISH explains what is missing.',
   'Force TO&E BOARD: the dragged card now stays right under your finger or mouse (also with TEXT SIZE A\u2212 / A+, the Table theme and in portrait), with a quicker, tighter lift.',
   'New HD app icon (gold-cornered frame, purple HD) for the installed app, browser tab and home screen.',
@@ -25324,6 +25488,481 @@ hsToeDragMove = function (x, y) {
 };
 hsToeTouchMove = function (e) { var d = hsToe.drag; var c = e.touches && e.touches[0]; if (d && c) { d.lx = c.clientX; d.ly = c.clientY; } if (d && d.on) { if (e.cancelable) e.preventDefault(); if (c) hsToeDragMove(c.clientX, c.clientY); } };
 document.addEventListener('pointermove', function (e) { var d = hsToe.drag; if (d && e.pointerId === d.pid) { d.lx = e.clientX; d.ly = e.clientY; } }, true);
+
+</script>
+<script>
+/* ===== Hot Drops build 20261116: (1) Missions results log rework, (2) mini photo crop + optional BLACK BG.
+   (1) The Results Log shows one collapsed line per game (tap to expand), one SHARE menu per game and one for the whole log
+       (mapping of every old button: CHANGES.md / ideas_20261115 NOTES.md). Per-game notes live in the log record as the
+       optional field r.notes; per-game photos live in their own IndexedDB bt_ms_photos_v1 (never in localStorage, never in
+       exports). Optional match.oppPlayer (Opponent player) -> r.op -> Force Battle Log opponent. After PUBLISH the setup is
+       cleared for the next pick-up game (msState.prevMatch remembers the forces for REMATCH). Export both now wraps bt_missions_v1.
+   (2) Adding a mini photo (bt_mini_photos_v1) always goes through a crop step (drag / resize box, rotate); BLACK BG is an
+       optional, off-by-default edge flood fill with tolerance, feather, tap-to-black, undo and reset. No AI, works offline.
+   All new fields are optional: old saves load and save byte-identical. ===== */
+var ML_PH_DB = 'bt_ms_photos_v1', ML_PH_MAX = 6, ML_PH_LONG = 1024, ML_NOTES_MAX = 2000;
+var mlUi = { open: null, link: null, inc: { notes: false, photos: false }, menu: null, saveT: null };
+function mlToast(t) { try { hsToeToast(t); } catch (e) { var d = document.createElement('div'); d.className = 'bt-toast'; d.textContent = t; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 2600); } }
+function mlGame(id) { return ((msState && msState.log) || []).find(function (x) { return x.id === id; }) || null; }
+function mlRes(r) { return r.w === 'Tie' ? 't' : (r.w === r.a ? 'w' : 'l'); }
+function mlResWord(r) { var k = mlRes(r); return k === 't' ? 'TIE' : k === 'w' ? 'WIN' : 'LOSS'; }
+function mlMis(r) { var t = String((r && r.title) || ''); var m = t.match(/^(.*?)\s*\(([^)]*)\)\s*$/); return m ? m[1] + ' \u00b7 ' + m[2].split(',')[0].trim() : t; }
+function mlSwNames(r) { return (r.sw || []).map(function (k) { return ({ fw: 'Forced Withdrawal', edge: 'Edge', bsp: 'BSP' })[k] || k; }); }
+
+/* ---------- per-game photos: IndexedDB bt_ms_photos_v1, store 'photos' {id, gid, buf, type, w, h, added} ---------- */
+var mlPh = { dbP: null, byG: {}, loaded: false, loading: false };
+function mlPhDb() {
+  if (mlPh.dbP) return mlPh.dbP;
+  mlPh.dbP = new Promise(function (res, rej) {
+    if (typeof indexedDB === 'undefined' || !indexedDB) { rej(new Error('IndexedDB unavailable')); return; }
+    var r; try { r = indexedDB.open(ML_PH_DB, 1); } catch (e) { rej(e); return; }
+    r.onupgradeneeded = function () { var db = r.result; if (!db.objectStoreNames.contains('photos')) { var st = db.createObjectStore('photos', { keyPath: 'id' }); st.createIndex('gid', 'gid', { unique: false }); } };
+    r.onsuccess = function () { res(r.result); }; r.onerror = function () { rej(r.error || new Error('open failed')); };
+  });
+  mlPh.dbP.catch(function () { mlPh.dbP = null; });
+  return mlPh.dbP;
+}
+function mlPhTx(mode, fn) { return mlPhDb().then(function (db) { return new Promise(function (res, rej) { var tx = db.transaction('photos', mode), st = tx.objectStore('photos'), out, rq = fn(st); if (rq) rq.onsuccess = function () { out = rq.result; }; tx.oncomplete = function () { res(out); }; tx.onerror = function () { rej(tx.error); }; tx.onabort = function () { rej(tx.error); }; }); }); }
+function mlPhCache(rec) { var blob = new Blob([rec.buf], { type: rec.type || 'image/jpeg' }); var a = mlPh.byG[rec.gid] = mlPh.byG[rec.gid] || [];
+  if (a.some(function (p) { return p.id === rec.id; })) return; a.push({ id: rec.id, gid: rec.gid, blob: blob, url: URL.createObjectURL(blob), w: rec.w, h: rec.h, added: rec.added || '' });
+  a.sort(function (x, y) { return String(x.added).localeCompare(String(y.added)); }); }
+function mlPhLoadAll() {
+  if (mlPh.loaded || mlPh.loading) return; mlPh.loading = true;
+  mlPhTx('readonly', function (s) { return s.getAll(); }).then(function (recs) {
+    (recs || []).forEach(function (r) { if (r && r.id && r.gid && r.buf) mlPhCache(r); });
+    mlPh.loaded = true; mlPh.loading = false; if ((recs || []).length) msRender();
+  }).catch(function () { mlPh.loaded = true; mlPh.loading = false; });
+}
+function mlPhList(gid) { return mlPh.byG[gid] || []; }
+function mlPhFit(w, h, max) { max = max || ML_PH_LONG; if (!w || !h) return { w: 0, h: 0 }; var k = Math.min(1, max / Math.max(w, h)); return { w: Math.max(1, Math.round(w * k)), h: Math.max(1, Math.round(h * k)) }; }
+function mlPhAddFile(gid, file) {
+  return new Promise(function (res) {
+    if (!mlGame(gid)) { res(false); return; }
+    if (mlPhList(gid).length >= ML_PH_MAX) { mlToast('This game already has ' + ML_PH_MAX + ' photos (the most per game). Remove one first.'); res(false); return; }
+    var url = URL.createObjectURL(file), img = new Image();
+    img.onload = function () {
+      var d = mlPhFit(img.naturalWidth, img.naturalHeight, ML_PH_LONG), c = document.createElement('canvas'); c.width = d.w; c.height = d.h;
+      c.getContext('2d').drawImage(img, 0, 0, d.w, d.h); URL.revokeObjectURL(url);
+      c.toBlob(function (b) {
+        if (!b) { mlToast('Could not read that photo.'); res(false); return; }
+        b.arrayBuffer().then(function (buf) {
+          if (mlPhList(gid).length >= ML_PH_MAX) { res(false); return; }
+          var rec = { id: gid + ':' + Date.now().toString(36) + Math.floor(Math.random() * 1e6).toString(36), gid: gid, buf: buf, type: 'image/jpeg', w: d.w, h: d.h, added: new Date().toISOString() };
+          return mlPhTx('readwrite', function (s) { return s.put(rec); }).then(function () { mlPhCache(rec); mlUi.open = gid; msRender(); mlToast('Game photo saved on this device (' + d.w + '\u00d7' + d.h + ', ' + Math.round(buf.byteLength / 1024) + ' KB).'); res(true); });
+        }).catch(function () { mlToast('This browser could not store the photo.'); res(false); });
+      }, 'image/jpeg', 0.8);
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); mlToast('Could not read that image file.'); res(false); };
+    img.src = url;
+  });
+}
+function mlPhDrop(gid, pid) { var a = mlPh.byG[gid] || []; var i = a.findIndex(function (p) { return p.id === pid; }); if (i >= 0) { try { URL.revokeObjectURL(a[i].url); } catch (e) {} a.splice(i, 1); } if (!a.length) delete mlPh.byG[gid]; }
+function mlPhRemove(gid, pid, quiet) {
+  if (!quiet && !confirm('Remove this game photo? (Only the photo; the game stays.)')) return Promise.resolve(false);
+  return mlPhTx('readwrite', function (s) { return s.delete(pid); }).then(function () { mlPhDrop(gid, pid); var v = document.getElementById('mlPhView'); if (v) v.remove(); msRender(); return true; }).catch(function () { return false; });
+}
+function mlPhRemoveGame(gid) {
+  var ids = mlPhList(gid).map(function (p) { return p.id; });
+  return mlPhTx('readwrite', function (s) { var idx = s.index('gid'); var rq = idx.openCursor(gid); rq.onsuccess = function () { var c = rq.result; if (c) { c.delete(); c.continue(); } }; return null; })
+    .then(function () { ids.forEach(function (id) { mlPhDrop(gid, id); }); }).catch(function () {});
+}
+function mlPhPick(gid, snap) {
+  var id = snap ? 'mlPhSnap' : 'mlPhFile', el = document.getElementById(id);
+  if (!el) { el = document.createElement('input'); el.type = 'file'; el.accept = 'image/*'; el.id = id; el.style.display = 'none'; if (snap) el.setAttribute('capture', 'environment'); else el.multiple = true; document.body.appendChild(el); }
+  el.onchange = function () { var fs = Array.prototype.slice.call(el.files || []); var room = ML_PH_MAX - mlPhList(gid).length;
+    if (fs.length > room) mlToast('Only ' + Math.max(0, room) + ' more photo' + (room === 1 ? '' : 's') + ' fit (' + ML_PH_MAX + ' per game).');
+    fs.slice(0, Math.max(0, room)).reduce(function (p, f) { return p.then(function () { return mlPhAddFile(gid, f); }); }, Promise.resolve()); };
+  el.value = ''; el.click();
+}
+function mlPhView(gid, pid) {
+  var p = mlPhList(gid).find(function (x) { return x.id === pid; }); if (!p) return;
+  var old = document.getElementById('mlPhView'); if (old) old.remove();
+  var d = document.createElement('div'); d.id = 'mlPhView'; d.className = 'ml-phview'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+  d.innerHTML = '<div class="ml-phview-in"><img alt="game photo" src="' + p.url + '"><div class="bld-row"><button type="button" class="btn-grey" data-ml-pv="close">CLOSE</button><button type="button" class="btn-danger btn-danger-soft" data-ml-pv="rm">\u2715 REMOVE PHOTO</button></div><small>' + p.w + '\u00d7' + p.h + ' \u00b7 kept on this device only</small></div>';
+  d.addEventListener('click', function (e) { var b = e.target.closest('[data-ml-pv]'); if (e.target === d || (b && b.getAttribute('data-ml-pv') === 'close')) d.remove(); else if (b) mlPhRemove(gid, pid); });
+  document.body.appendChild(d);
+}
+
+/* ---------- text / picture / link builders (notes + photos only when opted in) ---------- */
+function mlGameText(r, inc) { inc = inc || {};
+  var t = 'Hot Drops mission result: ' + r.date + ' ' + mlResWord(r) + ' | ' + r.title + ' | ' + r.a + ' (' + r.av + ' ' + r.vl + ') ' + r.sa + ' VP vs ' + r.sb + ' VP ' + r.b + ' (' + r.bv + ' ' + r.vl + ')' +
+    (r.op ? ' | opponent player: ' + r.op : '') + ' | winner ' + r.w + (r.comps && r.comps.length ? ' | complications: ' + r.comps.join(', ') : '') + (r.via ? ' | from link' : '');
+  if (inc.notes && r.notes) t += '\nNotes: ' + r.notes;
+  return t;
+}
+function mlWrap(g, text, maxW) { var out = []; String(text).split(/\n/).forEach(function (para) { var line = ''; para.split(/\s+/).forEach(function (w) { var t = line ? line + ' ' + w : w; if (g.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }); out.push(line); }); return out; }
+function mlCardCanvas(r, inc) {
+  inc = inc || {}; var base = msResultCanvas(r); if (!(inc.notes && r.notes)) return base;
+  var tmp = document.createElement('canvas').getContext('2d'); if (!tmp) return base; tmp.font = '20px sans-serif';
+  var lines = mlWrap(tmp, String(r.notes).slice(0, ML_NOTES_MAX), 820).slice(0, 24); var extra = 70 + lines.length * 28;
+  var c = document.createElement('canvas'); c.width = 900; c.height = 500 + extra; var g = c.getContext('2d');
+  g.fillStyle = '#0b0f14'; g.fillRect(0, 0, 900, c.height); g.drawImage(base, 0, 0);
+  g.strokeStyle = '#f59e0b'; g.lineWidth = 6; g.strokeRect(8, 494, 884, extra - 2);
+  g.fillStyle = '#fbbf24'; g.font = 'bold 22px sans-serif'; g.fillText('NOTES', 34, 536); g.fillStyle = '#e5e7eb'; g.font = '20px sans-serif';
+  lines.forEach(function (l, i) { g.fillText(l, 34, 570 + i * 28); });
+  return c;
+}
+function mlCanvasFile(c, name) { return new Promise(function (res, rej) { c.toBlob(function (b) { b ? res(new File([b], name, { type: 'image/png' })) : rej(new Error('toBlob failed')); }, 'image/png'); }); }
+function mlShareFiles(r) {
+  return mlCanvasFile(mlCardCanvas(r, mlUi.inc), 'mission_result_' + r.date + '.png').then(function (f) {
+    var fs = [f]; if (mlUi.inc.photos) mlPhList(r.id).forEach(function (p, i) { fs.push(new File([p.blob], 'mission_' + r.date + '_photo' + (i + 1) + '.jpg', { type: 'image/jpeg' })); });
+    return fs; });
+}
+function mlDownload(blob, name) { var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { try { URL.revokeObjectURL(a.href); } catch (e) {} }, 4000); }
+function mlCanShareFiles(fs) { try { return !!(navigator.share && navigator.canShare && navigator.canShare({ files: fs })); } catch (e) { return false; } }
+function mlSharePic(id) { var r = mlGame(id); if (!r) return Promise.resolve(false);
+  return mlShareFiles(r).then(function (fs) {
+    if (mlCanShareFiles(fs)) return navigator.share({ files: fs, title: 'Hot Drops mission result', text: r.title }).then(function () { return 'shared'; }, function (e) { if (e && e.name === 'AbortError') return 'cancelled'; fs.forEach(function (f) { mlDownload(f, f.name); }); mlToast('Share failed, saved instead.'); return 'saved'; });
+    fs.forEach(function (f) { mlDownload(f, f.name); }); mlToast('Sharing pictures is not supported on this browser: saved as a download instead.'); return 'saved';
+  }).catch(function () { mlToast('Picture not available in this browser.'); return false; }); }
+function mlSavePng(id) { var r = mlGame(id); if (!r) return Promise.resolve(false); return mlShareFiles(r).then(function (fs) { fs.forEach(function (f) { mlDownload(f, f.name); }); return fs.length; }).catch(function () { mlToast('PNG not available in this browser.'); return false; }); }
+function mlClip(t) { try { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t).then(function () { return true; }, function () { return false; }); } catch (e) {} return Promise.resolve(false); }
+function mlSendLink(id) { var r = mlGame(id); if (!r) return Promise.resolve(false);
+  var url = msResultLink(r, { notes: mlUi.inc.notes }), text = 'Hot Drops mission result: ' + r.title + ' (' + r.date + '). Open it to add the game to your Missions log.';
+  if (navigator.share) return navigator.share({ title: 'Hot Drops mission result', text: text, url: url }).then(function () { mlToast('Result link sent.'); return 'shared'; }, function (e) { if (e && e.name === 'AbortError') return 'cancelled'; return mlLinkFallback(id, url); });
+  return mlLinkFallback(id, url); }
+function mlLinkFallback(id, url) { mlUi.link = id; mlUi.open = id; msRender(); return mlClip(url).then(function (ok) { mlToast(ok ? 'Result link copied. It is also shown in the game (SAVE LINK FILE downloads it).' : 'Copy the result link from the box in the game, or tap SAVE LINK FILE.'); return ok ? 'copied' : 'shown'; }); }
+function mlSaveLinkFile(id) { var r = mlGame(id); if (!r) return; mlDownload(new Blob([msResultLink(r, { notes: mlUi.inc.notes }) + '\n'], { type: 'text/plain' }), 'mission_result_link_' + r.date + '.txt'); }
+function mlCopyText(id) { var r = mlGame(id); if (!r) return Promise.resolve(false); var t = mlGameText(r, mlUi.inc); msReportTxt = t; msRender();
+  return mlClip(t).then(function (ok) { mlToast(ok ? 'Game copied as text.' : 'Text shown below the log: select and copy it.'); return t; }); }
+function mlPrint(id) { var r = mlGame(id); if (!r) return;
+  var old = document.getElementById('mlPrintArea'); if (old) old.remove();
+  var d = document.createElement('div'); d.id = 'mlPrintArea'; var src; try { src = mlCardCanvas(r, mlUi.inc).toDataURL('image/png'); } catch (e) { src = ''; }
+  d.innerHTML = (src ? '<img class="ml-pcard" alt="mission result" src="' + src + '">' : '<h2>' + msE(r.title) + '</h2>') + (mlUi.inc.photos ? '<div class="ml-pphotos">' + mlPhList(r.id).map(function (p) { return '<img alt="game photo" src="' + p.url + '">'; }).join('') + '</div>' : '');
+  document.body.appendChild(d);
+  var imgs = Array.prototype.slice.call(d.querySelectorAll('img'));
+  Promise.all(imgs.map(function (i) { return i.decode ? i.decode().catch(function () {}) : null; })).then(function () {
+    document.body.classList.add('ml-printing'); try { window.print(); } catch (e) {} setTimeout(function () { document.body.classList.remove('ml-printing'); }, 800); });
+}
+function mlRemove(id) { var r = mlGame(id); if (!r) return; var n = mlPhList(id).length;
+  btPick({ title: 'REMOVE RESULT?', intro: r.date + ' ' + r.a + ' vs ' + r.b + '. Also removes its notes' + (n ? ' and ' + n + ' photo' + (n === 1 ? '' : 's') : '') + ' on this device.', items: [{ label: 'YES, REMOVE' }],
+    onPick: function () { msState.log = msState.log.filter(function (x) { return x.id !== id; }); if (mlUi.open === id) mlUi.open = null; mlPhRemoveGame(id); msSave(); } }); }
+function mlNotesSave(id, v) { var r = mlGame(id); if (!r) return; v = String(v || '').slice(0, ML_NOTES_MAX); if (v.trim()) r.notes = v; else delete r.notes; msPersist();
+  var s = document.querySelector('.ml-saved[data-ml-id="' + (window.CSS && CSS.escape ? CSS.escape(id) : id) + '"]'); if (s) s.textContent = '\u2713 saved on this device'; }
+
+/* ---------- SHARE menus ---------- */
+function mlMenuDef(kind, id) {
+  if (kind === 'game') { var r = mlGame(id); if (!r) return null; var np = mlPhList(id).length;
+    return ['SHARE \u00b7 THIS GAME', r.date + ' \u00b7 ' + r.a + ' vs ' + r.b, [
+      ['SEND', [['pic', '\ud83d\udcf7', 'Share picture\u2026', 'Result card PNG to Discord, Messages, mail (share sheet; saves it if sharing is not supported)'],
+        ['link', '\ud83d\udd17', 'Send result link\u2026', 'Your opponent opens it to add this game to their log (their force first). Share sheet, or copied'],
+        ['text', '\ud83d\udcdd', 'Copy as text', 'This game as a one-line battle report']]],
+      ['SAVE', [['png', '\ud83d\udcbe', 'Save picture (PNG)', 'mission_result_' + r.date + '.png to your downloads'], ['print', '\ud83d\udda8\ufe0f', 'Print card', 'Printable result card for this game']]],
+      ['PRIVATE (off unless ticked)', [['incn', mlUi.inc.notes ? '\u2611' : '\u2610', 'Include my notes', r.notes ? 'Adds your notes to the picture, text, print and result link' : 'This game has no notes yet', mlUi.inc.notes],
+        ['incp', mlUi.inc.photos ? '\u2611' : '\u2610', 'Include photos', np ? 'Adds the ' + np + ' game photo' + (np === 1 ? '' : 's') + ' to Share / Save picture and Print (never in a link)' : 'This game has no photos yet', mlUi.inc.photos]]]]];
+  }
+  var R = msRecord();
+  return ['SHARE \u00b7 WHOLE LOG', (msState.log || []).length + ' games \u00b7 record ' + R.W + 'W\u2013' + R.L + 'L\u2013' + R.T + 'T', [
+    ['SEND', [['rep', '\ud83d\udccb', 'Copy battle reports', 'Every game as text, record on top (also shown below the log)'], ['csv', '\ud83d\udcca', 'Copy CSV', 'Spreadsheet rows: date, result, mission, forces, values, VP, winner']]],
+    ['BACK UP', [['bak', '\ud83d\udcbe', 'Back up Missions (JSON)', 'Forces, results log with notes, current match. Photos are not included'], ['res', '\u21a9\ufe0f', 'Restore Missions backup\u2026', 'Replaces your Missions forces and log with the file (asks first)', false, 'warn']]],
+    ['ADD', [['add', '\u2795', 'Add a result from a link\u2026', 'Paste a result link someone sent you (the Import box in step 3)'], ['fl', '\ud83d\udcd6', 'Open Force Battle Log', 'Logged games are copied there per force automatically']]]]];
+}
+function mlMenuEls() {
+  var b = document.getElementById('mlBack'), m = document.getElementById('mlMenu');
+  if (!m) { b = document.createElement('div'); b.id = 'mlBack'; b.className = 'ml-menu-back'; m = document.createElement('div'); m.id = 'mlMenu'; m.className = 'ml-menu'; m.setAttribute('role', 'menu'); m.setAttribute('aria-label', 'Share');
+    b.addEventListener('click', mlMenuClose); m.addEventListener('click', mlMenuClick); document.body.appendChild(b); document.body.appendChild(m); }
+  return { b: b, m: m };
+}
+function mlMenuOpen(kind, id, anchor) {
+  var d = mlMenuDef(kind, id); if (!d) return; var E = mlMenuEls(); mlUi.menu = { kind: kind, id: id, anchor: anchor || null };
+  E.m.innerHTML = '<h4>' + d[0] + '<small>' + msE(d[1]) + '</small></h4>' + d[2].map(function (gr) { return '<div class="grp">' + msE(gr[0]) + '</div>' + gr[1].map(function (it) {
+    return '<button type="button" class="ml-mi' + (it[5] ? ' ' + it[5] : '') + (it.length > 4 && it[4] === true ? ' on' : '') + '" data-ml-mi="' + it[0] + '"' + (/^inc/.test(it[0]) ? ' role="menuitemcheckbox" aria-checked="' + !!it[4] + '"' : ' role="menuitem"') + '><span class="ic">' + it[1] + '</span><b>' + msE(it[2]) + '</b><small>' + msE(it[3]) + '</small></button>'; }).join(''); }).join('') +
+    '<button type="button" class="cancel" data-ml-mi="close">CLOSE</button>';
+  E.m.classList.add('on'); E.b.classList.add('on');
+  if (window.innerWidth > 820 && anchor && anchor.getBoundingClientRect) { var r = anchor.getBoundingClientRect(), w = E.m.offsetWidth, h = E.m.offsetHeight;
+    var L = Math.min(window.innerWidth - w - 8, Math.max(8, r.right - w)), T = r.bottom + 6; if (T + h > window.innerHeight - 8) T = Math.max(8, r.top - h - 6); if (T + h > window.innerHeight - 8) T = Math.max(8, window.innerHeight - h - 8);
+    E.m.style.left = L + 'px'; E.m.style.top = T + 'px'; } else { E.m.style.left = ''; E.m.style.top = ''; }
+  var f = E.m.querySelector('.ml-mi'); if (f) try { f.focus({ preventScroll: true }); } catch (e) {}
+}
+function mlMenuClose() { var m = document.getElementById('mlMenu'), b = document.getElementById('mlBack'); if (m) m.classList.remove('on'); if (b) b.classList.remove('on'); mlUi.menu = null; }
+function mlMenuClick(e) {
+  var b = e.target.closest('[data-ml-mi]'); if (!b || !mlUi.menu) return; var k = b.getAttribute('data-ml-mi'), M = mlUi.menu, id = M.id;
+  if (k === 'close') { mlMenuClose(); return; }
+  if (k === 'incn' || k === 'incp') { mlUi.inc[k === 'incn' ? 'notes' : 'photos'] = !mlUi.inc[k === 'incn' ? 'notes' : 'photos']; mlMenuOpen(M.kind, id, M.anchor); return; }
+  mlMenuClose(); mlAct(k, id);
+}
+function mlAct(k, id) {
+  switch (k) {
+    case 'pic': return mlSharePic(id);
+    case 'link': return mlSendLink(id);
+    case 'text': return mlCopyText(id);
+    case 'png': return mlSavePng(id);
+    case 'print': return mlPrint(id);
+    case 'rep': return msCopyReports('txt');
+    case 'csv': return msCopyReports('csv');
+    case 'bak': return msExport();
+    case 'res': return btPick({ title: 'RESTORE MISSIONS BACKUP?', intro: 'Pick a Missions JSON backup. It replaces your Missions forces, results log and match on this device. Game photos stay as they are.', items: [{ label: 'CHOOSE FILE\u2026' }], onPick: function () { var f = document.getElementById('msImportFile'); if (f) f.click(); } });
+    case 'add': { var t = document.getElementById('msImportTxt'); if (t) { try { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { t.scrollIntoView(); } try { t.focus({ preventScroll: true }); } catch (e) {} t.classList.remove('ms-chk-pulse'); void t.offsetWidth; t.classList.add('ms-chk-pulse'); setTimeout(function () { t.classList.remove('ms-chk-pulse'); }, 1700); } return; }
+    case 'fl': try { switchTab('forceLogTab'); } catch (e) {} return;
+  }
+}
+
+/* ---------- Results Log render (replaces the contents of step 5 after every msRender) ---------- */
+function mlRowHtml(r) {
+  var k = mlRes(r), o = mlUi.open === r.id, id = msE(r.id), np = mlPhList(r.id).length, h = '';
+  h += '<div class="ml-item' + (o ? ' open' : '') + '" data-ml-id="' + id + '">';
+  h += '<button type="button" class="ml-row ' + k + '" aria-expanded="' + o + '" data-ml-act="tog" data-ml-id="' + id + '"><span class="ml-date">' + msE(r.date) + '</span>' +
+    '<span class="ml-vs"><b>' + msE(r.a) + '</b><i>vs</i><b>' + msE(r.b) + '</b>' + (r.op ? '<span class="ml-op">' + msE(r.op) + '</span>' : '') + (r.via ? '<span class="ml-via">FROM LINK</span>' : '') + '</span>' +
+    '<span class="ml-res ' + k + '">' + mlResWord(r) + '</span><span class="ml-mis">' + msE(mlMis(r)) + '</span>' +
+    '<span class="ml-ico">' + (r.notes ? '\u270e ' : '') + (np ? '\ud83d\udcf7 ' + np : '') + '</span><span class="ml-chev" aria-hidden="true">\u25b8</span></button>';
+  if (o) {
+    var wa = r.w === r.a && r.w !== 'Tie', wb = r.w === r.b && r.w !== 'Tie' && !wa;
+    h += '<div class="ml-det">';
+    h += '<div class="ml-score"><div class="ml-side' + (wa ? ' win' : '') + '"><span class="n">' + msE(r.a) + (wa ? ' \u2014 WINNER' : '') + '</span><div class="vp">' + msE(r.sa) + ' VP</div><small>' + msE(msN(r.av)) + ' ' + msE(r.vl) + ' \u00b7 Unit VP ' + msE(r.ua) + '</small></div><div class="ml-dash">vs</div>' +
+      '<div class="ml-side' + (wb ? ' win' : '') + '"><span class="n">' + msE(r.b) + (wb ? ' \u2014 WINNER' : '') + '</span><div class="vp">' + msE(r.sb) + ' VP</div><small>' + msE(msN(r.bv)) + ' ' + msE(r.vl) + ' \u00b7 Unit VP ' + msE(r.ub) + '</small></div></div>';
+    h += '<div class="ml-facts"><span class="ml-fact"><b>MISSION</b>' + msE(r.title) + '</span>' + (r.comps && r.comps.length ? '<span class="ml-fact"><b>COMPLICATIONS</b>' + msE(r.comps.join(', ')) + '</span>' : '') +
+      '<span class="ml-fact"><b>SWITCHES</b>' + msE(mlSwNames(r).join(', ') || 'none') + '</span><span class="ml-fact"><b>RESULT</b>' + (r.w === 'Tie' ? 'Tie' : 'Winner ' + msE(r.w)) + '</span>' +
+      (r.op ? '<span class="ml-fact"><b>OPPONENT PLAYER</b>' + msE(r.op) + '</span>' : '') + (r.via ? '<span class="ml-fact"><b>SOURCE</b>added from a result link</span>' : '') + '</div>';
+    if (r.lnotes) h += '<div class="ml-lab">Notes from the link <small>written by whoever sent it</small></div><div class="ml-lnotes">' + msE(r.lnotes) + '</div>';
+    h += '<div class="ml-lab">Game notes <small>saved on this device as you type \u00b7 private: not in links, pictures or text unless you tick Include my notes</small></div>' +
+      '<textarea class="ml-notes" maxlength="' + ML_NOTES_MAX + '" data-ml-id="' + id + '" placeholder="What happened, house rules, who to rematch\u2026" aria-label="Game notes">' + msE(r.notes || '') + '</textarea><div class="ml-saved" data-ml-id="' + id + '">' + (r.notes ? '\u2713 saved on this device' : '') + '</div>';
+    h += '<div class="ml-lab">Photos <small>' + np + ' / ' + ML_PH_MAX + ' \u00b7 kept on this device (own photo store, like mini photos; not in backups) \u00b7 tap to view</small></div><div class="ml-photos">' +
+      mlPhList(r.id).map(function (p, i) { return '<div class="ml-ph"><button type="button" class="ml-phimg" data-ml-act="phv" data-ml-id="' + id + '" data-ml-pid="' + msE(p.id) + '" aria-label="view photo ' + (i + 1) + '"><img alt="game photo ' + (i + 1) + '" src="' + p.url + '"></button><button type="button" class="x" data-ml-act="phx" data-ml-id="' + id + '" data-ml-pid="' + msE(p.id) + '" aria-label="remove photo ' + (i + 1) + '">\u2715</button></div>'; }).join('') +
+      (np < ML_PH_MAX ? '<button type="button" class="ml-addph" data-ml-act="snap" data-ml-id="' + id + '"><span>\ud83d\udcf7</span>SNAP</button><button type="button" class="ml-addph" data-ml-act="pick" data-ml-id="' + id + '"><span>\ud83d\uddbc\ufe0f</span>PICK</button>' : '') + '</div>';
+    if (mlUi.link === r.id) h += '<div class="ml-linkbox"><div class="ml-lab">Result link <small>' + (mlUi.inc.notes && r.notes ? 'includes your notes' : 'no notes or photos') + '</small></div><textarea class="ms-in" rows="2" readonly onclick="this.select()">' + msE(msResultLink(r, { notes: mlUi.inc.notes })) + '</textarea>' +
+      '<div class="bld-row"><button type="button" class="btn-grey" data-ml-act="lcopy" data-ml-id="' + id + '">COPY</button><button type="button" class="btn-grey" data-ml-act="lfile" data-ml-id="' + id + '">SAVE LINK FILE</button><button type="button" class="btn-grey" data-ml-act="lhide" data-ml-id="' + id + '">HIDE</button></div></div>';
+    h += '<div class="ml-acts"><button type="button" class="ml-sharebtn" data-ml-act="mgame" data-ml-id="' + id + '" aria-haspopup="menu">SHARE<span class="car">\u25be</span></button><span class="grow"></span><button type="button" class="btn-danger btn-danger-soft ml-rm" data-ml-act="rm" data-ml-id="' + id + '">\u2715 REMOVE</button></div>';
+    h += '</div>';
+  }
+  return h + '</div>';
+}
+function mlRenderLog() {
+  var body = document.getElementById('msBody'); if (!body || !msState) return; var sec = body.querySelector('.ms-logsec'); if (!sec) return;
+  if (!mlPh.loaded) mlPhLoadAll();
+  var sh = sec.querySelector('.bld-sh'), L = msState.log || [], R = msRecord();
+  while (sec.firstChild) sec.removeChild(sec.firstChild);
+  var head = document.createElement('div'); head.className = 'ml-head'; if (sh) head.appendChild(sh);
+  var rec = document.createElement('span'); rec.className = 'ml-rec ms-record'; rec.innerHTML = 'Record <b>' + R.W + 'W \u2013 ' + R.L + 'L \u2013 ' + R.T + 'T</b> <small>(' + L.length + ' game' + (L.length === 1 ? '' : 's') + ', from your side)</small>'; head.appendChild(rec);
+  var sp = document.createElement('span'); sp.className = 'ml-sp'; head.appendChild(sp);
+  var sb = document.createElement('button'); sb.type = 'button'; sb.className = 'ml-sharebtn'; sb.id = 'mlShareAll'; sb.setAttribute('data-ml-act', 'mlog'); sb.setAttribute('aria-haspopup', 'menu'); sb.innerHTML = 'SHARE<span class="car">\u25be</span>'; head.appendChild(sb);
+  sec.appendChild(head);
+  var box = document.createElement('div');
+  box.innerHTML = (L.length ? '<div class="ml-list">' + L.map(mlRowHtml).join('') + '</div><div class="ml-hint">Tap a game to review it, add notes or photos. SHARE at the top is for the whole log; SHARE inside a game is for that game.</div>' : '<small>No results yet.</small>') +
+    (msReportTxt ? '<div class="ms-reports"><textarea class="ms-in" rows="6" readonly onclick="this.select()">' + msE(msReportTxt) + '</textarea><div class="bld-row"><button type="button" class="btn-grey" onclick="msReportTxt=null;msRender()">HIDE TEXT</button></div></div>' : '');
+  while (box.firstChild) sec.appendChild(box.firstChild);
+}
+/* Opponent player field in step 4 (optional match.oppPlayer) */
+function mlOppField() {
+  var body = document.getElementById('msBody'); if (!body || !msState) return; var m = msM();
+  var s4 = null; body.querySelectorAll('.bld-sec').forEach(function (s) { var h = s.querySelector('.bld-sh'); if (!s4 && h && /^4\./.test(h.textContent.trim())) s4 = s; }); if (!s4) return;
+  var fld = null; s4.querySelectorAll('.bld-field').forEach(function (f) { var l = f.querySelector('.bld-flabel'); if (!fld && l && /^Forces/.test((l.firstChild && l.firstChild.textContent || '').trim())) fld = f; });
+  var d = document.createElement('div'); d.className = 'bld-field ml-opfield';
+  d.innerHTML = '<div class="bld-flabel">Opponent player <span class="bld-cite">optional \u00b7 shown on the log line and in the Force Battle Log</span></div><div class="bld-row"><input type="text" class="ms-in ml-opin" id="mlOppPlayer" maxlength="40" autocomplete="off" placeholder="who you played (optional)" value="' + msE(m.oppPlayer || '') + '"></div>';
+  if (fld && fld.nextSibling) s4.insertBefore(d, fld.nextSibling); else if (fld) s4.appendChild(d); else { var h = s4.querySelector('.bld-sh'); if (h && h.nextSibling) s4.insertBefore(d, h.nextSibling); else s4.appendChild(d); }
+}
+function mlOppSet(v) { var m = msM(); v = String(v || '').replace(/\s+/g, ' ').slice(0, 40); if (v.trim()) m.oppPlayer = v; else delete m.oppPlayer; msPersist(); }
+document.addEventListener('click', function (e) {
+  var b = e.target.closest ? e.target.closest('[data-ml-act]') : null; if (!b) return; var k = b.getAttribute('data-ml-act'), id = b.getAttribute('data-ml-id');
+  if (k === 'tog') { mlUi.open = mlUi.open === id ? null : id; if (mlUi.link && mlUi.link !== mlUi.open) mlUi.link = null; msRender(); var it = document.querySelector('.ml-item.open'); if (it && it.getBoundingClientRect().top < 0) try { it.scrollIntoView({ block: 'start' }); } catch (x) {} return; }
+  if (k === 'mlog') { mlMenuOpen('log', null, b); return; }
+  if (k === 'mgame') { mlMenuOpen('game', id, b); return; }
+  if (k === 'rm') { mlRemove(id); return; }
+  if (k === 'snap' || k === 'pick') { mlPhPick(id, k === 'snap'); return; }
+  if (k === 'phv') { mlPhView(id, b.getAttribute('data-ml-pid')); return; }
+  if (k === 'phx') { mlPhRemove(id, b.getAttribute('data-ml-pid')); return; }
+  if (k === 'lcopy') { var r = mlGame(id); if (r) mlClip(msResultLink(r, { notes: mlUi.inc.notes })).then(function (ok) { mlToast(ok ? 'Result link copied.' : 'Select the link in the box and copy it.'); }); return; }
+  if (k === 'lfile') { mlSaveLinkFile(id); return; }
+  if (k === 'lhide') { mlUi.link = null; msRender(); return; }
+});
+document.addEventListener('input', function (e) {
+  var t = e.target; if (!t || !t.classList) return;
+  if (t.classList.contains('ml-notes')) { var id = t.getAttribute('data-ml-id'); clearTimeout(mlUi.saveT); mlUi.saveT = setTimeout(function () { mlNotesSave(id, t.value); }, 350); }
+  else if (t.classList.contains('ml-opin')) mlOppSet(t.value);
+});
+document.addEventListener('focusout', function (e) { var t = e.target; if (t && t.classList && t.classList.contains('ml-notes')) { clearTimeout(mlUi.saveT); mlNotesSave(t.getAttribute('data-ml-id'), t.value); } });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && mlUi.menu) { mlMenuClose(); } });
+
+/* ---------- wrappers (existing bodies unchanged) ---------- */
+if (typeof msRender === 'function') msRender = (function (orig) { return function () { orig.apply(this, arguments); try { mlOppField(); mlRenderLog(); } catch (e) { if (window.console) console.warn('mlRender', e); } }; })(msRender);
+/* links never carry notes / opponent player unless "Include my notes" is ticked (then notes only) */
+if (typeof msResultLink === 'function') msResultLink = (function (orig) { return function (r, opt) { var c = Object.assign({}, r); delete c.notes; delete c.lnotes; delete c.op; if (opt && opt.notes && r && r.notes) c.notes = String(r.notes).slice(0, ML_NOTES_MAX); return orig.call(this, c); }; })(msResultLink);
+/* a received result keeps the sender's notes apart (read-only "Notes from the link"); your own notes stay yours */
+if (typeof msAddResult === 'function') msAddResult = (function (orig) { return function (o) { if (o && o.r) { var r = Object.assign({}, o.r); if (r.notes) r.lnotes = String(r.notes).slice(0, ML_NOTES_MAX); delete r.notes; delete r.op; o = Object.assign({}, o, { r: r }); } return orig.call(this, o); }; })(msAddResult);
+/* opponent player -> result (r.op) and the Force Battle Log opponent of MY force's entry */
+if (typeof flHookMs === 'function') flHookMs = (function (orig) { return function (r) {
+  var m = null; try { m = msState && msState.match; if (r && m && m.oppPlayer && !r.op) r.op = String(m.oppPlayer).trim().slice(0, 40); } catch (e) {}
+  var out = orig.apply(this, arguments);
+  try { if (r && r.op && m && m.myId) { var F = flS().forces['ms:' + m.myId]; var e2 = F && F.entries.find(function (x) { return x.ref === 'ms:' + r.id; }); if (e2) { e2.opp = r.op + ' / ' + r.b; flPersist(); } } } catch (e) {}
+  return out; }; })(flHookMs);
+/* after a game is logged: clear the setup for the next pick-up game (forces list kept; REMATCH brings the same sides back) */
+if (typeof msPublish === 'function') msPublish = (function (orig) { return function () {
+  if (!msState) msLoad(); var m0 = msM(); var r = orig.apply(this, arguments); if (!r) return r;
+  try {
+    if (m0.oppPlayer && !r.op) r.op = String(m0.oppPlayer).trim().slice(0, 40);
+    msState.prevMatch = { sys: m0.sys, scale: m0.scale, myId: m0.myId, oppId: m0.oppId, sw: Object.assign({}, m0.sw), kill: m0.kill, variant: !!m0.variant, tc: !!m0.tc, oppPlayer: m0.oppPlayer || '' };
+    var n = msNewMatch(m0.sys); n.scale = m0.scale; msState.match = n; msState.pubId = null; msState.editId = null; mlUi.open = r.id; mlUi.link = null;
+    msSave();
+    msMsg('Logged: ' + r.a + ' vs ' + r.b + ' (' + (r.w === 'Tie' ? 'tie' : 'winner ' + r.w) + '). Setup cleared for the next pick-up game. NEW MATCH \u203a REMATCH brings back the same forces.');
+    setTimeout(function () { var it = document.querySelector('#msBody .ml-item.open'); if (it) try { it.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} }, 60);
+  } catch (e) { if (window.console) console.warn('ml clear', e); }
+  return r; }; })(msPublish);
+if (typeof msRematch === 'function') msRematch = (function (orig) { return function () {
+  var m = msM(), p = msState.prevMatch;
+  if (p && !m.myId && !m.oppId && m.mission == null && p.sys === m.sys && (msForce(p.myId) || msForce(p.oppId))) {
+    var n = msNewMatch(p.sys); n.scale = p.scale; n.myId = msForce(p.myId) ? p.myId : null; n.oppId = msForce(p.oppId) ? p.oppId : null; n.sw = Object.assign({}, n.sw, p.sw); n.kill = p.kill || n.kill; n.variant = !!p.variant; if (p.tc) { n.tc = true; n.turn = 1; } if (p.oppPlayer) n.oppPlayer = p.oppPlayer;
+    msState.match = n; msMsg('Rematch: same forces, switches and Core Scale as the last logged game; mission, complications, score and winner are new.'); msSave(); return; }
+  var op = m.oppPlayer; orig.apply(this, arguments); if (op) { msM().oppPlayer = op; msPersist(); } }; })(msRematch);
+
+/* ---------- Export both / BACK UP NOW now carry bt_missions_v1 (photos stay out, like mini / BSP photos) ---------- */
+function mlMissionsForBackup() { try { if (typeof msState !== 'undefined' && msState) msPersist(); var raw = localStorage.getItem(MS_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+function mlApplyMissionsImport(d) { if (!d || !Array.isArray(d.forces)) return false; if (!Array.isArray(d.log)) d.log = []; if (!d.match) d.match = msNewMatch('cbt'); msState = d; msPersist(); try { msRender(); } catch (e) {} return true; }
+
+/* =================== (2) mini photo crop + optional BLACK BG =================== */
+var hsCrop = null;
+function hsCropDims(w, h, rot) { return (rot % 180) ? { w: h, h: w } : { w: w, h: h }; }
+function hsCropDefault(W, H, aspect) { var w = Math.round(W * 0.9), h = Math.round(H * 0.9); if (aspect) w = h = Math.min(w, h); return { x: Math.round((W - w) / 2), y: Math.round((H - h) / 2), w: w, h: h }; }
+function hsCropClamp(b, W, H, min, aspect) {
+  min = Math.max(1, Math.min(min || 24, W, H)); var w = Math.max(min, Math.min(W, b.w)), h = Math.max(min, Math.min(H, b.h)); if (aspect) w = h = Math.min(w, h);
+  var x = Math.max(0, Math.min(W - w, b.x)), y = Math.max(0, Math.min(H - h, b.y)); return { x: Math.round(x), y: Math.round(y), w: Math.round(w), h: Math.round(h) };
+}
+/* drag: mode 'move' or a corner nw/ne/sw/se; dx/dy in image px. The opposite corner stays put. Pure (tested). */
+function hsCropDrag(s, mode, dx, dy, W, H, aspect, min) {
+  min = Math.max(1, Math.min(min || 24, W, H));
+  if (mode === 'move') return hsCropClamp({ x: s.x + dx, y: s.y + dy, w: s.w, h: s.h }, W, H, min, aspect);
+  var west = mode.indexOf('w') >= 0, north = mode.indexOf('n') >= 0;
+  var ax = west ? s.x + s.w : s.x, ay = north ? s.y + s.h : s.y;   // anchor (fixed corner)
+  var cx = (west ? s.x : s.x + s.w) + dx, cy = (north ? s.y : s.y + s.h) + dy;
+  var maxW = west ? ax : W - ax, maxH = north ? ay : H - ay;
+  var w = Math.max(min, Math.min(maxW, west ? ax - cx : cx - ax)), h = Math.max(min, Math.min(maxH, north ? ay - cy : cy - ay));
+  if (aspect) { var sz = Math.min(Math.max(w, h), maxW, maxH); w = h = Math.max(min, sz); }
+  return hsCropClamp({ x: west ? ax - w : ax, y: north ? ay - h : ay, w: w, h: h }, W, H, min, aspect);
+}
+/* backdrop estimate: per-channel median of the pixels in a thin band along all four edges. Pure (tested). */
+function hsBgEstimate(d, w, h, band) {
+  band = band || Math.max(2, Math.round(Math.min(w, h) * 0.02)); var R = [], G = [], B = [];
+  for (var y = 0; y < h; y++) { var edgeY = y < band || y >= h - band; for (var x = 0; x < w; x++) { if (!edgeY && x >= band && x < w - band) { x = w - band - 1; continue; } var i = (y * w + x) * 4; R.push(d[i]); G.push(d[i + 1]); B.push(d[i + 2]); } }
+  var med = function (a) { a.sort(function (p, q) { return p - q; }); return a.length ? a[a.length >> 1] : 0; };
+  return { r: med(R), g: med(G), b: med(B) };
+}
+function hsBgDist(d, i, c) { var r = d[i] - c.r, g = d[i + 1] - c.g, b = d[i + 2] - c.b; return Math.sqrt(r * r + g * g + b * b); }
+/* flood fill (4-neighbour) from seed pixels; a pixel joins when its colour is within tol of ref. Writes 1s into mask. Pure (tested). */
+function hsBgFlood(d, w, h, ref, tol, seeds, mask) {
+  var n = 0, q = new Int32Array(w * h), qh = 0, qt = 0, seen = new Uint8Array(w * h);
+  seeds.forEach(function (p) { if (p >= 0 && p < w * h && !seen[p]) { seen[p] = 1; if (hsBgDist(d, p * 4, ref) <= tol) q[qt++] = p; } });
+  while (qh < qt) { var p = q[qh++]; if (!mask[p]) { mask[p] = 1; n++; } var x = p % w, y = (p - x) / w;
+    var nb = [x > 0 ? p - 1 : -1, x < w - 1 ? p + 1 : -1, y > 0 ? p - w : -1, y < h - 1 ? p + w : -1];
+    for (var k = 0; k < 4; k++) { var t = nb[k]; if (t < 0 || seen[t]) continue; seen[t] = 1; if (hsBgDist(d, t * 4, ref) <= tol) q[qt++] = t; } }
+  return n;
+}
+function hsBgEdgeSeeds(w, h) { var s = []; for (var x = 0; x < w; x++) { s.push(x); s.push((h - 1) * w + x); } for (var y = 1; y < h - 1; y++) { s.push(y * w); s.push(y * w + w - 1); } return s; }
+function hsBgAutoMask(d, w, h, tol) { var mask = new Uint8Array(w * h); var c = hsBgEstimate(d, w, h); hsBgFlood(d, w, h, c, tol, hsBgEdgeSeeds(w, h), mask); return { mask: mask, ref: c }; }
+/* black where masked; pixels touching the mask get a slight feather (darkened by up to 60% by masked-neighbour share). Pure (tested). */
+function hsBgApply(src, w, h, mask, feather) {
+  var out = new Uint8ClampedArray(src.length);
+  for (var p = 0; p < w * h; p++) { var i = p * 4, m = 0;
+    if (mask[p]) m = 1; else if (feather) { var x = p % w, y = (p - x) / w, c = 0, t = 0;
+      for (var yy = -1; yy <= 1; yy++) for (var xx = -1; xx <= 1; xx++) { if (!xx && !yy) continue; var X = x + xx, Y = y + yy; if (X < 0 || Y < 0 || X >= w || Y >= h) continue; t++; if (mask[Y * w + X]) c++; }
+      m = t ? 0.6 * c / t : 0; }
+    out[i] = src[i] * (1 - m); out[i + 1] = src[i + 1] * (1 - m); out[i + 2] = src[i + 2] * (1 - m); out[i + 3] = 255; }
+  return out;
+}
+function hsCropOpen(uid, file) {
+  var url = URL.createObjectURL(file), img = new Image();
+  img.onload = function () { var D = hsCropDims(img.naturalWidth, img.naturalHeight, 0);
+    hsCrop = { uid: uid, img: img, url: url, rot: 0, aspect: 0, box: hsCropDefault(D.w, D.h, 0), stage: 'crop', black: false, tol: 48, tapMode: false, undo: [] }; hsCropRender(); };
+  img.onerror = function () { URL.revokeObjectURL(url); hsToeToast('Could not read that image file.'); };
+  img.src = url;
+}
+function hsCropW() { var D = hsCropDims(hsCrop.img.naturalWidth, hsCrop.img.naturalHeight, hsCrop.rot); return D; }
+function hsCropDrawRot(ctx, e, k, sx, sy) {   // draw the rotated image scaled by k, offset so (sx, sy) of rotated space lands at 0,0
+  var img = e.img, w = img.naturalWidth, h = img.naturalHeight, D = hsCropDims(w, h, e.rot);
+  ctx.save(); ctx.scale(k, k); ctx.translate(-sx, -sy);
+  if (e.rot === 90) { ctx.translate(D.w, 0); ctx.rotate(Math.PI / 2); } else if (e.rot === 180) { ctx.translate(D.w, D.h); ctx.rotate(Math.PI); } else if (e.rot === 270) { ctx.translate(0, D.h); ctx.rotate(-Math.PI / 2); }
+  ctx.drawImage(img, 0, 0); ctx.restore();
+}
+function hsCropOutCanvas(maxLong) { var e = hsCrop, b = e.box, d = hsMiniFit(b.w, b.h, maxLong || 480), c = document.createElement('canvas'); c.width = d.w; c.height = d.h; var g = c.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, d.w, d.h); hsCropDrawRot(g, e, d.w / b.w, b.x, b.y); return c; }
+function hsCropModal() { var m = document.getElementById('hsCropModal'); if (!m) { m = document.createElement('div'); m.id = 'hsCropModal'; m.className = 'hs-crop-back'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-label', 'Crop mini photo'); document.body.appendChild(m); } return m; }
+function hsCropRender() {
+  var e = hsCrop; if (!e) return; var m = hsCropModal(), D = hsCropW();
+  if (e.stage === 'crop') {
+    m.innerHTML = '<div class="hs-crop"><div class="hs-crop-h"><b>CROP MINI PHOTO</b><small>Step 1 of 2 \u00b7 drag the box, pull a corner to resize</small></div>' +
+      '<div class="hs-crop-stage" id="hsCropStage"><canvas id="hsCropCv"></canvas><div class="hs-crop-box" id="hsCropBox" data-cm="move"><span class="hc nw" data-cm="nw"></span><span class="hc ne" data-cm="ne"></span><span class="hc sw" data-cm="sw"></span><span class="hc se" data-cm="se"></span></div></div>' +
+      '<div class="bld-row hs-crop-tools"><button type="button" class="btn-grey" data-hc="rotl">\u21ba ROTATE</button><button type="button" class="btn-grey" data-hc="rotr">ROTATE \u21bb</button>' +
+      '<button type="button" class="' + (e.aspect ? 'btn-grey' : 'btn') + '" data-hc="free" aria-pressed="' + !e.aspect + '">FREE</button><button type="button" class="' + (e.aspect ? 'btn' : 'btn-grey') + '" data-hc="square" aria-pressed="' + !!e.aspect + '">SQUARE</button><button type="button" class="btn-grey" data-hc="reset">RESET CROP</button></div>' +
+      '<div class="hs-crop-acts"><button type="button" class="btn-grey" data-hc="cancel">CANCEL</button><button type="button" class="btn" data-hc="next">USE CROP \u25b8</button></div></div>';
+    m.classList.add('show'); hsCropLayout();
+  } else {
+    if (e.black) hsCropMask();   // sets e.ref (estimated backdrop colour) for the swatch
+    m.innerHTML = '<div class="hs-crop"><div class="hs-crop-h"><b>MINI PHOTO</b><small>Step 2 of 2 \u00b7 saved as a ' + hsMiniFit(e.box.w, e.box.h, 480).w + '\u00d7' + hsMiniFit(e.box.w, e.box.h, 480).h + ' JPEG on this device</small></div>' +
+      '<div class="hs-crop-prev"><canvas id="hsCropOut" class="' + (e.black && e.tapMode ? 'tap' : '') + '"></canvas></div>' +
+      '<div class="bld-row hs-crop-tools"><button type="button" class="' + (e.black ? 'btn' : 'btn-grey') + '" data-hc="black" aria-pressed="' + e.black + '">BLACK BG: ' + (e.black ? 'ON' : 'OFF') + '</button>' +
+      (e.black ? '<span class="hs-bg-sw" title="estimated backdrop colour" style="background:rgb(' + (e.ref ? e.ref.r + ',' + e.ref.g + ',' + e.ref.b : '0,0,0') + ')"></span>' : '<small class="hs-crop-note">Off by default so map / terrain backgrounds stay. ON paints the backdrop black.</small>') + '</div>' +
+      (e.black ? '<div class="hs-bg-ctl"><label>Tolerance <b id="hsBgTolV">' + e.tol + '</b><input type="range" id="hsBgTol" min="4" max="160" step="2" value="' + e.tol + '"></label>' +
+        '<div class="bld-row"><button type="button" class="' + (e.tapMode ? 'btn' : 'btn-grey') + '" data-hc="tap" aria-pressed="' + e.tapMode + '">TAP TO BLACK: ' + (e.tapMode ? 'ON' : 'OFF') + '</button><button type="button" class="btn-grey" data-hc="undo"' + (e.undo.length ? '' : ' disabled') + '>UNDO</button><button type="button" class="btn-grey" data-hc="bgreset">RESET TO CROP</button></div>' +
+        '<small class="hs-crop-note">' + (e.tapMode ? 'Tap a leftover patch of backdrop to paint it black.' : 'Raise the tolerance if backdrop remains; lower it if the mini gets eaten.') + '</small></div>' : '') +
+      '<div class="hs-crop-acts"><button type="button" class="btn-grey" data-hc="back">\u25c2 BACK TO CROP</button><button type="button" class="btn-grey" data-hc="cancel">CANCEL</button><button type="button" class="btn" data-hc="save">SAVE PHOTO</button></div></div>';
+    m.classList.add('show'); hsCropPreview();
+  }
+}
+function hsCropLayout() {
+  var e = hsCrop, st = document.getElementById('hsCropStage'), cv = document.getElementById('hsCropCv'); if (!e || !st || !cv) return;
+  var D = hsCropW(), maxW = Math.max(160, Math.min(window.innerWidth - 48, 860)), maxH = Math.max(160, Math.min(window.innerHeight * 0.58, 700));
+  var k = Math.min(maxW / D.w, maxH / D.h); var cw = Math.max(1, Math.round(D.w * k)), ch = Math.max(1, Math.round(D.h * k)); e.k = k;
+  cv.width = cw; cv.height = ch; cv.style.width = cw + 'px'; cv.style.height = ch + 'px'; st.style.width = cw + 'px'; st.style.height = ch + 'px';
+  var g = cv.getContext('2d'); if (g) { g.fillStyle = '#000'; g.fillRect(0, 0, cw, ch); hsCropDrawRot(g, e, k, 0, 0); }
+  hsCropBoxPos();
+}
+function hsCropBoxPos() { var e = hsCrop, bx = document.getElementById('hsCropBox'); if (!e || !bx) return; var b = e.box, k = e.k || 1; bx.style.left = (b.x * k) + 'px'; bx.style.top = (b.y * k) + 'px'; bx.style.width = (b.w * k) + 'px'; bx.style.height = (b.h * k) + 'px'; }
+function hsCropWork() {   // cropped 480 source pixels (cached per crop)
+  var e = hsCrop, key = [e.rot, e.box.x, e.box.y, e.box.w, e.box.h].join(',');
+  if (!e.work || e.work.key !== key) { var c = hsCropOutCanvas(480), g = c.getContext('2d'); var id = g.getImageData(0, 0, c.width, c.height); e.work = { key: key, w: c.width, h: c.height, src: id.data, tap: new Uint8Array(c.width * c.height), auto: null }; e.undo = []; }
+  return e.work;
+}
+function hsCropMask() { var e = hsCrop, W = hsCropWork(); if (!W.auto || W.auto.tol !== e.tol) { var a = hsBgAutoMask(W.src, W.w, W.h, e.tol); W.auto = { tol: e.tol, mask: a.mask }; e.ref = a.ref; }
+  var m = new Uint8Array(W.w * W.h); for (var i = 0; i < m.length; i++) m[i] = W.auto.mask[i] | W.tap[i]; return m; }
+function hsCropFinal() { var e = hsCrop, W = hsCropWork(), c = document.createElement('canvas'); c.width = W.w; c.height = W.h; var g = c.getContext('2d');
+  var px = e.black ? hsBgApply(W.src, W.w, W.h, hsCropMask(), true) : W.src; var id = g.createImageData(W.w, W.h); id.data.set(px); g.putImageData(id, 0, 0); return c; }
+function hsCropPreview() { var cv = document.getElementById('hsCropOut'); if (!cv || !hsCrop) return; var f = hsCropFinal(); cv.width = f.width; cv.height = f.height; cv.getContext('2d').drawImage(f, 0, 0); }
+function hsCropPushUndo() { var e = hsCrop, W = hsCropWork(); e.undo.push({ tol: e.tol, tap: W.tap.slice(0) }); if (e.undo.length > 30) e.undo.shift(); }
+function hsCropTap(px, py) { var e = hsCrop, W = hsCropWork(); px = Math.max(0, Math.min(W.w - 1, Math.round(px))); py = Math.max(0, Math.min(W.h - 1, Math.round(py))); var p = py * W.w + px, i = p * 4;
+  hsCropPushUndo(); return hsBgFlood(W.src, W.w, W.h, { r: W.src[i], g: W.src[i + 1], b: W.src[i + 2] }, e.tol, [p], W.tap); }
+function hsCropClose() { var m = document.getElementById('hsCropModal'); if (m) { m.classList.remove('show'); m.innerHTML = ''; } if (hsCrop && hsCrop.url) try { URL.revokeObjectURL(hsCrop.url); } catch (e) {} hsCrop = null; }
+function hsCropSave() {
+  var e = hsCrop; if (!e) return Promise.resolve(false); var uid = e.uid, c = hsCropFinal(), meta = { rot: e.rot, x: e.box.x, y: e.box.y, w: e.box.w, h: e.box.h };
+  return new Promise(function (res) { c.toBlob(function (b) {
+    if (!b) { hsToeToast('Could not read that photo.'); res(false); return; }
+    b.arrayBuffer().then(function (buf) {
+      return hsMiniTx('readwrite', function (s) { return s.put({ id: uid, buf: buf, type: 'image/jpeg', w: c.width, h: c.height, updated: new Date().toISOString(), crop: meta, black: !!e.black }); }).then(function () {
+        if (hsMini.url[uid]) URL.revokeObjectURL(hsMini.url[uid]);
+        hsMini.url[uid] = URL.createObjectURL(new Blob([buf], { type: 'image/jpeg' })); hsMini.have[uid] = 1;
+        hsCropClose(); hsToeRender(); hsToeToast('Mini photo saved on this device (' + c.width + '\u00d7' + c.height + ', ' + Math.round(buf.byteLength / 1024) + ' KB' + (e.black ? ', black background' : '') + ').'); res(true);
+      });
+    }).catch(function () { hsToeToast('This browser could not store the photo.'); res(false); });
+  }, 'image/jpeg', 0.82); });
+}
+document.addEventListener('click', function (ev) {
+  var b = ev.target.closest ? ev.target.closest('#hsCropModal [data-hc]') : null; var e = hsCrop; if (!b || !e) {
+    var cv = ev.target && ev.target.id === 'hsCropOut' ? ev.target : null;
+    if (cv && e && e.black && e.tapMode) { var r = cv.getBoundingClientRect(); hsCropTap((ev.clientX - r.left) * cv.width / r.width, (ev.clientY - r.top) * cv.height / r.height); hsCropRender(); }
+    return; }
+  var k = b.getAttribute('data-hc'), D = hsCropW();
+  if (k === 'cancel') { hsCropClose(); return; }
+  if (k === 'rotl' || k === 'rotr') { e.rot = (e.rot + (k === 'rotr' ? 90 : 270)) % 360; var D2 = hsCropW(); e.box = hsCropDefault(D2.w, D2.h, e.aspect); hsCropRender(); return; }
+  if (k === 'free' || k === 'square') { e.aspect = k === 'square' ? 1 : 0; e.box = hsCropClamp(e.box, D.w, D.h, 24, e.aspect); hsCropRender(); return; }
+  if (k === 'reset') { e.box = hsCropDefault(D.w, D.h, e.aspect); hsCropRender(); return; }
+  if (k === 'next') { e.stage = 'finish'; hsCropRender(); return; }
+  if (k === 'back') { e.stage = 'crop'; hsCropRender(); return; }
+  if (k === 'black') { e.black = !e.black; if (!e.black) e.tapMode = false; hsCropRender(); return; }
+  if (k === 'tap') { e.tapMode = !e.tapMode; hsCropRender(); return; }
+  if (k === 'undo') { var u = e.undo.pop(); if (u) { e.tol = u.tol; hsCropWork().tap = u.tap; } hsCropRender(); return; }
+  if (k === 'bgreset') { var W = hsCropWork(); W.tap = new Uint8Array(W.w * W.h); e.tol = 48; e.undo = []; e.black = false; e.tapMode = false; hsCropRender(); return; }
+  if (k === 'save') { hsCropSave(); return; }
+});
+document.addEventListener('input', function (ev) { if (ev.target && ev.target.id === 'hsBgTol' && hsCrop) { if (hsCrop.tolStart == null) hsCrop.tolStart = hsCrop.tol; hsCrop.tol = +ev.target.value || 48; var v = document.getElementById('hsBgTolV'); if (v) v.textContent = hsCrop.tol; hsCropPreview(); } });
+document.addEventListener('change', function (ev) { if (ev.target && ev.target.id === 'hsBgTol' && hsCrop) { var t = +ev.target.value || 48, W = hsCropWork(); var t0 = hsCrop.tolStart == null ? hsCrop.tol : hsCrop.tolStart; hsCrop.tolStart = null; if (t0 !== t) { hsCrop.undo.push({ tol: t0, tap: W.tap.slice(0) }); if (hsCrop.undo.length > 30) hsCrop.undo.shift(); } hsCrop.tol = t; hsCropRender(); } });
+document.addEventListener('pointerdown', function (ev) {
+  var t = ev.target.closest ? ev.target.closest('#hsCropBox, #hsCropBox .hc') : null; if (!t || !hsCrop || hsCrop.stage !== 'crop') return;
+  ev.preventDefault(); var mode = t.getAttribute('data-cm') || 'move'; hsCrop.drag = { mode: mode, x: ev.clientX, y: ev.clientY, s: Object.assign({}, hsCrop.box), pid: ev.pointerId };
+  try { t.setPointerCapture(ev.pointerId); } catch (e) {} document.getElementById('hsCropBox').classList.add('drag');
+});
+document.addEventListener('pointermove', function (ev) { var e = hsCrop; if (!e || !e.drag || ev.pointerId !== e.drag.pid) return; ev.preventDefault();
+  var D = hsCropW(), k = e.k || 1; e.box = hsCropDrag(e.drag.s, e.drag.mode, (ev.clientX - e.drag.x) / k, (ev.clientY - e.drag.y) / k, D.w, D.h, e.aspect, Math.max(24, 44 / k)); hsCropBoxPos(); });
+function hsCropEnd(ev) { var e = hsCrop; if (!e || !e.drag || ev.pointerId !== e.drag.pid) return; e.drag = null; var bx = document.getElementById('hsCropBox'); if (bx) bx.classList.remove('drag'); }
+document.addEventListener('pointerup', hsCropEnd); document.addEventListener('pointercancel', hsCropEnd);
+window.addEventListener('resize', function () { if (hsCrop && hsCrop.stage === 'crop') hsCropLayout(); });
+document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && hsCrop) hsCropClose(); });
+/* every added mini photo goes through the crop step (the old direct save hsMiniSaveFile is kept for reference / tests) */
+hsMiniChosen = function (input) { var file = input && input.files && input.files[0]; if (file && hsToe.photoFor) hsCropOpen(hsToe.photoFor, file); };
 
 </script>
 <script>/* HDPWA only: service worker (relative path, works under any subfolder) */
